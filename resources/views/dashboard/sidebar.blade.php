@@ -185,16 +185,16 @@
           </a>
         </li>
         @if (Auth::user()->id_role === 1)
-        <li class="nav-item nav-category">Users</li>
+        <li class="nav-item nav-category">Limbah B3</li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="menu-icon mdi mdi-floor-plan"></i>
-            <span class="menu-title">Izin User</span>
+            <span class="menu-title">Limbah B3</span>
             <i class="menu-arrow"></i>
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/admin/users/create">Tambah User</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/timlb3/form-kuartal-tahun">Tambah Limbah Masuk</a></li>
               {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
               <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">History</a></li>
             </ul>

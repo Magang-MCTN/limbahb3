@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LimbahMasuk extends Model
 {
     protected $primaryKey = 'id_limbah_masuk';
-
+    protected $table = 'limbah_masuks';
     protected $fillable = ['id_jenis_limbah', 'tanggal_masuk', 'satuan_limbah', 'sumber_limbahB3', 'bentuk_limbahB3', 'maksimal_penyimpanan', 'jumlah_limbah', 'berat_satuan', 'berat', 'id_status', 'id_periode_laporan', 'id_user', 'alasan_limbah_masuk'];
 
     public $timestamps = true;

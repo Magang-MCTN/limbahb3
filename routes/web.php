@@ -37,7 +37,11 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/timlb3', [TimLb3Controller::class, 'index'])->name('timlb3.index');
     Route::get('/timlb3/form-kuartal-tahun', [TimLb3Controller::class, 'showFormLimbahMasuk'])->name('timlb3.showFormKuartalTahun');
     Route::post('/timlb3/submit-form-kuartal-tahun', [TimLb3Controller::class, 'submitFormKuartalTahun'])->name('timlb3.submitFormKuartalTahun');
+    Route::get('/timlb3/form-limbah-masuk/{id_periode_laporan?}', [TimLb3Controller::class, 'showFormLimbahMasuk2'])->name('timlb3.showFormLimbahMasuk');
+    Route::post('/timlb3/submit-limbah-masuk', [TimLb3Controller::class, 'submitFormLimbahMasuk'])->name('timlb3.submitFormLimbahMasuk');
 });
+
+
 Route::middleware(['auth', 'role:2'])->group(function () {
     // Rute yang akan dilindungi oleh middleware role "TIm k3"
     Route::get('/admina', [TimLb3Controller::class, 'index'])->name('admin.dashboard');
