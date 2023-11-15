@@ -39,6 +39,9 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::post('/timlb3/submit-form-kuartal-tahun', [TimLb3Controller::class, 'submitFormKuartalTahun'])->name('timlb3.submitFormKuartalTahun');
     Route::get('/timlb3/form-limbah-masuk/{id_periode_laporan?}', [TimLb3Controller::class, 'showFormLimbahMasuk2'])->name('timlb3.showFormLimbahMasuk');
     Route::post('/timlb3/submit-limbah-masuk', [TimLb3Controller::class, 'submitFormLimbahMasuk'])->name('timlb3.submitFormLimbahMasuk');
+    Route::get('/status', [TimLb3Controller::class, 'status'])->name('status.index');
+    Route::get('/status/{id}', [TimLb3Controller::class, 'lihatstatus'])->name('status.show');
+    Route::get('/timlb3/detail-periode/{id}', [Timlb3Controller::class, 'showDetailPeriode'])->name('timlb3.detailPeriode');
 });
 
 

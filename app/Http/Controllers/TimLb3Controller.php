@@ -101,7 +101,10 @@ class TimLb3Controller extends Controller
 
                 $nomorDokumenMasuk = "MCTN/LB3/MSK{$kuartal}/{$tahun}";
 
-                $periode->update(['no_dokumen_masuk' => $nomorDokumenMasuk]);
+                $periode->update([
+                    'no_dokumen_masuk' => $nomorDokumenMasuk,
+                    'id_status_masuk' => 1,
+                ]);
             }
             // Bersihkan data di tabel sementara setelah berhasil disimpan
             // Alternatif: Anda dapat memilih untuk tidak membersihkan datanya jika perlu
@@ -111,5 +114,21 @@ class TimLb3Controller extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
+    }
+    public function status()
+    {
+        $statuses = PeriodeLaporan::with('status')->get();
+        return view('dashboard.timlb3.status', compact('statuses'));
+    }
+    public function showDetailPeriode($id)
+    {
+        $periode = PeriodeLaporan::findOrFail($id);
+
+        return view('dashboard.timlb3.detail_periode', compact('periode'));
+    }
+    public function lihatstatus($id)
+    {
+        $periode = PeriodeLaporan::with('status', 'limbahMasuk')->findOrFail($id);
+        return view('status.show', compact('periode'));
     }
 }
