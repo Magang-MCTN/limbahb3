@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TimK3Controller;
 use App\Http\Controllers\TimLb3Controller;
 use Illuminate\Support\Facades\Route;
 
@@ -42,12 +43,22 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/status', [TimLb3Controller::class, 'status'])->name('status.index');
     Route::get('/status/{id}', [TimLb3Controller::class, 'lihatstatus'])->name('status.show');
     Route::get('/timlb3/detail-periode/{id}', [Timlb3Controller::class, 'showDetailPeriode'])->name('timlb3.detailPeriode');
+    Route::get('/timlb3/limbahmasuk/{id_periode_laporan}', [TimLb3Controller::class, 'limbah'])->name('limbah.masuk');
+    Route::get('/timlb3/limbah-masuk/edit/{id}', [Timlb3Controller::class, 'edit'])->name('timlb3.editLimbahMasuk');
+    Route::put('/timlb3/limbah-masuk/update/{id_limbah_masuk}', [Timlb3Controller::class, 'update'])->name('limbah_masuk.update');
+    Route::get('/timlb3/kirim-periode/{id}', [Timlb3Controller::class, 'kirimPeriode'])->name('timlb3.kirimPeriode');
+
+    Route::delete('/timlb3/limbah-masuk/destroy/{id_limbah_masuk}', [Timlb3Controller::class, 'destroy'])->name('timlb3.destroyLimbahMasuk');
 });
 
 
 Route::middleware(['auth', 'role:2'])->group(function () {
     // Rute yang akan dilindungi oleh middleware role "TIm k3"
-    Route::get('/admina', [TimLb3Controller::class, 'index'])->name('admin.dashboard');
+    Route::get('/timk3', [TimK3Controller::class, 'index'])->name('admin.dashboard');
+    Route::get('/timk3/formperiode', [TimK3Controller::class, 'showFormLimbahKeluar'])->name('timk3.showFormLimbahKeluar');
+    Route::get('/timk3/form-limbah-masuk/{id_periode_laporan?}', [TimK3Controller::class, 'showFormLimbahkeluar2'])->name('timk3.showFormLimbahKeluar2');
+    // Rute untuk menangani pengiriman formulir kuartal dan tahun
+    Route::post('/timk3/submit-form-kuartal-tahun', [TimK3Controller::class, 'submitFormKuartalTahun'])->name('timk3.submitFormKuartalTahun');
 });
 Route::middleware(['auth', 'role:3'])->group(function () {
     // Rute yang akan dilindungi oleh middleware role "Specialist_OpHar"

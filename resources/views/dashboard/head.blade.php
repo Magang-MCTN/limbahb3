@@ -21,4 +21,5 @@
     <link rel="stylesheet" href="{{ asset('dashboard/template/css/vertical-layout-light/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('dashboard/template/images/favicon.png') }}" />
+
   </head>
