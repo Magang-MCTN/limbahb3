@@ -117,7 +117,7 @@ class TimLb3Controller extends Controller
     }
     public function status()
     {
-        $statuses = PeriodeLaporan::with('status')->get();
+        $statuses = PeriodeLaporan::has('status')->with('status')->get();
         return view('dashboard.timlb3.status', compact('statuses'));
     }
     public function showDetailPeriode($id)

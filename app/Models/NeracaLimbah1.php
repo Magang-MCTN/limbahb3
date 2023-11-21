@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class NeracaLimbah1 extends Model
 {
     protected $primaryKey = 'id_neraca_limbah_1';
-
-    protected $fillable = ['id_user', 'id_periode_laporan', 'sumber_limbah', 'id_jenis_limbah', 'dihasilkan', 'dimanfaatkan', 'diolah', 'ditimbun', 'diserahkan', 'eksport', 'lainnya'];
+    protected $table = 'neraca_limbah_1s';
+    protected $fillable = ['id_user', 'disimpan', 'id_periode_laporan', 'sumber_limbah', 'id_jenis_limbah', 'dihasilkan', 'dimanfaatkan', 'diolah', 'ditimbun', 'diserahkan', 'eksport', 'lainnya', 'id_bulan'];
 
     public $timestamps = true;
 

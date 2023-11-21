@@ -59,6 +59,30 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/timk3/form-limbah-masuk/{id_periode_laporan?}', [TimK3Controller::class, 'showFormLimbahkeluar2'])->name('timk3.showFormLimbahKeluar2');
     // Rute untuk menangani pengiriman formulir kuartal dan tahun
     Route::post('/timk3/submit-form-kuartal-tahun', [TimK3Controller::class, 'submitFormKuartalTahun'])->name('timk3.submitFormKuartalTahun');
+    Route::post('/timk3/submit-limbah-keluar', [TimK3Controller::class, 'submitFormLimbahkeluar'])->name('timlb3.submitFormLimbahkeluar');
+    Route::get('/timk3/status', [TimK3Controller::class, 'statuskeluar'])->name('statuskeluar.index');
+    Route::get('/status/{id}', [TimK3Controller::class, 'lihatstatus'])->name('status.keluar');
+    Route::get('/timk3/detail-periode/{id}', [TimK3Controller::class, 'showDetailPeriode'])->name('timk3.detailPeriodelkeluar');
+    Route::get('/timk3/limbahkeluar/{id_periode_laporan}', [TimK3Controller::class, 'limbahkeluar'])->name('limbah.keluar');
+    Route::get('/timlb3/limbah-keluar/edit/{id}', [TimK3Controller::class, 'editlimbah'])->name('timk3.editLimbahkeluar');
+    Route::put('/timlb3/limbah-keluar/update/{id_limbah_keluar}', [TimK3Controller::class, 'updatelimbah'])->name('limbah_keluar.update');
+    Route::get('/timlb3/kirim-periodekeluar/{id}', [TimK3Controller::class, 'kirimPeriode'])->name('timlb3.kirimPeriodekeluar');
+
+    Route::delete('/timlb3/limbah-keluar/destroy/{id_limbah_keluar}', [TimK3Controller::class, 'destroy'])->name('timlb3.destroyLimbahkeluar');
+    Route::get('/timk3/formneraca', [TimK3Controller::class, 'showFormNeraca'])->name('timk3.showFormNeraca');
+    Route::post('/timk3/submit-neraca', [TimK3Controller::class, 'submitFormNeraca'])->name('timk3.submitFormNeraca');
+    Route::get('/timk3/showFormNeraca1/{id_bulan}', [TimK3Controller::class, 'showFormNeraca1'])->name('timk3.showFormNeraca1');
+    Route::post('/timk3/submit-neraca1/{id_bulan}', [TimK3Controller::class, 'submitFormNeraca1'])
+        ->name('timk3.submitFormNeraca1');
+    Route::get('/timk3/neraca2/{id_bulan}', [TimK3Controller::class, 'showFormNeraca2'])->name('timk3.showFormNeraca2');
+    Route::post('/timk3/neraca2/{id_bulan}', [TimK3Controller::class, 'submitFormNeraca2'])->name('timk3.submitFormNeraca2');
+
+    Route::get('/timk3/statusneraca', [TimK3Controller::class, 'showStatusNeraca'])
+        ->name('timk3.status');
+
+    // Route untuk melihat detail periode neraca
+    Route::get('/timk3/detail-periode/{id_status_neraca}', [TimK3Controller::class, 'showDetailneraca'])
+        ->name('timk3.detailPeriode');
 });
 Route::middleware(['auth', 'role:3'])->group(function () {
     // Rute yang akan dilindungi oleh middleware role "Specialist_OpHar"

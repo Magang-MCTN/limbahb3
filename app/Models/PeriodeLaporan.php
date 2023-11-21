@@ -20,7 +20,7 @@ class PeriodeLaporan extends Model
     }
 
     // Relasi ke tabel LimbahKeluar
-    public function limbahKeluars()
+    public function limbahKeluar()
     {
         return $this->hasMany(LimbahKeluar::class, 'id_periode_laporan');
     }
@@ -40,6 +40,10 @@ class PeriodeLaporan extends Model
     {
         return $this->belongsTo(Status::class, 'id_status_masuk');
     }
+    public function statuskeluar()
+    {
+        return $this->belongsTo(Status::class, 'id_status_keluar');
+    }
 
     /**
      * Mendefinisikan relasi dengan model LimbahMasuk.
@@ -47,5 +51,9 @@ class PeriodeLaporan extends Model
     public function limbahMasuk()
     {
         return $this->hasMany(LimbahMasuk::class, 'id_periode_laporan');
+    }
+    public function statusNeraca()
+    {
+        return $this->belongsTo(Status::class, 'id_status_neraca');
     }
 }

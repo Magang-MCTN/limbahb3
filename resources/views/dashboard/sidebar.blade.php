@@ -211,9 +211,10 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/persetujuan">Tambah Limbah keluar</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/timk3/formperiode">Tambah Limbah keluar</a></li>
               {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
-              <li class="nav-item"> <a class="nav-link" href="/history">status</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/timk3/formneraca">Neraca</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/timk3/status">status</a></li>
             </ul>
           </div>
         </li>
