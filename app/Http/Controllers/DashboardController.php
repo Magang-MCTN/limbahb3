@@ -18,13 +18,13 @@ class DashboardController extends Controller
                 return redirect()->route('admin.dashboard');
                 break;
             case 3:
-                return redirect()->route('tuanrumah.home');
+                return redirect()->route('ophar.dashboard');
                 break;
             case 4:
-                return redirect()->route('phr.home');
+                return redirect()->route('ketua.dashboard');
                 break;
             case 5:
-                return redirect()->route('admin_duri.dashboard');
+                return redirect()->route('adminlobi');
                 break;
             case 6:
                 return redirect()->route('security.home');

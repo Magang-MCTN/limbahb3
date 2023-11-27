@@ -1,28 +1,30 @@
-<!-- resources/views/dashboard/timk3/status_neraca.blade.php -->
+<!-- resources/views/dashboard/ophar/index.blade.php -->
 
 @extends('dashboard.app')
 
 @section('content')
     <div class="container">
-        <h2>Status Neraca</h2>
+        <h2>Persetujuan Laporan</h2>
 
         <table class="table">
             <thead>
                 <tr>
+                    {{-- <th>No Dokumen Masuk</th> --}}
                     <th>Kuartal</th>
                     <th>Tahun</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($periodes as $periode)
                     <tr>
+                        {{-- <td>{{ $periode->no_dokumen_masuk }}</td> --}}
                         <td>{{ $periode->kuartal }}</td>
                         <td>{{ $periode->tahun }}</td>
-                        <td>{{ $periode->statusNeraca->nama }}</td>
+                        <td>{{ $periode->status ? $periode->status->nama : 'Belum Ada Status' }}</td>
                         <td>
-                            <a href="{{ route('timk3.detailBulan', $periode->id_periode_laporan) }}" class="btn btn-primary">Detail</a>
+                            <a href="{{ route('ophr.show', $periode->id_periode_laporan) }}" class="btn btn-info">Detail</a>
                         </td>
                     </tr>
                 @endforeach

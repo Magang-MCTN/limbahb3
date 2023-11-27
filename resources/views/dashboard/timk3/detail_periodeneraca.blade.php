@@ -10,11 +10,11 @@
             <h3>Informasi Periode</h3>
             <p>Kuartal: {{ $periode->kuartal }}</p>
             <p>Tahun: {{ $periode->tahun }}</p>
-            <p>Bulan: {{ $periode->bulan->nama_bulan }}</p>
+            {{-- <p>Bulan: {{ $periode->bulan->nama_bulan }}</p> --}}
             <!-- Tambahkan informasi lainnya sesuai kebutuhan -->
         </div>
 
-        <div>
+        {{-- <div>
             <h3>Neraca Limbah 1</h3>
             @if ($neraca1)
                 <p>Jenis Limbah: {{ $neraca1->id_jenis_limbah }}</p>
@@ -32,6 +32,6 @@
             @else
                 <p>Data Neraca 2 belum diisi untuk periode ini.</p>
             @endif
-        </div>
+        </div> --}}
     </div>
 @endsection

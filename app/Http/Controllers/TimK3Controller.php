@@ -381,11 +381,120 @@ class TimK3Controller extends Controller
         $periode = PeriodeLaporan::with('bulan')->find($id_status_neraca);
 
         // Ambil data neraca limbah 1
-        $neraca1 = NeracaLimbah1::where('id_bulan', $periode->bulan->id_bulan)->first();
+        // $neraca1 = NeracaLimbah1::where('id_bulan', $periode->bulan->id_bulan)->first();
 
-        // Ambil data neraca limbah 2
-        $neraca2 = NeracaLimbah2::where('id_bulan', $periode->bulan->id_bulan)->first();
+        // // Ambil data neraca limbah 2
+        // $neraca2 = NeracaLimbah2::where('id_bulan', $periode->bulan->id_bulan)->first();
 
-        return view('dashboard.timk3.detail_periodeneraca', compact('periode', 'neraca1', 'neraca2'));
+        return view('dashboard.timk3.detail_periodeneraca', compact('periode'));
+    }
+    public function detailBulan($id_periode)
+    {
+        // Ambil data periode
+        $periode = PeriodeLaporan::findOrFail($id_periode);
+
+        // Ambil data bulan-bulan yang terkait dengan periode
+        $bulans = $periode->bulans;
+
+
+        return view('dashboard.timk3.detail_bulan', compact('periode', 'bulans'));
+    }
+    public function lihatNeracaPerbulan($id_bulan)
+    {
+        // Ambil data bulan
+        $bulan = BulanModel::findOrFail($id_bulan);
+
+        // Ambil data neraca 1 dan 2 berdasarkan id bulan
+        $neraca1 = NeracaLimbah1::where('id_bulan', $id_bulan)->get();
+        $neraca2 = NeracaLimbah2::where('id_bulan', $id_bulan)->first();
+
+        return view('dashboard.timk3.lihat_neraca_perbulan', compact('bulan', 'neraca1', 'neraca2'));
+    }
+
+    public function editNeraca1($id_neraca1)
+    {
+        try {
+            // Ambil data Neraca 1 berdasarkan ID
+            $neraca1 = NeracaLimbah1::findOrFail($id_neraca1);
+            $jenisLimbahs = JenisLimbah::all();
+            // Kirim data Neraca 1 ke view untuk diedit
+            return view('dashboard.timk3.edit_neraca1', compact('neraca1', 'jenisLimbahs'));
+        } catch (\Exception $e) {
+            // Tangani exception jika terjadi kesalahan
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function updateNeraca1(Request $request, $id_neraca1)
+    {
+        try {
+            // Validasi request
+            $request->validate([
+                'id_jenis_limbah' => 'required|exists:jenis_limbahs,id_jenis_limbah',
+                'sumber_limbah' => 'required|string',
+                'dihasilkan' => 'required|numeric',
+                'dimanfaatkan' => 'required|numeric',
+                'diolah' => 'required|numeric',
+                'ditimbun' => 'required|numeric',
+                'diserahkan' => 'required|numeric',
+                'eksport' => 'required|numeric',
+                'lainnya' => 'required|numeric',
+            ]);
+
+            // Ambil data Neraca 1 berdasarkan ID
+            $neraca1 = NeracaLimbah1::findOrFail($id_neraca1);
+
+            // Update data Neraca 1
+            $neraca1->update([
+                'id_jenis_limbah' => $request->id_jenis_limbah,
+                'sumber_limbah' => $request->sumber_limbah,
+                'dihasilkan' => $request->dihasilkan,
+                'dimanfaatkan' => $request->dimanfaatkan,
+                'diolah' => $request->diolah,
+                'ditimbun' => $request->ditimbun,
+                'diserahkan' => $request->diserahkan,
+                'eksport' => $request->eksport,
+                'lainnya' => $request->lainnya,
+            ]);
+
+            return redirect()->route('timk3.lihatNeracaPerbulan', $neraca1->id_bulan)->with('success', 'Data Neraca 1 berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+    public function editNeraca2($id_neraca_limbah_2)
+    {
+        // Ambil data Neraca 2 berdasarkan ID
+        $neraca2 = NeracaLimbah2::find($id_neraca_limbah_2);
+
+        // Anda mungkin perlu mengambil data tambahan yang diperlukan untuk formulir edit
+
+        // Kirim data ke view edit
+        return view('dashboard.timk3.edit_neraca2', compact('neraca2'));
+    }
+
+    public function updateNeraca2(Request $request, $id)
+    {
+        // Validasi request
+        $request->validate([
+            // Atur aturan validasi sesuai kebutuhan
+        ]);
+
+        // Update data Neraca 2
+        $neraca2 = NeracaLimbah2::find($id);
+        $neraca2->update([
+            'total_neraca' => $request->total_neraca,
+            'residu' => $request->residu,
+            'limbah_belum_dikelola' => $request->limbah_belum_dikelola,
+            'limbah_tersisa' => $request->limbah_tersisa,
+            'kinerja_pengelolaan' => $request->kinerja_pengelolaan,
+            'dokumen_kontrol' => $request->dokumen_kontrol,
+            'perizinan_limbah_klh' => $request->perizinan_limbah_klh,
+            'no_izin_limbah_klh' => $request->no_izin_limbah_klh,
+            'catatan' => $request->catatan,
+        ]);
+
+        // Redirect ke tampilan Neraca 2 setelah diupdate
+        return redirect()->route('timk3.lihatNeracaPerbulan', $neraca2->id_bulan)->with('success', 'Data Neraca 2 berhasil diperbarui.');
     }
 }

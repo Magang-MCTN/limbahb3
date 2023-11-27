@@ -9,7 +9,7 @@ class PeriodeLaporan extends Model
 {
     protected $primaryKey = 'id_periode_laporan';
 
-    protected $fillable = ['bulan', 'tahun', 'kuartal', 'keterangan_kuartal', 'no_dokumen_masuk', 'no_dokumen_keluar', 'no_dokumen_neraca', 'id_status_masuk', 'id_status_keluar', 'id_status_neraca'];
+    protected $fillable = ['bulan', 'tahun', 'kuartal', 'keterangan_kuartal', 'no_dokumen_masuk', 'no_dokumen_keluar', 'no_dokumen_neraca', 'id_status_masuk', 'id_status_keluar', 'id_status_neraca', 'alasan_limbah_masuk', 'alasan_limbah_keluar', 'alasan_limbah_neraca'];
 
     public $timestamps = true;
 
@@ -55,5 +55,26 @@ class PeriodeLaporan extends Model
     public function statusNeraca()
     {
         return $this->belongsTo(Status::class, 'id_status_neraca');
+    }
+    public function bulan()
+    {
+        return $this->belongsTo(BulanModel::class, 'id_periode');
+    }
+    public function bulans()
+    {
+        return $this->hasMany(BulanModel::class, 'id_periode_laporan');
+    }
+    public function neracaLimbah1()
+    {
+        return $this->hasOne(NeracaLimbah1::class, 'id_periode_laporan');
+    }
+
+    // Definisikan relasi dengan LimbahMasuk
+
+
+    // Definisikan relasi dengan NeracaLimbah2
+    public function neracaLimbah2()
+    {
+        return $this->hasOne(NeracaLimbah2::class, 'id_periode_laporan');
     }
 }
