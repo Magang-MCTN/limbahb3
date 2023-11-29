@@ -182,3 +182,7 @@ Route::get('/export-neraca/{id_periode_laporan}', [ExportController::class, 'exp
 Route::get('/export-neraca-pdf/{id_periode_laporan}', [ExportController::class, 'exportNeracaPDF'])->name('export.neraca.pdf');
 Route::get('/historilimbahadmin', [AdminlobiController::class, 'historilimbah'])->name('historiadmlimbah');
 Route::get('adminloby/{id}', [AdminlobiController::class, 'show'])->name('admin.show');
+
+Route::get('/home', function () {
+    return redirect('/mctn');
+});

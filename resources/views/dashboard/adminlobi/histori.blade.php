@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 @foreach($periodes as $periode)
-                    @if ($periode->status && $periode->status->id_status == 3 && 4 && 6)
+                    {{-- @if ($periode->status && $periode->status->id_status == 3 && 4 && 6) --}}
                         <tr>
                             {{-- <td>{{ $periode->no_dokumen_masuk }}</td> --}}
                             <td>{{ $periode->kuartal }}</td>
@@ -32,7 +32,7 @@
                                 <a href="{{ route('admin.show', $periode->id_periode_laporan) }}" class="btn btn-info">Detail</a>
                             </td>
                         </tr>
-                    @endif
+                    {{-- @endif --}}
                 @endforeach
             </tbody>
         </table>
