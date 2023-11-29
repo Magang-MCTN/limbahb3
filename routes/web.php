@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminlobiController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
@@ -94,6 +95,7 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::put('/timk3/update-neraca1/{id_neraca1}', [TimK3Controller::class, 'updateNeraca1'])->name('timk3.updateNeraca1');
     Route::get('/neraca2/{id_neraca_limbah_2}/edit', [TimK3Controller::class, 'editNeraca2'])->name('editNeraca2');
     Route::put('/neraca2/{id_neraca_limbah_2}/update', [TimK3Controller::class, 'updateNeraca2'])->name('updateNeraca2');
+    Route::get('/timk3/kirim-neraca/{id}', [TimK3Controller::class, 'kirimNeraca'])->name('timk3.kirimneraca');
 });
 Route::middleware(['auth', 'role:3'])->group(function () {
     // Rute yang akan dilindungi oleh middleware role "Specialist_OpHar"
@@ -141,7 +143,7 @@ Route::middleware(['auth', 'role:5'])->group(function () {
     Route::get('/adminloby', [AdminlobiController::class, 'index'])->name('adminlobi');
 
     Route::get('/adminloby/dokumen', [AdminlobiController::class, 'persetujuan'])->name('admin.persetujuan');
-    Route::get('adminloby/{id}', [AdminlobiController::class, 'show'])->name('admin.show');
+
     Route::get('/adminloby/aprovemsk/{id}', [AdminlobiController::class, 'approveLimbahMasuk'])->name('admin.lbmasuk');
     Route::get('/adminloby/rejctmsk/{id}', [AdminlobiController::class, 'rejectLimbahMasuk'])->name('admin.lbmskrj');
 
@@ -156,12 +158,18 @@ Route::middleware(['auth', 'role:5'])->group(function () {
     Route::get('/adminloby/detailneraca/{id_periode_laporan}', [AdminlobiController::class, 'detailBulan'])->name('admin.detailBulan');
     Route::get('/adminloby/lihat-neraca-perbulan/{id_bulan}', [AdminlobiController::class, 'lihatNeracaPerbulan'])->name('admin.lihatNeracaPerbulan');
     Route::post('/admin/tambahDokumen/{id_periode_laporan}', [AdminlobiController::class, 'storeDokumenTambahan'])->name('admin.tambahDokumen');
-    Route::get('/historilimbahadmin', [AdminlobiController::class, 'historilimbah'])->name('historiadmlimbah');
 });
+// Rute yang akan dilindungi oleh middleware role "administrator"
 Route::middleware(['auth', 'role:6'])->group(function () {
     // Rute yang akan dilindungi oleh middleware role "administrator"
-    Route::get('/admin_duri', [TimLb3Controller::class, 'index'])->name('admin_duri.dashboard');
+    Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+    Route::get('/admin/users/create', [AdminUserController::class, 'create'])->name('admin.users.create');
+    Route::post('/admin/users', [AdminUserController::class, 'store'])->name('admin.users.store');
+    Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/admin/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
 });
+
 
 Route::get('/tanda_tangan/create', [TandaTanganController::class, 'create'])->name('tanda_tangan.create');
 Route::post('/tanda_tangan', [TandaTanganController::class, 'store'])->name('tanda_tangan.store');
@@ -169,3 +177,8 @@ Route::get('/tanda_tangan/edit', [TandaTanganController::class, 'edit'])->name('
 Route::post('/tanda_tangan/update', [TandaTanganController::class, 'update'])->name('tanda_tangan.update');
 Route::get('/limbah/export/{id_periode_laporan}', [ExportController::class, 'exportLimbahMasuk'])->name('limbah.export');
 Route::get('/export-limbah-keluar/{id_periode_laporan}', [ExportController::class, 'exportLimbahKeluar'])->name('keluar.export');
+Route::get('/export-neraca/{id_periode_laporan}', [ExportController::class, 'exportNeraca'])->name('neraca.export');
+// Route::get('/export-neraca-pdf/{id_bulan}', [ExportController::class, 'exportNeracaPDF'])->name('export.neraca.pdf');
+Route::get('/export-neraca-pdf/{id_periode_laporan}', [ExportController::class, 'exportNeracaPDF'])->name('export.neraca.pdf');
+Route::get('/historilimbahadmin', [AdminlobiController::class, 'historilimbah'])->name('historiadmlimbah');
+Route::get('adminloby/{id}', [AdminlobiController::class, 'show'])->name('admin.show');

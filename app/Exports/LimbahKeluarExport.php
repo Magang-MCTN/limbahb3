@@ -93,15 +93,20 @@ class LimbahKeluarExport implements FromQuery, WithHeadings, ShouldAutoSize, Wit
                     $drawing = new Drawing();
                     $drawing->setName('TandaTangan');
                     $drawing->setDescription('Tanda Tangan');
-                    $drawing->setPath(storage_path($this->tandaTangan->path));
+                    $drawing->setPath(public_path($this->tandaTangan->path));
                     $drawing->setCoordinates('A' . ($lastRow + 2));
+                    $drawing->setWidth(100); // Atur lebar gambar
+                    $drawing->setHeight(50);
                     $drawing->setWorksheet($event->sheet->getDelegate());
+                    // Atur tinggi gambar
+
                 }
+
 
                 // Menambahkan informasi lainnya
                 if ($this->tandaTangan) {
                     $event->sheet->setCellValue('B' . ($lastRow + 2), 'Nama Ketua: ' . $this->tandaTangan->name);
-                    $event->sheet->setCellValue('B' . ($lastRow + 3), 'Jabatan: ' . $this->tandaTangan->jabatan);
+                    $event->sheet->setCellValue('B' . ($lastRow + 3), '' . $this->tandaTangan->jabatan);
                     $event->sheet->setCellValue('B' . ($lastRow + 4), 'Tanggal: ' . now()->format('d/m/Y'));
                 }
             },

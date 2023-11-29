@@ -3,7 +3,11 @@
 @extends('dashboard.app')
 
 @section('content')
-    <div class="container">
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="home-tab">
         <h2>HistoryLaporan Limbah</h2>
 
         <table class="table">
@@ -25,7 +29,7 @@
                             <td>{{ $periode->tahun }}</td>
                             <td>{{ $periode->status ? $periode->status->nama : 'Belum Ada Status' }}</td>
                             <td>
-                                <a href="{{ route('ketua.show', $periode->id_periode_laporan) }}" class="btn btn-info">Detail</a>
+                                <a href="{{ route('admin.show', $periode->id_periode_laporan) }}" class="btn btn-info">Detail</a>
                             </td>
                         </tr>
                     @endif
@@ -36,5 +40,6 @@
             <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
         </div>
     </div>
-
+</div>
+</div>
 @endsection

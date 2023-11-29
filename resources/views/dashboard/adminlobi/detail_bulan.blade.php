@@ -3,7 +3,11 @@
 @extends('dashboard.app')
 
 @section('content')
-<div class="container">
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="home-tab">
     <h2>Detail Laporan Neraca</h2>
 
     <table class="table">
@@ -52,7 +56,8 @@
                     <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
                     <td>
                         <!-- Tambahkan tombol untuk melihat detail neraca perbulan -->
-                        <a href="{{ route('ketua.lihatNeracaPerbulan', ['id_bulan' => $bulan->id_bulan]) }}" class="btn btn-info">Lihat Detail Neraca</a>
+                        <a href="{{ route('admin.lihatNeracaPerbulan', ['id_bulan' => $bulan->id_bulan]) }}" class="btn btn-info">Lihat Detail Neraca</a>
+
                     </td>
                 </tr>
             @endforeach

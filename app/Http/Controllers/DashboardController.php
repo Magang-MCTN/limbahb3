@@ -27,7 +27,7 @@ class DashboardController extends Controller
                 return redirect()->route('adminlobi');
                 break;
             case 6:
-                return redirect()->route('security.home');
+                return redirect()->route('admin.users.index');
                 break;
             case 7:
                 return redirect()->route('adminpku.dashboard');

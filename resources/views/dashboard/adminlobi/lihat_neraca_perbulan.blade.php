@@ -3,7 +3,11 @@
 @extends('dashboard.app')
 
 @section('content')
-<div class="container">
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="home-tab">
     <h2>Data Neraca untuk Bulan {{ $bulan->nama_bulan }}</h2>
 
     <!-- Tampilkan data neraca 1 -->

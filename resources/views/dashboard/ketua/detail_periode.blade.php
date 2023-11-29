@@ -3,7 +3,11 @@
 @extends('dashboard.app')
 
 @section('content')
-    <div class="container">
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="home-tab">
         <h2>Detail Periode</h2>
 
         <table class="table">

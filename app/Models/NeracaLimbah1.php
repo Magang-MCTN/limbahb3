@@ -30,4 +30,8 @@ class NeracaLimbah1 extends Model
     {
         return $this->belongsTo(PeriodeLaporan::class, 'id_periode_laporan');
     }
+    public function bulan()
+    {
+        return $this->belongsTo(BulanModel::class, 'id_bulan', 'id_bulan');
+    }
 }

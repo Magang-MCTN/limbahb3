@@ -3,97 +3,130 @@
 @extends('dashboard.app')
 
 @section('content')
-    <div class="container">
-        <h2>Formulir Pengisian Neraca 1</h2>
+<div class="main-panel">
+    <div class="container py-3 px-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row px-5">
+                        <div class="col d-flex justify-content-center">
+                            <div class="d-flex rounded-circle justify-content-center mx-3" style="border-radius: 50%; width: 30px; height: 30px; background-color: #097B96">
+                                <i class="mdi mdi-clipboard-outline d-flex" style="color:white; align-items: center;"></i>
+                            </div>
+                            <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pelaporan Neraca Limbah</h2>
+                        </div>
+                    </div>
+                    <hr>
 
-        <form id="form-neraca1">
-            @csrf
-            <div class="form-group">
-                <label for="id_jenis_limbah">Jenis Limbah:</label>
-                <select name="id_jenis_limbah" class="form-control" required>
-                    @foreach($jenisLimbah as $limbah)
-                    <option value="{{ $limbah->id_jenis_limbah }}">{{ $limbah->jenis_limbah }}</option>
-                    @endforeach
-                </select>
-            </div>
+                    <form id="form-neraca1">
+                        @csrf
+                        <div class="row">
+                            <div class="col form-group col-sm-6 col-md-8">
+                                <label for="id_jenis_limbah">Jenis Limbah</label>
+                                <select name="id_jenis_limbah" class="form-select form-control" required>
+                                    <option value="" selected disabled>Pilih</option>
+                                    @foreach($jenisLimbah as $limbah)
+                                    <option value="{{ $limbah->id_jenis_limbah }}">{{ $limbah->jenis_limbah }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-            <div class="form-group">
-                <label for="sumber">Sumber:</label>
-                <select name="sumber" class="form-control" required>
-                    <option value="Diluar Proses Produksi">Diluar Proses Produksi</option>
-                    <option value="Proses Produksi">Proses Produksi</option>
-                    <option value="Gabungan">Gabungan</option>
-                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                </select>
-            </div>
+                            <div class="col form-group col-sm-6 col-md-4">
+                                <label for="sumber">Sumber</label>
+                                <select name="sumber" class="form-select form-control" required>
+                                    <option value="" selected disabled>Pilih</option>
+                                    <option value="Diluar Proses Produksi">Diluar Proses Produksi</option>
+                                    <option value="Proses Produksi">Proses Produksi</option>
+                                    <option value="Gabungan">Gabungan</option>
+                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <span class="fw-bold">Jumlah (Ton)</span>
+                        </div>
+                        <div class="row">
+                            <div class="col form-group">
+                                <label for="dihasilkan">Dihasilkan</label>
+                                <input type="number" name="dihasilkan" class="form-control" required>
+                            </div>
+                            <div class="col form-group">
+                                <label for="disimpan">Disimpan</label>
+                                <input type="number" name="disimpan" class="form-control" required>
+                            </div>
+                            <div class="col form-group">
+                                <label for="dimanfaatkan">Dimanfaatkan</label>
+                                <input type="number" name="dimanfaatkan" class="form-control" required>
+                            </div>
+                        </div>
 
-            <div class="form-group">
-                <label for="dihasilkan">Dihasilkan:</label>
-                <input type="number" name="dihasilkan" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="disimpan">Disimpan:</label>
-                <input type="number" name="disimpan" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="dimanfaatkan">Dimanfaatkan:</label>
-                <input type="number" name="dimanfaatkan" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="diolah">Diolah:</label>
-                <input type="number" name="diolah" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="ditimbun">Ditimbun:</label>
-                <input type="number" name="ditimbun" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="diserahkan">Diserahkan Pihak ke3:</label>
-                <input type="number" name="diserahkan" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="eksport">eksport</label>
-                <input type="number" name="eksport" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="lainnya">lainnya</label>
-                <input type="number" name="lainnya" class="form-control" required>
-            </div>
-            <!-- Tambahkan form input lainnya sesuai kebutuhan -->
+                        <div class="row">
+                            <div class="col form-group">
+                                <label for="diolah">Diolah</label>
+                                <input type="number" name="diolah" class="form-control" required>
+                            </div>
+                            <div class="col form-group">
+                                <label for="ditimbun">Ditimbun</label>
+                                <input type="number" name="ditimbun" class="form-control" required>
+                            </div>
+                            <div class="col form-group">
+                                <label for="diserahkan">Diserahkan Pihak Ketiga</label>
+                                <input type="number" name="diserahkan" class="form-control" required>
+                            </div>
+                        </div>
 
-            <div class="d-flex justify-content-end mt-3">
-                <button class="btn btn-primary" type="button" id="tambahDataNeraca1">Tambah Data Neraca 1</button>
+                        <div class="row">
+                            <div class="col form-group">
+                                <label for="eksport">Ekspor</label>
+                                <input type="number" name="eksport" class="form-control" required>
+                            </div>
+                            <div class="col form-group">
+                                <label for="lainnya">Lainnya</label>
+                                <input type="number" name="lainnya" class="form-control" required>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                        <!-- Tambahkan form input lainnya sesuai kebutuhan -->
+                    </form>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn" type="button" id="tambahDataNeraca1" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
+                    </div>
+
+                    <!-- Tabel Sementara Neraca 1 -->
+                    <div class="table-responsive">
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Jenis Limbah</th>
+                                    <th>Sumber</th>
+                                    <th>Dihasilkan</th>
+                                    <th>Disimpan</th>
+                                    <th>Dimanfaatkan</th>
+                                    <th>Diolah</th>
+                                    <th>Ditimbun</th>
+                                    <th>Diserahkan Pihak Ketiga</th>
+                                    <th>Ekspor</th>
+                                    <th>Lainnya</th>
+
+                                    <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelSementaraNeraca1">
+                                <!-- Data neraca 1 yang ditambahkan akan muncul di sini -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <button class="btn btn-success" type="button" id="submitFormNeraca1" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Simpan</button>
+                    </div>
+                </div>
             </div>
-        </form>
-
-        <!-- Tabel Sementara Neraca 1 -->
-        <table class="table mt-4">
-            <thead>
-                <tr>
-                    <th>Jenis Limbah</th>
-                    <th>Sumber</th>
-                    <th>Dihasilkan</th>
-                    <th>Disimpan</th>
-                    <th>Dimanfaatkan</th>
-                    <th>Diolah</th>
-                    <th>Ditimbun</th>
-                    <th>Diserahkan Pihak ke3</th>
-                    <th>eksport</th>
-                    <th>lainnya</th>
-
-                    <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody id="tabelSementaraNeraca1">
-                <!-- Data neraca 1 yang ditambahkan akan muncul di sini -->
-            </tbody>
-        </table>
-
-        <div class="d-flex justify-content-end mt-3">
-            <button class="btn btn-success" type="button" id="submitFormNeraca1">Simpan Neraca 1</button>
         </div>
     </div>
+</div>
 
     <!-- Script AJAX untuk Mengirim Data Neraca 1 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -194,7 +227,7 @@
                                 alert('Data Neraca 1 berhasil disimpan ke database.');
                                 window.location.href = "/mctn";
                             } else {
-                                alert('Terjadi kesalahan saat menyimpan data Neraca 1: ' + response.message);
+                                window.location.href =  "/timk3/neraca2/" + {{ $bulan->id_bulan }};
                             }
                         },
                         error: function (xhr, status, error) {

@@ -3,7 +3,11 @@
 @extends('dashboard.app')
 
 @section('content')
-    <div class="container">
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="home-tab">
         <h2>Detail Periode</h2>
 
         <table class="table">
@@ -34,40 +38,42 @@
         </table>
 
        <!-- Dokumen Limbah Masuk -->
-       @if ($periode->limbahMasuk && optional($periode->status)->id_status == 3)
+       @if ($periode->limbahMasuk && optional($periode->status)->id_status == 6)
        <h3>Limbah Masuk</h3>
 
 
-       <a href="{{ route('admin.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-primary">Detail Limbah Masuk</a>
+       <a href="{{ route('admin.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah Masuk</a>
        <!-- Input alasan untuk Limbah Masuk -->
+       <a href="{{ route('limbah.export', $periode->id_periode_laporan) }}" class="btn btn-success ml-2">Export to Excel</a>
        <div class="d-flex justify-content-end mt-3">
 
-        <a href="{{ route('limbah.export', $periode->id_periode_laporan) }}" class="btn btn-success ml-2">Export to Excel</a>
+
     </div>
 
        <div id="reasonInput_limbah_masuk" style="display: none;">
            <label for="alasan_limbah_masuk">Alasan:</label>
            <textarea id="alasan_limbah_masuk" class="form-control"></textarea>
            <!-- Tombol "Submit" untuk approve atau reject -->
-           <button class="btn btn-primary mt-2" onclick="submitApproval('limbah_masuk')">Submit</button>
+           <button class="btn btn-info mt-2" onclick="submitApproval('limbah_masuk')">Submit</button>
        </div>
    @endif
 
 <!-- Dokumen Limbah Keluar -->
-@if ($periode->limbahKeluar && optional($periode->statuskeluar)->id_status == 3)
+@if ($periode->limbahKeluar && optional($periode->statuskeluar)->id_status == 6)
 <h3>Limbah Keluar</h3>
 {{-- Tampilkan informasi dan tombol approve/reject --}}
 
-<a href="{{ route('admin.keluar', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-primary">Detail Limbah Keluar</a>
+<a href="{{ route('admin.keluar', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah Keluar</a>
 <a href="{{ route('keluar.export', $periode->id_periode_laporan) }}" class="btn btn-success ml-2">Export to Excel</a>
 @endif
 
 <!-- Dokumen Neraca Limbah 1 -->
-@if ($periode->statusNeraca && optional($periode->statusNeraca)->id_status == 3)
+@if ($periode->statusNeraca && optional($periode->statusNeraca)->id_status == 6)
 <h3>Neraca Limbah</h3>
 {{-- Tampilkan informasi dan tombol approve/reject --}}
 
-<a href="{{ route('admin.detailBulan', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-primary">Detail Limbah Keluar</a>
+<a href="{{ route('admin.detailBulan', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah Keluar</a>
+<a href="{{ route('export.neraca.pdf', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-success ml-2">Ekspor Neraca PDF</a>
 @endif
 <h3>Tambah Dokumen Tambahan</h3>
 
@@ -75,9 +81,9 @@
     {{-- Jika dokumen tambahan sudah ada, tampilkan tombol download --}}
     <div>
         <strong>Dokumen Tambahan:</strong><br>
-        <a href="{{ asset('storage/'.$dokumenTambahan->file_klhk) }}" class="btn btn-primary" download>Download KLHK</a>
-        <a href="{{ asset('storage/'.$dokumenTambahan->file_pemda_riau) }}" class="btn btn-primary" download>Download Pemda Riau</a>
-        <a href="{{ asset('storage/'.$dokumenTambahan->file_pemda_bengkalis) }}" class="btn btn-primary" download>Download Pemda Bengkalis</a>
+        <a href="{{ asset('storage/'.$dokumenTambahan->file_klhk) }}" class="btn btn-info" download>Download KLHK</a>
+        <a href="{{ asset('storage/'.$dokumenTambahan->file_pemda_riau) }}" class="btn btn-info" download>Download Pemda Riau</a>
+        <a href="{{ asset('storage/'.$dokumenTambahan->file_pemda_bengkalis) }}" class="btn btn-info" download>Download Pemda Bengkalis</a>
     </div>
 @else
     {{-- Jika dokumen tambahan belum ada, tampilkan formulir upload --}}
@@ -95,7 +101,7 @@
             <label for="file_pemda_bengkalis">File Pemda Bengkalis:</label>
             <input type="file" class="form-control" id="file_pemda_bengkalis" name="file_pemda_bengkalis" accept="application/pdf" required>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan Dokumen Tambahan</button>
+        <button type="submit" class="btn btn-info">Simpan Dokumen Tambahan</button>
     </form>
 @endif
 

@@ -302,9 +302,10 @@ class TimK3Controller extends Controller
                 ]);
             }
 
+
             return redirect()->route('timk3.showFormNeraca2', $id_bulan)->with('success', 'Data Neraca 1 berhasil disubmit.');
         } catch (\Exception $e) {
-            return redirect()->route('timk3.showFormNeraca1')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('timk3.showFormNeraca2', $id_bulan)->with('success', 'Data Neraca 1 berhasil disubmit.');
         }
     }
     public function showFormNeraca2($id_bulan)
@@ -398,6 +399,14 @@ class TimK3Controller extends Controller
 
 
         return view('dashboard.timk3.detail_bulan', compact('periode', 'bulans'));
+    }
+    public function kirimNeraca($id)
+    {
+        $periode = PeriodeLaporan::findOrFail($id);
+        // Tambahkan logika lain yang diperlukan
+        $periode->update(['id_status_neraca' => 5]);
+
+        return redirect('/timk3/statusneraca');
     }
     public function lihatNeracaPerbulan($id_bulan)
     {
