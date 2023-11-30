@@ -5,7 +5,7 @@
 <table>
     <thead>
         <tr>
-            <th>No</th>
+            <th>No aku</th>
             <th>Jenis Limbah B3</th>
             <th>Satuan Limbah</th>
             <th>Tanggal Masuk Limbah B3</th>

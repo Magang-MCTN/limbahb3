@@ -9,7 +9,7 @@
     <div class="container py-3 px-4">
         <div class="card">
             <div class="card-body">
-                <div class="container table-responsive">            
+                <div class="container table-responsive">
                     <table class="table">
                         <tr>
                             <th>No Dokumen Masuk</th>
@@ -49,7 +49,7 @@
                     <div class="d-flex mt-3">
                         <a href="/status" class="btn btn-primary me-1">Kembali</a>
                         {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button> --}}
-                        @if ($periode->status->id_status == 1) <!-- Ganti 1 dengan ID status yang sesuai -->
+                        @if ($periode->status->id_status == 5) <!-- Ganti 1 dengan ID status yang sesuai -->
                         <button type="button" class="btn btn-success ms-1" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button>
                         @endif
                     </div>

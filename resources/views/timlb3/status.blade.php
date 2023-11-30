@@ -24,12 +24,12 @@
                         <select name="filter" class="form-select form-control" required>
                             <option value="" selected disabled>Pilih</option>
                             @foreach($statuses as $status)
-                                <option value="{{ $status->status->id_status }}">{{ $status->status->id_status }}</option>
+                                <option value="{{ $status->status->nama }}">{{ $status->status->nama }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <div class="card">

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\LimbahMasukImport;
 use App\Models\JenisLimbah;
 use App\Models\LimbahMasuk;
 use App\Models\PeriodeLaporan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TimLb3Controller extends Controller
 {
@@ -25,21 +27,31 @@ class TimLb3Controller extends Controller
             'tahun' => 'required|numeric|min:4',
         ]);
 
-        $kuartalKeterangan = [
-            '1' => 'Januari - Maret',
-            '2' => 'April - Juni',
-            '3' => 'Juli - September',
-            '4' => 'Oktober - Desember',
-        ];
+        // Cek apakah periode dengan kuartal dan tahun yang sama sudah ada
+        $periode = PeriodeLaporan::where('kuartal', $request->input('kuartal'))
+            ->where('tahun', $request->input('tahun'))
+            ->first();
 
-        $periode = new PeriodeLaporan();
-        $periode->kuartal = $request->input('kuartal');
-        $periode->tahun = $request->input('tahun');
-        $periode->keterangan_kuartal = $kuartalKeterangan[$request->input('kuartal')];
-        $periode->save();
+        // Jika periode sudah ada, gunakan periode tersebut
+        if ($periode) {
+            $idPeriode = $periode->id_periode_laporan;
+        } else {
+            // Jika periode belum ada, buat periode baru
+            $kuartalKeterangan = [
+                '1' => 'Januari - Maret',
+                '2' => 'April - Juni',
+                '3' => 'Juli - September',
+                '4' => 'Oktober - Desember',
+            ];
 
-        $idPeriode = $periode->id_periode_laporan;
+            $periode = new PeriodeLaporan();
+            $periode->kuartal = $request->input('kuartal');
+            $periode->tahun = $request->input('tahun');
+            $periode->keterangan_kuartal = $kuartalKeterangan[$request->input('kuartal')];
+            $periode->save();
 
+            $idPeriode = $periode->id_periode_laporan;
+        }
         return redirect()->route('timlb3.showFormLimbahMasuk', ['id_periode_laporan' => $idPeriode])->with('success', 'Data periode berhasil disubmit.');
     }
     public function showFormLimbahMasuk2($id_periode_laporan = null)
@@ -53,9 +65,7 @@ class TimLb3Controller extends Controller
     {
         try {
 
-            // $request->validate([
-            //     'id_periode_laporan' => 'required|exists:periode_laporans,id_periode_laporan',
-            // ]);
+
 
             // Ambil data limbah masuk dari tabel sementara
             $dataLimbahMasuk = $request->input('dataLimbahMasuk');
@@ -203,5 +213,27 @@ class TimLb3Controller extends Controller
         $periode->update(['id_status_masuk' => 5]);
 
         return redirect('/status');
+    }
+    public function showImportForm($id_periode)
+    {
+        return view('dashboard.timlb3.import', ['id_periode' => $id_periode]);
+    }
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+            'id_periode_laporan' => 'required|numeric',
+        ]);
+
+        $file = $request->file('file');
+        $id_periode_laporan = $request->input('id_periode_laporan');
+
+        try {
+            Excel::import(new LimbahMasukImport($id_periode_laporan), $file);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan pada file Excel: ' . $e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Data limbah masuk berhasil diimpor.');
     }
 }

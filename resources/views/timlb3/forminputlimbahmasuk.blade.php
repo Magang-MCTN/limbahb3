@@ -15,13 +15,13 @@
                         </div>
                     </div>
                     <hr>
-                
+
                     @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
                     @endif
-                
+
                     <!-- Formulir Limbah Masuk -->
                     <form id="form-limbah-masuk">
                         @csrf
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="form-group" class="form-label">
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col form-group">
                                 <label for="sumber_limbahB3" class="form-label">Sumber Limbah</label>
@@ -100,14 +100,14 @@
                             <input type="text" name="id_periode_laporan" value="{{ optional($periodeLaporan)->id_periode_laporan }}">
                             {{-- {{ optional($periodeLaporan)->id_periode_laporan }} --}}
                         </div>
-                
+
                         <!-- ... (Form input lainnya) -->
-                
+
                         <div class="d-flex justify-content-end mt-3">
                             <button class="btn" style="background-color: #097B96; color: white;" type="button" id="tambahData" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
                         </div>
                     </form>
-                
+
                     <!-- Tabel Sementara Limbah Masuk -->
                     <div class="table-responsive">
                         <table class="table mt-4">
@@ -130,11 +130,18 @@
                             </tbody>
                         </table>
                     </div>
-                
+
                     <div class="d-flex justify-content-end mt-3">
                         <button class="btn btn-success" type="button" id="submitFormLimbahMasuk" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Submit</button>
+                        <form action="{{ route('timlb3.import') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" name="file" accept=".xlsx, .xls" required>
+                            <button type="submit">Import Data</button>
+                        </form>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>

@@ -48,6 +48,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::post('/timlb3/submit-limbah-masuk', [TimLb3Controller::class, 'submitFormLimbahMasuk'])->name('timlb3.submitFormLimbahMasuk');
     Route::get('/status', [TimLb3Controller::class, 'status'])->name('status.index');
     Route::get('/status/{id}', [TimLb3Controller::class, 'lihatstatus'])->name('status.show');
+    Route::get('/timlb3/detail-periode/{id_periode_laporan}', [Timlb3Controller::class, 'showDetailPeriode'])->name('timlb3.detail');
     Route::get('/timlb3/detail-periode/{id}', [Timlb3Controller::class, 'showDetailPeriode'])->name('timlb3.detailPeriode');
     Route::get('/timlb3/limbahmasuk/{id_periode_laporan}', [TimLb3Controller::class, 'limbah'])->name('limbah.masuk');
     Route::get('/timlb3/limbah-masuk/edit/{id}', [Timlb3Controller::class, 'edit'])->name('timlb3.editLimbahMasuk');
@@ -55,6 +56,8 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/timlb3/kirim-periode/{id}', [Timlb3Controller::class, 'kirimPeriode'])->name('timlb3.kirimPeriode');
 
     Route::delete('/timlb3/limbah-masuk/destroy/{id_limbah_masuk}', [Timlb3Controller::class, 'destroy'])->name('timlb3.destroyLimbahMasuk');
+    Route::get('/timlb3/import-form/{id_periode}', [Timlb3Controller::class, 'showImportForm'])->name('timlb3.import-form');
+    Route::post('/timlb3/import', [Timlb3Controller::class, 'import'])->name('timlb3.import');
 });
 
 

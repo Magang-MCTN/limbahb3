@@ -1,6 +1,7 @@
 @extends('dashboard.app')
 
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <div class="main-panel">
     <div class="container py-3 px-4">
         <div class="card">
@@ -17,10 +18,30 @@
                     <hr>
 
                     @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
+                    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="successModalLabel">Sukses!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ session('success') }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Oke</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    @endif
+
+                    <script>
+                        // Tampilkan modal ketika halaman dimuat
+                        $(document).ready(function() {
+                            $('#successModal').modal('show');
+                        });
+                    </script>
+                @endif
 
                     <!-- Formulir Limbah Masuk -->
                     <form id="form-limbah-keluar">
@@ -202,7 +223,7 @@
 
                 // Kirim data limbah keluar ke server menggunakan AJAX
                 $.ajax({
-                    url: "/timlb3/submit-limbah-keluar",
+                    url: "/timk3/submit-limbah-keluar",
                     type: "POST",
                     data: formDataLimbahkeluar,
                     contentType: false,
@@ -229,5 +250,6 @@
         });
     });
 </script>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

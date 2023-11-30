@@ -197,7 +197,7 @@
               <li class="nav-item"> <a class="nav-link" href="/timlb3/form-kuartal-tahun">Tambah Limbah Masuk</a></li>
               {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
               <li class="nav-item"> <a class="nav-link" href="/status">Status</a></li>
-            <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">Histroy</a></li>
+            <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
         </ul>
           </div>
         </li>
@@ -217,7 +217,7 @@
               <li class="nav-item"> <a class="nav-link" href="/timk3/formneraca">Tambah Neraca</a></li>
               <li class="nav-item"> <a class="nav-link" href="/timk3/status">Status Limbah</a></li>
               <li class="nav-item"> <a class="nav-link" href="/timk3/statusneraca">Status Neraca</a></li>
-              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">Histroy</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
             </ul>
           </div>
         </li>
@@ -233,7 +233,7 @@
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/ophar/persetujuan">Persetujuan</a></li>
               {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
-              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">Histroy</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
             </ul>
           </div>
         </li>
@@ -249,7 +249,7 @@
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/persetujuanadminpku">Persetujuan</a></li>
               {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
-              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">Histroy</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
             </ul>
           </div>
         </li>
@@ -265,7 +265,7 @@
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/ketua/persetujuan">Persetujuan</a></li>
               {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
-              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">Histroy</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
               <li class="nav-item"> <a class="nav-link" href="/tanda_tangan/create">Tanda Tangan</a></li>
             </ul>
           </div>
