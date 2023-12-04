@@ -5,34 +5,30 @@
         <tr>
             <th>No </th>
             <th>Jenis Limbah B3</th>
-            <th>Satuan Limbah</th>
-            <th>Tanggal Masuk Limbah B3</th>
-            <th>Sumber Limbah B3</th>
-            <th>Bentuk Limbah B3</th>
-            <th>Maksimal Penyimpanan (180-360 hr)</th>
-            <th>Jumlah</th>
-            <th>Berat/Satuan</th>
-            <th>Berat (kg)</th>
+            <th>Jumlah KG</th>
+            <th>Jumlah Ton</th>
+            <th>Tujuan Penyerahan</th>
+            <th>Bukti Nomor dokumen</th>
+            <th>Sisa Lb 3</th>
+
         </tr>
     </thead>
     <tbody>
-        @foreach($limbahMasuk as $index => $limbah)
+        @foreach($limbahkeluar as $index => $limbah)
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $limbah->jenis_limbah }}</td>
-                <td>{{ $limbah->satuan_limbah }}</td>
-                <td>{{ $limbah->tanggal_masuk }}</td>
-                <td>{{ $limbah->sumber_limbahB3 }}</td>
-                <td>{{ $limbah->bentuk_limbahB3 }}</td>
-                <td>{{ $limbah->maksimal_penyimpanan }}</td>
-                <td>{{ $limbah->jumlah_limbah }}</td>
-                <td>{{ $limbah->berat_satuan }}</td>
-                <td>{{ $limbah->berat }}</td>
+                <td>{{ $limbah->jumlahkg }}</td>
+                <td>{{ $limbah->jumlahton}}</td>
+                <td>{{ $limbah->tujuanPenyerahan }}</td>
+                <td>{{ $limbah->buktiNomorDokumen }}</td>
+                <td>{{ $limbah->sisa_lb3 }}</td>
+
             </tr>
         @endforeach
     </tbody>
 </table>
-<div style="margin-top: 20px;">
+{{-- <div style="margin-top: 20px;">
     @php
         $lastUserId = null; // Inisialisasi variabel untuk menyimpan id_user terakhir
         $lastSignature = null; // Inisialisasi variabel untuk menyimpan tanda tangan terakhir
@@ -54,5 +50,5 @@
     @else
         <p>Tidak Ada Tanda Tangan untuk User ini</p>
     @endif
-</div>
+</div> --}}
 

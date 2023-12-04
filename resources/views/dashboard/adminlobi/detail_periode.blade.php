@@ -60,7 +60,14 @@
                         {{-- Tampilkan informasi dan tombol approve/reject --}}
                         <a href="{{ route('admin.keluar', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah Keluar</a>
                         <a href="{{ route('keluar.export', $periode->id_periode_laporan) }}" class="btn btn-success ml-2">Export to Excel</a>
+
+                        @if (file_exists(public_path('surat/laporan_pengelolaan_' . $periode->id_periode_laporan . '.pdf')))
+                        <a href="{{ asset('surat/laporan_pengelolaan_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info" download>Unduh Surat PDF</a>
                     @endif
+                    @if (file_exists(public_path('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf')))
+<a href="{{ asset('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info" download>Unduh Surat PDF</a>
+@endif
+                        @endif
 
                     <!-- Dokumen Neraca Limbah 1 -->
                     @if ($periode->statusNeraca && optional($periode->statusNeraca)->id_status == 6)

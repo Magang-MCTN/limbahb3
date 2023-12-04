@@ -47,13 +47,13 @@
 
                         <!-- Tombol "Approve" dan "Reject" -->
                         <div class="ms-3">
-                            <button class="btn btn-success" onclick="showReasonInput('limbah_masuk', 'approve')">Approve</button>
-                            <button class="btn btn-danger" onclick="showReasonInput('limbah_masuk', 'reject')">Reject</button>
+                            <a href="{{ route('ketua.lbmasuk', ['id' => $periode->id_periode_laporan, 'doc' => 'limbah_keluar']) }}" class="btn btn-success">Approve</a>
+                            <a href="{{ route('ophar.lbmrjek', ['id' => $periode->id_periode_laporan, 'doc' => 'limbah_keluar']) }}" class="btn btn-danger">Reject</a>
                             <a href="{{ route('ketua.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-primary">Detail Limbah Masuk</a>
                         </div>
 
                         <!-- Input alasan untuk Limbah Masuk -->
-                        <form id="approvalForm" style="display: none;" action="{{ route('ketua.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" method="POST">
+                        <form id="approvalForm" style="display: none;" action="{{ route('ketua.lbmasuk', ['id' => $periode->id_periode_laporan]) }}" method="GET">
                             @csrf
                             <div class="ms-3">
                                 <input type="hidden" id="submit_action" name="action" value="">
@@ -96,6 +96,12 @@
                         <a href="{{ route('ketua.lbmrjek', ['id' => $periode->id_periode_laporan, 'doc' => 'limbah_keluar']) }}" class="btn btn-danger">Reject</a>
                         <a href="{{ route('ketua.keluar', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-primary">Detail Limbah Keluar</a>
                     </div>
+                    @if (file_exists(public_path('surat/laporan_pengelolaan_' . $periode->id_periode_laporan . '.pdf')))
+    <a href="{{ asset('surat/laporan_pengelolaan_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info" download>Unduh Surat PDF</a>
+@endif
+@if (file_exists(public_path('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf')))
+<a href="{{ asset('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info" download>Unduh Surat PDF</a>
+@endif
                     @endif
 
                     <!-- Dokumen Neraca Limbah 1 -->

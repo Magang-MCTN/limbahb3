@@ -198,6 +198,7 @@
               {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
               <li class="nav-item"> <a class="nav-link" href="/status">Status</a></li>
             <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
+            <li class="nav-item"> <a class="nav-link" href="/tanda_tangan/create">Tanda Tangan</a></li>
         </ul>
           </div>
         </li>

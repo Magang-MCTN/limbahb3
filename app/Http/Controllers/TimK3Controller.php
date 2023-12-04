@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\App;
 use App\Models\BulanModel;
 use App\Models\JenisLimbah;
 use App\Models\LimbahKeluar;
@@ -9,6 +10,7 @@ use App\Models\LimbahMasuk;
 use App\Models\NeracaLimbah1;
 use App\Models\NeracaLimbah2;
 use App\Models\PeriodeLaporan;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
 class TimK3Controller extends Controller
@@ -255,14 +257,43 @@ class TimK3Controller extends Controller
 
         return redirect()->back()->with('success', 'Data limbah masuk berhasil dihapus.');
     }
+
     public function kirimPeriode($id)
     {
         $periode = PeriodeLaporan::findOrFail($id);
+
         // Tambahkan logika lain yang diperlukan
         $periode->update(['id_status_keluar' => 5]);
 
+        // Generate dan simpan surat PDF
+        $this->generateSuratPDF($id);
+
         return redirect('/timk3/status');
     }
+    public function generateSuratPDF($id)
+    {
+        $periode = PeriodeLaporan::findOrFail($id);
+
+        $data = [
+            'kuartal' => $periode->kuartal,
+            'tahun' => $periode->tahun,
+            // tambahkan data lain sesuai kebutuhan
+        ];
+
+        // Gunakan resolve untuk mendapatkan instance PDF dari container Layanan
+        $pdf = App::make('dompdf.wrapper')->loadView('export.laporan_pengelolaan', $data);
+
+        $pdf->save(public_path('surat/laporan_pengelolaan_' . $id . '.pdf'));
+
+        return $pdf->download('laporan_pengelolaan_' . $id . '.pdf');
+        $pdf->reset();
+        $pdf = App::make('dompdf.wrapper')->loadView('export.laporan_pengelolaan2', $data);
+
+        $pdf->save(public_path('surat/laporan_pengelolaan2_' . $id . '.pdf'));
+
+        return $pdf->download('laporan_pengelolaan2_' . $id . '.pdf');
+    }
+
     public function showFormNeraca()
     {
         // Ambil daftar periode untuk dropdown
@@ -447,6 +478,7 @@ class TimK3Controller extends Controller
 
         return view('dashboard.timk3.detail_bulan', compact('periode', 'bulans'));
     }
+
     public function kirimNeraca($id)
     {
         $periode = PeriodeLaporan::findOrFail($id);

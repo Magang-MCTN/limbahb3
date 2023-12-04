@@ -56,7 +56,7 @@
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                         <a href="{{ route('limbah.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-success me-2">Lihat Detail</a>
-                        <a href="#" class="btn btn-success ms-2">Unduh Dokumen</a>
+                        <a href="{{ route('limbah.export', $periode->id_periode_laporan) }}" class="btn btn-success ms-2">Unduh Dokumen</a>
                     </div>
                 </div>
             </div>

@@ -11,10 +11,11 @@ class TandaTangan extends Model
 
     protected $table = 'tanda_tangan';
 
-    protected $fillable = ['user_id', 'path'];
+    protected $fillable = ['id_user', 'path'];
+
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

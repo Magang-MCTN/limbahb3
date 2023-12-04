@@ -10,8 +10,11 @@ class TandaTanganController extends Controller
 {
     public function create()
     {
-        // Ambil informasi tanda tangan jika sudah ada
-        $tandaTangan = TandaTangan::first();
+        // Ambil informasi pengguna yang sedang login
+        $user = Auth::user();
+
+        // Ambil informasi tanda tangan sesuai dengan pengguna yang sedang login
+        $tandaTangan = TandaTangan::where('id_user', $user->id)->first();
 
         return view('dashboard.ttd.create', compact('tandaTangan'));
     }
@@ -28,7 +31,7 @@ class TandaTanganController extends Controller
         $fileName = str_replace('public/', '', $path);
 
         $tandaTangan = TandaTangan::updateOrCreate(
-            ['user_id' => $user->id],
+            ['id_user' => $user->id],
             ['path' => $fileName]
         );
 

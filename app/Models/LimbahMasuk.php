@@ -36,4 +36,8 @@ class LimbahMasuk extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
+    public function tandaTangan()
+    {
+        return $this->hasOne(TandaTangan::class, 'id_user', 'id_user');
+    }
 }

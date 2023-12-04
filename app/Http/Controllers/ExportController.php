@@ -33,19 +33,33 @@ class ExportController extends Controller
         // Export dengan nama file tertentu (opsional)
         return Excel::download($export, 'limbah_masuk.xlsx');
     }
-
-
     public function exportLimbahKeluar($id_periode_laporan)
     {
         $periode = PeriodeLaporan::findOrFail($id_periode_laporan);
         $limbahKeluar = $periode->limbahKeluar;
-        $tandaTangan = TandaTangan::first();
 
+        // Buat judul sesuai kebutuhan
         $judul = 'PT. MANDAU CIPTA TENAGA NUSANTARA - NORTH DURI COGEN (' . date('Y') . ')';
-        $export = new LimbahKeluarExport($judul, $limbahKeluar, $tandaTangan);
 
+        // Inisialisasi kelas eksport dengan judul dan data Limbah Masuk
+        $export = new LimbahKeluarExport($judul, $limbahKeluar);
+
+        // Export dengan nama file tertentu (opsional)
         return Excel::download($export, 'limbah_keluar.xlsx');
     }
+
+
+    // public function exportLimbahKeluar($id_periode_laporan)
+    // {
+    //     $periode = PeriodeLaporan::findOrFail($id_periode_laporan);
+    //     $limbahKeluar = $periode->limbahKeluar;
+    //     $tandaTangan = TandaTangan::first();
+
+    //     $judul = 'PT. MANDAU CIPTA TENAGA NUSANTARA - NORTH DURI COGEN (' . date('Y') . ')';
+    //     $export = new LimbahKeluarExport($judul, $limbahKeluar, $tandaTangan);
+
+    //     return Excel::download($export, 'limbah_keluar.xlsx');
+    // }
     public function exportNeraca($id_periode_laporan)
     {
         return Excel::download(new NeracaExport($id_periode_laporan), 'neraca.pdf', \Maatwebsite\Excel\Excel::DOMPDF);

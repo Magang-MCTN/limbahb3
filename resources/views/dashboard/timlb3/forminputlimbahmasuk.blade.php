@@ -1,7 +1,10 @@
 @extends('dashboard.app')
 
 @section('content')
-@if(session('error'))
+
+<div class="main-panel">
+    <div class="container py-3 px-4">
+        @if(session('error'))
     <div class="alert alert-danger">
         {{ session('error') }}
     </div>
@@ -12,8 +15,6 @@
         {{ session('success') }}
     </div>
 @endif
-<div class="main-panel">
-    <div class="container py-3 px-4">
         <div class="card">
             <div class="card-body">
                 <div class="container">
