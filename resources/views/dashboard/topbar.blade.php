@@ -7,10 +7,10 @@
       </div>
       <div>
         <a class="navbar-brand brand-logo" href="/">
-          <img src="{{ asset('dashboard/template/images/MCTN.png') }}" alt="logo" />
+            <img src="logo.png" alt="logo" width="auto" height="300px" />
         </a>
         <a class="navbar-brand brand-logo-mini" href="index.html">
-          <img src="{{ asset('dashboard/template/images/MCTN.png') }}" alt="logo" />
+            <img src="logo.png" alt="logo" width="auto" height="300px" />
         </a>
       </div>
     </div>

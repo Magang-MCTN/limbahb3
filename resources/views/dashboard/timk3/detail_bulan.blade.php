@@ -3,7 +3,7 @@
 @extends('dashboard.app')
 
 @section('content')
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -17,8 +17,8 @@
                     <div class="">
                         <table class="table">
                             <tr>
-                                <th>No Dokumen Masuk</th>
-                                <td>{{ $periode->no_dokumen_masuk }}</td>
+                                <th>No Dokumen Neraca</th>
+                                <td>{{ $periode->no_dokumen_neraca }}</td>
                             </tr>
                             <tr>
                                 <th>Nama Laporan</th>

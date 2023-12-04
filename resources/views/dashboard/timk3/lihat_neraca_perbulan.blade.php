@@ -12,7 +12,7 @@
                     <hr>
 
                     <!-- Tampilkan data neraca 1 -->
-                    <h4 class="fw-bold">Neraca 1</h4>
+                    {{-- <h4 class="fw-bold">Neraca 1</h4> --}}
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -34,7 +34,7 @@
                             <tbody>
                                 @foreach($neraca1 as $data)
                                     <tr>
-                                        <td>{{ $data->id_jenis_limbah }}</td>
+                                        <td>{{ $data->jenislimbah->jenis_limbah }}</td>
                                         <td>{{ $data->sumber_limbah }}</td>
                                         <td>{{ $data->dihasilkan }}</td>
                                         <td>{{ $data->disimpan }}</td>
@@ -54,7 +54,7 @@
                     </div>
 
                     <!-- Tampilkan data neraca 2 -->
-                    <h4 class="fw-bold mt-4">Neraca 2</h4>
+                    {{-- <h4 class="fw-bold mt-4">Neraca 2</h4> --}}
                    @if ($neraca2)
                     <div class="table-responsive">
                         <!-- Tampilkan kolom-kolom neraca 2 sesuai kebutuhan -->
@@ -85,7 +85,7 @@
                             </tr>
                             <tr>
                                 <th>Perizinan Limbah KLH</th>
-                                <td>{{ $neraca2->periinan_limbah_klh }}</td>
+                                <td>{{ $neraca2->perizinan_limbah_klh }}</td>
                             </tr>
                             <tr>
                                 <th>No Izin KLH</th>
@@ -107,6 +107,6 @@
     </div>
 </div>
 @else
-    <p>Data Neraca 2 belum diisi untuk bulan ini.</p>
+    <p>Data Neraca belum diisi untuk bulan ini.</p>
 @endif
 @endsection

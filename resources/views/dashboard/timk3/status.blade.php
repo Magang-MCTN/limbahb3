@@ -51,13 +51,14 @@
                                 @php
                                     // Filter hanya data yang memiliki id_status_keluar
                                     $filteredStatuses = $statuses->filter(function ($status) {
-                                        return !is_null($status->id_status_keluar);
-                                    });
+    return !is_null($status->id_status_keluar) && $status->id_status_keluar != 6;
+});
                                 @endphp
                                 @foreach ($filteredStatuses as $index => $status)
+                                @if ($status->statuskeluar->id_status_keluar != 6)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $status->kuartal }}</td>
+                                        <td>{{ $status->kuartal }}-({{ $status->keterangan_kuartal }})</td>
                                         <td>{{ $status->tahun }}</td>
                                         <td>{{ $status->statuskeluar->nama ?? '-' }}</td>
                                         <td>
@@ -66,9 +67,49 @@
                                             <!-- Tambahkan tombol hapus jika dibutuhkan -->
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="mt-3 d-flex justify-content-end">
+                            <ul class="pagination">
+                                {{-- Previous Page Link --}}
+                                @if ($statuses->onFirstPage())
+                                    <li class="page-item disabled">
+                                        <span class="page-link">&laquo;</span>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $statuses->previousPageUrl() }}" rel="prev">&laquo;</a>
+                                    </li>
+                                @endif
+
+                                {{-- Pagination Elements --}}
+                                @for ($page = max(1, $statuses->currentPage() - 2); $page <= min($statuses->lastPage(), $statuses->currentPage() + 2); $page++)
+                                    @if ($statuses->currentPage() == $page)
+                                        <li class="page-item active" aria-current="page">
+                                            <span class="page-link">{{ $page }}</span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $statuses->url($page) }}">{{ $page }}</a>
+                                        </li>
+                                    @endif
+                                @endfor
+
+                                {{-- Next Page Link --}}
+                                @if ($statuses->hasMorePages())
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $statuses->nextPageUrl() }}" rel="next">&raquo;</a>
+                                    </li>
+                                @else
+                                    <li class="page-item disabled">
+                                        <span class="page-link">&raquo;</span>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
             </div>

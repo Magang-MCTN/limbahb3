@@ -41,10 +41,10 @@
                         <tr></tr>
                     </table>
                     <div class="d-flex  mt-3">
-                        <a href="/status" class="btn btn-primary">Kembali</a>
+                        <a href="/timk3/status" class="btn btn-primary">Kembali</a>
 
                         {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button> --}}
-                        @if ($periode->status && $periode->status->id_status !== 1)
+                        @if ($periode->statuskeluar && $periode->statuskeluar->id_status == 1)
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button>
                     @endif
                     </div>

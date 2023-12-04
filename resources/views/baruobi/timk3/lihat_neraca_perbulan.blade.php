@@ -12,7 +12,7 @@
                     <hr>
 
                     <!-- Tampilkan data neraca 1 -->
-                    <h4 class="fw-bold">Neraca 1</h4>
+                    {{-- <h4 class="fw-bold">Neraca 1</h4> --}}
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -54,7 +54,7 @@
                     </div>
 
                     <!-- Tampilkan data neraca 2 -->
-                    <h4 class="fw-bold mt-4">Neraca 2</h4>
+                    {{-- <h4 class="fw-bold mt-4">Neraca 2</h4> --}}
                    @if ($neraca2)
                     <div class="table-responsive">
                         <!-- Tampilkan kolom-kolom neraca 2 sesuai kebutuhan -->

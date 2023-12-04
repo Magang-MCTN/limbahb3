@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="container">
-                    <h3 class="fw-bold">Edit Neraca 2</h3>
+                    <h3 class="fw-bold">Edit Detail Neraca </h3>
 
                     <form action="{{ route('updateNeraca2', $neraca2->id_neraca_limbah_2) }}" method="POST">
                         @csrf
@@ -52,7 +52,18 @@
 
                                 <div class="form-group">
                                     <label for="perizinan_limbah_klh">Perizinan Limbah KLH</label>
-                                    <input type="text" class="form-control" id="perizinan_limbah_klh" name="perizinan_limbah_klh" value="{{ $neraca2->perizinan_limbah_klh }}">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="perizinan_limbah_klh_ada" name="perizinan_limbah_klh" value="Ada" {{ $neraca2->perizinan_limbah_klh == 'Ada' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="perizinan_limbah_klh_ada">Ada</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="perizinan_limbah_klh_tidak" name="perizinan_limbah_klh" value="Tidak" {{ $neraca2->perizinan_limbah_klh == 'Tidak' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="perizinan_limbah_klh_tidak">Tidak</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="perizinan_limbah_klh_kedaluarsa" name="perizinan_limbah_klh" value="Kedaluarsa" {{ $neraca2->perizinan_limbah_klh == 'Kedaluarsa' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="perizinan_limbah_klh_kedaluarsa">Kedaluarsa</label>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="no_izin_limbah_klh">No Izin Limbah KLH</label>

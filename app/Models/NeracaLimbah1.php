@@ -19,6 +19,8 @@ class NeracaLimbah1 extends Model
         return $this->belongsTo(JenisLimbah::class, 'id_jenis_limbah');
     }
 
+
+
     // Relasi ke tabel User
     public function user()
     {

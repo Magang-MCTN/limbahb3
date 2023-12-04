@@ -15,7 +15,7 @@
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>No</th>
                                         <th>Jenis Limbah</th>
                                         <th>Satuan Limbah</th>
                                         <th>Tanggal Masuk</th>
@@ -29,9 +29,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($limbahMasuk as $limbah)
-                                        <tr>
-                                            <td>{{ $limbah->id_limbah_masuk }}</td>
+                                    @foreach($limbahMasuk as $index => $limbah)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
                                             <td>{{ $limbah->jenisLimbah->jenis_limbah ?? '-' }}</td>
                                             <td>{{ $limbah->satuan_limbah }}</td>
                                             <td>{{ $limbah->tanggal_masuk }}</td>

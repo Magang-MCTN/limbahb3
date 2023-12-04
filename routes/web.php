@@ -156,10 +156,7 @@ Route::middleware(['auth', 'role:5'])->group(function () {
     Route::get('/adminloby/aprovenrc/{id}', [AdminlobiController::class, 'approveLimbahNeraca'])->name('admin.lnrcs');
     Route::get('/adminloby/rejctnrc/{id}', [AdminlobiController::class, 'rejectLimbahNeraca'])->name('admin.lnrcr');
 
-    Route::get('/timadminloby/limbahmasuk/{id_periode_laporan}', [AdminlobiController::class, 'limbah'])->name('admin.masuk');
-    Route::get('/timadminloby/limbahkeluar/{id_periode_laporan}', [AdminlobiController::class, 'limbahkeluar'])->name('admin.keluar');
-    Route::get('/adminloby/detailneraca/{id_periode_laporan}', [AdminlobiController::class, 'detailBulan'])->name('admin.detailBulan');
-    Route::get('/adminloby/lihat-neraca-perbulan/{id_bulan}', [AdminlobiController::class, 'lihatNeracaPerbulan'])->name('admin.lihatNeracaPerbulan');
+
     Route::post('/admin/tambahDokumen/{id_periode_laporan}', [AdminlobiController::class, 'storeDokumenTambahan'])->name('admin.tambahDokumen');
 });
 // Rute yang akan dilindungi oleh middleware role "administrator"
@@ -185,6 +182,10 @@ Route::get('/export-neraca/{id_periode_laporan}', [ExportController::class, 'exp
 Route::get('/export-neraca-pdf/{id_periode_laporan}', [ExportController::class, 'exportNeracaPDF'])->name('export.neraca.pdf');
 Route::get('/historilimbahadmin', [AdminlobiController::class, 'historilimbah'])->name('historiadmlimbah');
 Route::get('adminloby/{id}', [AdminlobiController::class, 'show'])->name('admin.show');
+Route::get('/timadminloby/limbahmasuk/{id_periode_laporan}', [AdminlobiController::class, 'limbah'])->name('admin.masuk');
+Route::get('/timadminloby/limbahkeluar/{id_periode_laporan}', [AdminlobiController::class, 'limbahkeluar'])->name('admin.keluar');
+Route::get('/adminloby/detailneraca/{id_periode_laporan}', [AdminlobiController::class, 'detailBulan'])->name('admin.detailBulan');
+Route::get('/adminloby/lihat-neraca-perbulan/{id_bulan}', [AdminlobiController::class, 'lihatNeracaPerbulan'])->name('admin.lihatNeracaPerbulan');
 
 Route::get('/home', function () {
     return redirect('/mctn');

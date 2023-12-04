@@ -69,6 +69,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="mt-3">
+                            {{ $statuses->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

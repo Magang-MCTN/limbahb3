@@ -13,7 +13,17 @@ class TimLb3Controller extends Controller
 {
     public function index()
     {
-        return view('dashboard.timlb3.index',);
+        // Jumlah periode
+        // Hitung jumlah periode berdasarkan id_status_masuk
+        $jumlahSemuaLaporan = PeriodeLaporan::whereNotNull('id_status_masuk')->count();
+        $jumlahDraft = PeriodeLaporan::where('id_status_masuk', 1)->count();
+        $jumlahMenunggu = PeriodeLaporan::where('id_status_masuk', 2)->count();
+        $jumlahDitolak = PeriodeLaporan::where('id_status_masuk', 4)->count();
+        $jumlahSelesai = PeriodeLaporan::whereIn('id_status_masuk', [6])->count(); // Misalnya, Anda ingin menghitung 6 dan 7 sebagai selesai
+
+        $statuses = PeriodeLaporan::has('status')->with('status')->get();
+
+        return view('dashboard.timlb3.index', compact('statuses', 'jumlahSemuaLaporan', 'jumlahDraft', 'jumlahMenunggu', 'jumlahDitolak', 'jumlahSelesai'));
     }
     public function showFormLimbahMasuk()
     {
@@ -127,7 +137,7 @@ class TimLb3Controller extends Controller
     }
     public function status()
     {
-        $statuses = PeriodeLaporan::has('status')->with('status')->get();
+        $statuses = PeriodeLaporan::has('status')->with('status')->paginate(5);
         return view('dashboard.timlb3.status', compact('statuses'));
     }
     public function showDetailPeriode($id)

@@ -15,7 +15,54 @@ class TimK3Controller extends Controller
 {
     public function index()
     {
-        return view('dashboard.timk3.index',);
+        // Jumlah periode
+        // Hitung jumlah periode berdasarkan id_status_masuk
+        // Menghitung jumlah data periode dengan id_status_keluar dan id_status_neraca
+        $jumlahLaporan = PeriodeLaporan::whereHas('statuskeluar')
+            ->orWhereHas('statusneraca')
+            ->count();
+
+        // Menghitung jumlah data periode dengan id_status_keluar 1 (draft)
+        $jumlahDraft = PeriodeLaporan::where(function ($query) {
+            $query->whereHas('statuskeluar', function ($subquery) {
+                $subquery->where('id_status_keluar', 1);
+            })->orWhereHas('statusneraca', function ($subquery) {
+                $subquery->where('id_status_neraca', 1);
+            });
+        })->count();
+
+        // Menghitung jumlah data periode dengan id_status_keluar 2 (menunggu)
+        $jumlahMenunggu = PeriodeLaporan::where(function ($query) {
+            $query->whereHas('statuskeluar', function ($subquery) {
+                $subquery->where('id_status_keluar', 2);
+            })->orWhereHas('statusneraca', function ($subquery) {
+                $subquery->where('id_status_neraca', 2);
+            });
+        })->count();
+
+        // Menghitung jumlah data periode dengan id_status_keluar 4 (ditolak)
+        $jumlahDitolak = PeriodeLaporan::where(function ($query) {
+            $query->whereHas('statuskeluar', function ($subquery) {
+                $subquery->where('id_status_keluar', 4);
+            })->orWhereHas('statusneraca', function ($subquery) {
+                $subquery->where('id_status_neraca', 4);
+            });
+        })->count();
+
+        // Menghitung jumlah data periode dengan id_status_keluar 6 (selesai)
+        $jumlahSelesai = PeriodeLaporan::where(function ($query) {
+            $query->whereHas('statuskeluar', function ($subquery) {
+                $subquery->whereIn('id_status_keluar', [6]);
+            })->orWhereHas('statusneraca', function ($subquery) {
+                $subquery->whereIn('id_status_neraca', [6]);
+            });
+        })->count();
+
+        // Mengambil data statuses dan statusesneraca seperti yang telah Anda lakukan sebelumnya
+        $statuses = PeriodeLaporan::has('statuskeluar')->with('statuskeluar')->get();
+        $statusesneraca = PeriodeLaporan::has('statusneraca')->with('statusneraca')->get();
+
+        return view('dashboard.timk3.index', compact('statusesneraca', 'statuses', 'jumlahLaporan', 'jumlahDraft', 'jumlahMenunggu', 'jumlahDitolak', 'jumlahSelesai'));
     }
     public function showFormLimbahKeluar()
     {
@@ -127,7 +174,7 @@ class TimK3Controller extends Controller
     public function statuskeluar()
     {
         // Hanya ambil data periode yang memiliki id_status_keluar
-        $statuses = PeriodeLaporan::has('statuskeluar')->with('statuskeluar')->get();
+        $statuses = PeriodeLaporan::has('statuskeluar')->with('statuskeluar')->paginate(5); // Sesuaikan jumlah item per halaman
 
         return view('dashboard.timk3.status', compact('statuses'));
     }
@@ -372,7 +419,7 @@ class TimK3Controller extends Controller
     public function showStatusNeraca()
     {
         // Ambil data periode yang memiliki status neraca
-        $periodes = PeriodeLaporan::has('statusNeraca')->with('statusNeraca')->get();
+        $periodes = PeriodeLaporan::has('statusNeraca')->with('statusNeraca')->paginate(5);
 
         return view('dashboard.timk3.status_neraca', compact('periodes'));
     }

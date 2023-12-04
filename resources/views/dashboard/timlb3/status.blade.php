@@ -25,7 +25,7 @@
                             <option value="" selected disabled>Pilih</option>
                             {{-- @foreach($statuses as $status) --}}
                                 <option value="">Draft</option>
-                                <option value="">Draft</option>
+                                <option value="">Draft</optiRIFon>
                                 <option value="">Draft</option>
                                 <option value="">Draft</option>
                                 <option value="">Draft</option>
@@ -73,7 +73,46 @@
                                         @endif
                                     @endforeach
                                 </tbody>
+
                             </table>
+                            <div class="mt-3 d-flex justify-content-end">
+                                <ul class="pagination">
+                                    {{-- Previous Page Link --}}
+                                    @if ($statuses->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <span class="page-link">&laquo;</span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $statuses->previousPageUrl() }}" rel="prev">&laquo;</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Pagination Elements --}}
+                                    @for ($page = max(1, $statuses->currentPage() - 2); $page <= min($statuses->lastPage(), $statuses->currentPage() + 2); $page++)
+                                        @if ($statuses->currentPage() == $page)
+                                            <li class="page-item active" aria-current="page">
+                                                <span class="page-link">{{ $page }}</span>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $statuses->url($page) }}">{{ $page }}</a>
+                                            </li>
+                                        @endif
+                                    @endfor
+
+                                    {{-- Next Page Link --}}
+                                    @if ($statuses->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $statuses->nextPageUrl() }}" rel="next">&raquo;</a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link">&raquo;</span>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

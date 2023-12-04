@@ -4,56 +4,59 @@
 
 @section('content')
 <div class="main-panel">
-    <div class="content-wrapper">
-        <div class="container py-3 px-4">
-            <div class="col-sm-12">
-                <div class="home-tab">
-                    <h3 class="fw-bold my-3">Data Neraca untuk Bulan {{ $bulan->nama_bulan }}</h3 class="fw-bold">
+    <div class="container py-3 px-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <h2 class="fw-bold">Data Neraca Bulan {{ $bulan->nama_bulan }}</h2>
+                    <hr>
 
                     <!-- Tampilkan data neraca 1 -->
-                    <h3 class="fw-bold">Neraca 1</h3>
+                    {{-- <h4 class="fw-bold">Neraca 1</h4> --}}
 
-                    <div class="row">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Jenis Limbah</th>
+                                    <th>Sumber Limbah</th>
+                                    <th>Dihasilkan</th>
+                                    <th>Disimpan</th>
+                                    <th>Dimanfaatkan</th>
+                                    <th>Diolah</th>
+                                    <th>Ditimbun</th>
+                                    <th>Diserahkan</th>
+                                    <th>eksport</th>
+                                    <th>Lainnya</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($neraca1 as $data)
                                     <tr>
-                                        <th>Jenis Limbah</th>
-                                        <th>Sumber Limbah</th>
-                                        <th>Dihasilkan</th>
-                                        <th>Dimanfaatkan</th>
-                                        <th>Diolah</th>
-                                        <th>Ditimbun</th>
-                                        <th>Diserahkan</th>
-                                        <th>eksport</th>
-                                        <th>Lainnya</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($neraca1 as $data)
-                                    <tr>
-                                        <td>{{ $data->id_jenis_limbah }}</td>
+                                        <td>{{ $data->jenislimbah->jenis_limbah }}</td>
                                         <td>{{ $data->sumber_limbah }}</td>
                                         <td>{{ $data->dihasilkan }}</td>
+                                        <td>{{ $data->disimpan }}</td>
                                         <td>{{ $data->dimanfaatkan }}</td>
                                         <td>{{ $data->diolah }}</td>
                                         <td>{{ $data->ditimbun }}</td>
                                         <td>{{ $data->diserahkan }}</td>
                                         <td>{{ $data->eksport }}</td>
                                         <td>{{ $data->lainnya }}</td>
+
                                     </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
 
                     <!-- Tampilkan data neraca 2 -->
-                    <h3 class="fw-bold mt-3">Neraca 2</h3>
-
-                    @if ($neraca2)
+                    {{-- <h4 class="fw-bold mt-4">Neraca 2</h4> --}}
+                   @if ($neraca2)
                     <div class="table-responsive">
-                        <table class="table text-center">
+                        <!-- Tampilkan kolom-kolom neraca 2 sesuai kebutuhan -->
+                        <table class="table table-boerdered">
                             <tr>
                                 <th>Total Neraca</th>
                                 <td>{{ $neraca2->total_neraca }}</td>
@@ -63,7 +66,7 @@
                                 <td>{{ $neraca2->residu }}</td>
                             </tr>
                             <tr>
-                                <th>Limbah belum dikelola</th>
+                                <th>Limbah Belum Dikelola</th>
                                 <td>{{ $neraca2->limbah_belum_dikelola }}</td>
                             </tr>
                             <tr>
@@ -83,26 +86,25 @@
                                 <td>{{ $neraca2->perizinan_limbah_klh }}</td>
                             </tr>
                             <tr>
-                                <th>No Izin Limbah KLH</th>
+                                <th>No Izin KLH</th>
                                 <td>{{ $neraca2->no_izin_limbah_klh }}</td>
                             </tr>
                             <tr>
                                 <th>Catatan</th>
                                 <td>{{ $neraca2->catatan }}</td>
                             </tr>
+                            <tr></tr>
+
                         </table>
+                        <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
                     </div>
 
-                    @else
-                    <p>Data Neraca 2 belum diisi untuk bulan ini.</p>
-                    @endif
-                    <div class="d-flex justify-content-end mt-3">
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+@else
+    <p>Data Neraca belum diisi untuk bulan ini.</p>
+@endif
 @endsection
