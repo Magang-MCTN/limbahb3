@@ -90,7 +90,7 @@ class OpharController extends Controller
         try {
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_masuk' => 2]); // Ubah status masuk menjadi disetujui (ID status 2)
-            $periode->alasan = $request->input('alasan_limbah_masuk');
+            // $periode->alasan = $request->input('alasan_limbah_masuk');
             $periode->save();
 
             return redirect()->route('ophr.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Masuk.');

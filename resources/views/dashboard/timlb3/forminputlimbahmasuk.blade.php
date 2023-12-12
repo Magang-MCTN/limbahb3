@@ -1,7 +1,11 @@
 @extends('dashboard.app')
 
 @section('content')
-
+{{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <div class="main-panel">
     <div class="container py-3 px-4">
         @if(session('error'))
@@ -27,6 +31,7 @@
                         </div>
                     </div>
                     <hr>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahJenisLimbah">Tambah Jenis Limbah Baru</button>
 
 
                     <!-- Formulir Limbah Masuk -->
@@ -114,7 +119,29 @@
                             <button class="btn" style="background-color: #097B96; color: white;" type="button" id="tambahData" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
                         </div>
                     </form>
-
+<!-- Modal untuk menambah jenis limbah -->
+<!-- Modal untuk menambah jenis limbah -->
+<div class="modal fade" id="modalTambahJenisLimbah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Jenis Limbah Baru</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form untuk menambah jenis limbah -->
+                <form action="{{ route('jenislimbah.store') }}" method="post">
+                    @csrf
+                    <label for="jenis_limbah">Jenis Limbah:</label>
+                    <input type="text" name="jenis_limbah" required>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
                     <!-- Tabel Sementara Limbah Masuk -->
                     <div class="table-responsive">
                         <table class="table mt-4">
@@ -258,6 +285,13 @@
         });
     });
 </script>
+<!-- View pengisian limbah masuk -->
+
+<!-- jQuery (pastikan Anda telah menyertakan jQuery) -->
+{{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
+
+
+
 <!-- Modal -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

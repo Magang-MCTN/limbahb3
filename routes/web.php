@@ -190,3 +190,9 @@ Route::get('/adminloby/lihat-neraca-perbulan/{id_bulan}', [AdminlobiController::
 Route::get('/home', function () {
     return redirect('/mctn');
 });
+// web.php
+
+Route::post('/jenislimbah/store', [Timlb3Controller::class, 'store'])->name('jenislimbah.store');
+// web.php
+
+Route::get('/jenislimbah/create', [Timlb3Controller::class, 'createjenis'])->name('jenislimbah.create');

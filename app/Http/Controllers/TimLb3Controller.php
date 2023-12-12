@@ -246,4 +246,23 @@ class TimLb3Controller extends Controller
 
         return redirect()->back()->with('success', 'Data limbah masuk berhasil diimpor.');
     }
+    public function createjenis()
+    {
+        return view('dashboard.timlb3.create');
+    }
+    public function store(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'jenis_limbah' => 'required|string|max:255',
+        ]);
+
+        // Simpan jenis limbah
+        JenisLimbah::create([
+            'jenis_limbah' => $request->jenis_limbah,
+        ]);
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->back()->with('success', 'Jenis limbah berhasil disimpan!');
+    }
 }
