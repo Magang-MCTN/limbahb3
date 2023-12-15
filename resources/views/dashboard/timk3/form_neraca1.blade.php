@@ -4,123 +4,125 @@
 
 @section('content')
 <div class="main-panel">
-    <div class="container py-3 px-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="container">
-                    <div class="row px-5">
-                        <div class="col d-flex justify-content-center">
-                            <div class="d-flex rounded-circle justify-content-center mx-3" style="border-radius: 50%; width: 30px; height: 30px; background-color: #097B96">
-                                <i class="mdi mdi-clipboard-outline d-flex" style="color:white; align-items: center;"></i>
-                            </div>
-                            <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pelaporan Neraca Limbah</h2>
-                        </div>
-                    </div>
-                    <hr>
-
-                    <form id="form-neraca1">
-                        @csrf
-                        <div class="row">
-                            <div class="col form-group col-sm-6 col-md-8">
-                                <label for="id_jenis_limbah">Jenis Limbah</label>
-                                <select name="id_jenis_limbah" class="form-select form-control" required>
-                                    <option value="" selected disabled>Pilih</option>
-                                    @foreach($jenisLimbah as $limbah)
-                                    <option value="{{ $limbah->id_jenis_limbah }}">{{ $limbah->jenis_limbah }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col form-group col-sm-6 col-md-4">
-                                <label for="sumber">Sumber</label>
-                                <select name="sumber" class="form-select form-control" required>
-                                    <option value="" selected disabled>Pilih</option>
-                                    <option value="Diluar Proses Produksi">Diluar Proses Produksi</option>
-                                    <option value="Proses Produksi">Proses Produksi</option>
-                                    <option value="Gabungan">Gabungan</option>
-                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                </select>
+    <div class="content-wrapper">
+        <div class="container py-3 px-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row px-5">
+                            <div class="col d-flex justify-content-center">
+                                <div class="d-flex rounded-circle justify-content-center mx-3" style="border-radius: 50%; width: 30px; height: 30px; background-color: #097B96">
+                                    <i class="mdi mdi-clipboard-outline d-flex" style="color:white; align-items: center;"></i>
+                                </div>
+                                <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pelaporan Neraca Limbah</h2>
                             </div>
                         </div>
-                        <div class="row mb-2">
-                            <span class="fw-bold">Jumlah (Ton)</span>
+                        <hr>
+    
+                        <form id="form-neraca1">
+                            @csrf
+                            <div class="row">
+                                <div class="col form-group col-sm-6 col-md-8">
+                                    <label for="id_jenis_limbah">Jenis Limbah</label>
+                                    <select name="id_jenis_limbah" class="form-select form-control" required>
+                                        <option value="" selected disabled>Pilih</option>
+                                        @foreach($jenisLimbah as $limbah)
+                                        <option value="{{ $limbah->id_jenis_limbah }}">{{ $limbah->jenis_limbah }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+    
+                                <div class="col form-group col-sm-6 col-md-4">
+                                    <label for="sumber">Sumber</label>
+                                    <select name="sumber" class="form-select form-control" required>
+                                        <option value="" selected disabled>Pilih</option>
+                                        <option value="Diluar Proses Produksi">Diluar Proses Produksi</option>
+                                        <option value="Proses Produksi">Proses Produksi</option>
+                                        <option value="Gabungan">Gabungan</option>
+                                        <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <span class="fw-bold">Jumlah (Ton)</span>
+                            </div>
+                            <div class="row">
+                                <div class="col form-group">
+                                    <label for="dihasilkan">Dihasilkan</label>
+                                    <input type="number" name="dihasilkan" class="form-control" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="disimpan">Disimpan</label>
+                                    <input type="number" name="disimpan" class="form-control" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="dimanfaatkan">Dimanfaatkan</label>
+                                    <input type="number" name="dimanfaatkan" class="form-control" required>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col form-group">
+                                    <label for="diolah">Diolah</label>
+                                    <input type="number" name="diolah" class="form-control" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="ditimbun">Ditimbun</label>
+                                    <input type="number" name="ditimbun" class="form-control" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="diserahkan">Diserahkan Pihak Ketiga</label>
+                                    <input type="number" name="diserahkan" class="form-control" required>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col form-group">
+                                    <label for="eksport">Ekspor</label>
+                                    <input type="number" name="eksport" class="form-control" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="lainnya">Lainnya</label>
+                                    <input type="number" name="lainnya" class="form-control" required>
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                            <!-- Tambahkan form input lainnya sesuai kebutuhan -->
+                        </form>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn" type="button" id="tambahDataNeraca1" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
                         </div>
-                        <div class="row">
-                            <div class="col form-group">
-                                <label for="dihasilkan">Dihasilkan</label>
-                                <input type="number" name="dihasilkan" class="form-control" required>
-                            </div>
-                            <div class="col form-group">
-                                <label for="disimpan">Disimpan</label>
-                                <input type="number" name="disimpan" class="form-control" required>
-                            </div>
-                            <div class="col form-group">
-                                <label for="dimanfaatkan">Dimanfaatkan</label>
-                                <input type="number" name="dimanfaatkan" class="form-control" required>
-                            </div>
+    
+                        <!-- Tabel Sementara Neraca 1 -->
+                        <div class="table-responsive">
+                            <table class="table mt-4">
+                                <thead>
+                                    <tr>
+                                        <th>Jenis Limbah</th>
+                                        <th>Sumber</th>
+                                        <th>Dihasilkan</th>
+                                        <th>Disimpan</th>
+                                        <th>Dimanfaatkan</th>
+                                        <th>Diolah</th>
+                                        <th>Ditimbun</th>
+                                        <th>Diserahkan Pihak Ketiga</th>
+                                        <th>Ekspor</th>
+                                        <th>Lainnya</th>
+    
+                                        <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelSementaraNeraca1">
+                                    <!-- Data neraca 1 yang ditambahkan akan muncul di sini -->
+                                </tbody>
+                            </table>
                         </div>
-
-                        <div class="row">
-                            <div class="col form-group">
-                                <label for="diolah">Diolah</label>
-                                <input type="number" name="diolah" class="form-control" required>
-                            </div>
-                            <div class="col form-group">
-                                <label for="ditimbun">Ditimbun</label>
-                                <input type="number" name="ditimbun" class="form-control" required>
-                            </div>
-                            <div class="col form-group">
-                                <label for="diserahkan">Diserahkan Pihak Ketiga</label>
-                                <input type="number" name="diserahkan" class="form-control" required>
-                            </div>
+    
+                        <div class="d-flex justify-content-end mt-3">
+                            <button class="btn btn-success" type="button" id="submitFormNeraca1" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Simpan</button>
                         </div>
-
-                        <div class="row">
-                            <div class="col form-group">
-                                <label for="eksport">Ekspor</label>
-                                <input type="number" name="eksport" class="form-control" required>
-                            </div>
-                            <div class="col form-group">
-                                <label for="lainnya">Lainnya</label>
-                                <input type="number" name="lainnya" class="form-control" required>
-                            </div>
-                            <div class="col">
-                            </div>
-                        </div>
-                        <!-- Tambahkan form input lainnya sesuai kebutuhan -->
-                    </form>
-                    <div class="d-flex justify-content-end">
-                        <button class="btn" type="button" id="tambahDataNeraca1" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
-                    </div>
-
-                    <!-- Tabel Sementara Neraca 1 -->
-                    <div class="table-responsive">
-                        <table class="table mt-4">
-                            <thead>
-                                <tr>
-                                    <th>Jenis Limbah</th>
-                                    <th>Sumber</th>
-                                    <th>Dihasilkan</th>
-                                    <th>Disimpan</th>
-                                    <th>Dimanfaatkan</th>
-                                    <th>Diolah</th>
-                                    <th>Ditimbun</th>
-                                    <th>Diserahkan Pihak Ketiga</th>
-                                    <th>Ekspor</th>
-                                    <th>Lainnya</th>
-
-                                    <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabelSementaraNeraca1">
-                                <!-- Data neraca 1 yang ditambahkan akan muncul di sini -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="d-flex justify-content-end mt-3">
-                        <button class="btn btn-success" type="button" id="submitFormNeraca1" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Simpan</button>
                     </div>
                 </div>
             </div>

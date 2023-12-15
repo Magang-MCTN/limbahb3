@@ -93,9 +93,9 @@ class OpharController extends Controller
             // $periode->alasan = $request->input('alasan_limbah_masuk');
             $periode->save();
 
-            return redirect()->route('ophr.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Masuk.');
+            return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Masuk.');
         } catch (\Exception $e) {
-            return redirect()->route('ophr.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -105,9 +105,9 @@ class OpharController extends Controller
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_masuk' => 4]); // Ubah status masuk menjadi ditolak (ID status 4)
 
-            return redirect()->route('ophr.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Masuk.');
+            return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Masuk.');
         } catch (\Exception $e) {
-            return redirect()->route('ophr.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
     public function approveLimbahKeluar($id)
@@ -116,9 +116,9 @@ class OpharController extends Controller
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_keluar' => 2]); // Ubah status masuk menjadi disetujui (ID status 2)
 
-            return redirect()->route('ophr.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Keluar.');
+            return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Keluar.');
         } catch (\Exception $e) {
-            return redirect()->route('ophr.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -128,9 +128,9 @@ class OpharController extends Controller
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_keluar' => 4]); // Ubah status masuk menjadi ditolak (ID status 4)
 
-            return redirect()->route('ophr.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Keluar.');
+            return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Keluar.');
         } catch (\Exception $e) {
-            return redirect()->route('ophr.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
     public function approveLimbahNeraca($id)
@@ -139,9 +139,9 @@ class OpharController extends Controller
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_neraca' => 2]); // Ubah status masuk menjadi disetujui (ID status 2)
 
-            return redirect()->route('ophr.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Neraca.');
+            return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Neraca.');
         } catch (\Exception $e) {
-            return redirect()->route('ophr.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -151,9 +151,9 @@ class OpharController extends Controller
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_neraca' => 4]); // Ubah status masuk menjadi ditolak (ID status 4)
 
-            return redirect()->route('ophr.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Neraca.');
+            return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Neraca.');
         } catch (\Exception $e) {
-            return redirect()->route('ophr.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 

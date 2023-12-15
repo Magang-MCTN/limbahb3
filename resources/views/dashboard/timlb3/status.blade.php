@@ -4,116 +4,122 @@
 
 @section('content')
 <div class="main-panel">
-    <div class="container py-3 px-4">
-        <div class="row">
-            <h2 class="col fw-bold ms-4 mt-4">Status Laporan</h2>
-            <div class="col">
-                <div class="row mb-4">
-                    <div class="col form-group">
-                        <label for="cari" class="form-label">Cari</label>
-                        <div class="input-group">
-                            <input type="text" name="cari" class="form-control">
-                            <div class="input-group-append">
-                                <button class="btn badge ms-1" style="background-color: #097b96; color: white;" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Cari</button>
+    <div class="content-wrapper">
+        <div class="home-tab">
+            <div class="container">
+                <div class="row">
+                    <h2 class="col fw-bold ms-4 mt-4">Status Laporan</h2>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col form-group">
+                                <label for="cari" class="form-label">Cari</label>
+                                <div class="input-group">
+                                    <input type="text" name="cari" class="form-control">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-mctn badge ms-1" style="color: white">Cari</button>
+                                    </div>
+        
+                                </div>
                             </div>
-
+                            <div class="col form-group">
+                                <form method="get" action="">
+                                    <div class="form-group">
+                                        <label for="status_surat" class="form-label">Filter</label>
+                                        <div class="input-group">
+                                            <select id="status_surat" class="form-select form-control" name="status_surat">
+                                                <option value="">Semua</option>
+                                                {{-- <option value="2" @if($statusSurat == 2) selected @endif>Disetujui</option>
+                                                <option value="5" @if($statusSurat == 5) selected @endif>Ditolak</option> --}}
+                                            </select>
+                                            <button class="btn mb-1 ms-1" type="submit" style="background-color: #097b96; color: white; border-radius:5px" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Filter</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col form-group">
-                        <label for="filter" class="form-label">Filter</label>
-                        <select name="filter" class="form-select form-control" required>
-                            <option value="" selected disabled>Pilih</option>
-                            {{-- @foreach($statuses as $status) --}}
-                                <option value="">Draft</option>
-                                <option value="">Draft</optiRIFon>
-                                <option value="">Draft</option>
-                                <option value="">Draft</option>
-                                <option value="">Draft</option>
-                            {{-- @endforeach --}}
-                        </select>
+        
                     </div>
                 </div>
-
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="table-responsive text-center">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Kuartal</th>
-                                        <th>Tahun</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($statuses as $index => $status)
-                                    @if ($status->status->id_status != 6)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $status->kuartal }}</td>
-                                            <td>{{ $status->tahun }}</td>
-                                            @if ($status->status->nama == 'Disetujui')
-                                            <td><p class="badge badge-success">{{ $status->status->nama }}</p></td>
-                                            @elseif ($status->status->nama == 'Ditolak')
-                                            <td><p class="badge badge-danger">{{ $status->status->nama }}</p></td>
-                                            @else
-                                            <td><p class="badge badge-warning">{{ $status->status->nama }}</p></td>
-                                            @endif
-                                            <td>
-                                                <a href="{{ route('timlb3.detailPeriode', $status->id_periode_laporan) }}" class="btn" style="background-color: #097b96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Detail</a>
-                                                <!-- Tambahkan tombol hapus jika dibutuhkan -->
-                                            </td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-
-                            </table>
-                            <div class="mt-3 d-flex justify-content-end">
-                                <ul class="pagination">
-                                    {{-- Previous Page Link --}}
-                                    @if ($statuses->onFirstPage())
-                                        <li class="page-item disabled">
-                                            <span class="page-link">&laquo;</span>
-                                        </li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link" href="{{ $statuses->previousPageUrl() }}" rel="prev">&laquo;</a>
-                                        </li>
-                                    @endif
-
-                                    {{-- Pagination Elements --}}
-                                    @for ($page = max(1, $statuses->currentPage() - 2); $page <= min($statuses->lastPage(), $statuses->currentPage() + 2); $page++)
-                                        @if ($statuses->currentPage() == $page)
-                                            <li class="page-item active" aria-current="page">
-                                                <span class="page-link">{{ $page }}</span>
-                                            </li>
-                                        @else
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $statuses->url($page) }}">{{ $page }}</a>
-                                            </li>
-                                        @endif
-                                    @endfor
-
-                                    {{-- Next Page Link --}}
-                                    @if ($statuses->hasMorePages())
-                                        <li class="page-item">
-                                            <a class="page-link" href="{{ $statuses->nextPageUrl() }}" rel="next">&raquo;</a>
-                                        </li>
-                                    @else
-                                        <li class="page-item disabled">
-                                            <span class="page-link">&raquo;</span>
-                                        </li>
-                                    @endif
-                                </ul>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="table-responsive text-center">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Kuartal</th>
+                                                <th>Tahun</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($statuses as $index => $status)
+                                            @if ($status->status->id_status != 6)
+                                                <tr>
+                                                    <td>{{ $status->kuartal }} ({{ $status->keterangan_kuartal }})</td>
+                                                    <td>{{ $status->tahun }}</td>
+                                                    @if ($status->status->nama == 'Disetujui')
+                                                    <td><p class="badge badge-success">{{ $status->status->nama }}</p></td>
+                                                    @elseif ($status->status->nama == 'Ditolak')
+                                                    <td><p class="badge badge-danger">{{ $status->status->nama }}</p></td>
+                                                    @else
+                                                    <td><p class="badge badge-warning">{{ $status->status->nama }}</p></td>
+                                                    @endif
+                                                    <td>
+                                                        <a href="{{ route('timlb3.detailPeriode', $status->id_periode_laporan) }}" class="btn" style="background-color: #097b96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Detail</a>
+                                                        <!-- Tambahkan tombol hapus jika dibutuhkan -->
+                                                    </td>
+                                                </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+        
+                                    </table>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="mt-3 d-flex justify-content-end">
+                        <ul class="pagination">
+                            {{-- Previous Page Link --}}
+                            @if ($statuses->onFirstPage())
+                                <li class="page-item disabled">
+                                    <span class="page-link">&laquo;</span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $statuses->previousPageUrl() }}" rel="prev">&laquo;</a>
+                                </li>
+                            @endif
+        
+                            {{-- Pagination Elements --}}
+                            @for ($page = max(1, $statuses->currentPage() - 2); $page <= min($statuses->lastPage(), $statuses->currentPage() + 2); $page++)
+                                @if ($statuses->currentPage() == $page)
+                                    <li class="page-item active" aria-current="page">
+                                        <span class="page-link">{{ $page }}</span>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $statuses->url($page) }}">{{ $page }}</a>
+                                    </li>
+                                @endif
+                            @endfor
+        
+                            {{-- Next Page Link --}}
+                            @if ($statuses->hasMorePages())
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $statuses->nextPageUrl() }}" rel="next">&raquo;</a>
+                                </li>
+                            @else
+                                <li class="page-item disabled">
+                                    <span class="page-link">&raquo;</span>
+                                </li>
+                            @endif
+                        </ul>
                     </div>
                 </div>
             </div>

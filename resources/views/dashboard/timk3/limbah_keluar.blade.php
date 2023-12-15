@@ -7,53 +7,55 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <div class="main-panel">
-    <div class="container py-3 px-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="container">
-                    <h4>Data Limbah  Keluar - <span class="fw-bold">{{ $periode->no_dokumen_keluar}}</span></h4>
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Jenis Limbah</th>
-                                    <th>Tujuan Penyerahan</th>
-                                    <th>Tanggal Keluar</th>
-                                    <th>Jumlah Limbah B3 Keluar KG:</th>
-                                    <th>Sisa LB3 di TPS (ton):</th>
-                                    <th>Bukti Nomor Dokumen</th>
-                                    <th>Jumlah Ton</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($limbahkeluar as $limbah)
+    <div class="content-wrapper">
+        <div class="container py-3 px-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+                        <h4>Data Limbah  Keluar - <span class="fw-bold">{{ $periode->no_dokumen_keluar}}</span></h4>
+    
+                        <div class="table-responsive">
+                            <table class="table text-center">
+                                <thead>
                                     <tr>
-                                        <td>{{ $limbah->id_limbah_keluar }}</td>
-                                        <td>{{ $limbah->jenisLimbah->jenis_limbah ?? '-' }}</td>
-                                        <td>{{ $limbah->tujuanPenyerahan }}</td>
-                                        <td>{{ $limbah->tanggal_keluar}}</td>
-                                        <td>{{ $limbah->jumlahkg }}</td>
-                                        <td>{{ $limbah->sisa_lb3 }}</td>
-                                        <td>{{ $limbah->buktiNomorDokumen }}</td>
-                                        <td>{{ $limbah->jumlahton }}</td>
-                                        <td>
-                                            <a href="{{ route('timk3.editLimbahkeluar', $limbah->id_limbah_keluar) }}" class="btn btn-sm btn-primary">Edit</a>
-                                             <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapusModal{{ $limbah->id_limbah_keluar }}">
-                                        Hapus
-                                    </button>
+                                        <th>ID</th>
+                                        <th>Jenis Limbah</th>
+                                        <th>Tujuan Penyerahan</th>
+                                        <th>Tanggal Keluar</th>
+                                        <th>Jumlah Limbah B3 Keluar KG:</th>
+                                        <th>Sisa LB3 di TPS (ton):</th>
+                                        <th>Bukti Nomor Dokumen</th>
+                                        <th>Jumlah Ton</th>
+                                        <th>Aksi</th>
                                     </tr>
-
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="mt-3">
-                        <a class="btn btn-info" href="{{ url()->previous() }}">Kembali</a>
+                                </thead>
+                                <tbody>
+                                    @foreach($limbahkeluar as $limbah)
+                                        <tr>
+                                            <td>{{ $limbah->id_limbah_keluar }}</td>
+                                            <td>{{ $limbah->jenisLimbah->jenis_limbah ?? '-' }}</td>
+                                            <td>{{ $limbah->tujuanPenyerahan }}</td>
+                                            <td>{{ $limbah->tanggal_keluar}}</td>
+                                            <td>{{ $limbah->jumlahkg }}</td>
+                                            <td>{{ $limbah->sisa_lb3 }}</td>
+                                            <td>{{ $limbah->buktiNomorDokumen }}</td>
+                                            <td>{{ $limbah->jumlahton }}</td>
+                                            <td>
+                                                <a href="{{ route('timk3.editLimbahkeluar', $limbah->id_limbah_keluar) }}" class="btn btn-sm btn-primary">Edit</a>
+                                                 <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapusModal{{ $limbah->id_limbah_keluar }}">
+                                            Hapus
+                                        </button>
+                                        </tr>
+    
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+    
+                        <div class="mt-3">
+                            <a class="btn btn-mctn" href="{{ url()->previous() }}">Kembali</a>
+                        </div>
                     </div>
                 </div>
             </div>

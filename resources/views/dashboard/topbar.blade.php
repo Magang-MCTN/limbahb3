@@ -9,8 +9,8 @@
         <a class="navbar-brand brand-logo" href="/">
             <img src="logo.png" alt="logo" width="auto" height="300px" />
         </a>
-        <a class="navbar-brand brand-logo-mini" href="index.html">
-            <img src="logo.png" alt="logo" width="auto" height="300px" />
+        <a class="navbar-brand brand-logo-mini" href="/">
+            <img src="logo-mini.png" alt="logo" width="auto" height="300px" />
         </a>
       </div>
     </div>

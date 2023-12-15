@@ -4,48 +4,46 @@
 
 @section('content')
 <div class="main-panel">
-    <div class="container py-3 px-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="container">
-                    <h3 class="fw-bold">Data Limbah Keluar - {{ $periode->no_dokumen_keluar }}</h3>
-
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Jenis Limbah</th>
-                                    <th>Tujuan Penyerahan</th>
-                                    <th>Tanggal Keluar</th>
-                                    <th>Jumlah Limbah B3 Keluar (KG)</th>
-                                    <th>Sisa LB3 di TPS (Ton)</th>
-                                    <th>Bukti Nomor Dokumen</th>
-                                    <th>Jumlah Ton</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($limbahkeluar as $limbah)
+    <div class="content-wrapper">
+        <div class="container py-3 px-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+                        <h3 class="fw-bold">Data Limbah Keluar - {{ $periode->no_dokumen_keluar }}</h3>
+    
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>{{ $limbah->id_limbah_keluar }}</td>
-                                        <td>{{ $limbah->jenisLimbah->jenis_limbah ?? '-' }}</td>
-                                        <td>{{ $limbah->tujuanPenyerahan }}</td>
-                                        <td>{{ $limbah->tanggal_keluar }}</td>
-                                        <td>{{ $limbah->jumlahkg }}</td>
-                                        <td>{{ $limbah->sisa_lb3 }}</td>
-                                        <td>{{ $limbah->buktiNomorDokumen }}</td>
-                                        <td>{{ $limbah->jumlahton }}</td>
-                                        <td>
-                                            <!-- Tambahkan tombol aksi di sini jika diperlukan -->
-                                        </td>
+                                        <th>ID</th>
+                                        <th>Jenis Limbah</th>
+                                        <th>Tujuan Penyerahan</th>
+                                        <th>Tanggal Keluar</th>
+                                        <th>Jumlah Limbah B3 Keluar (KG)</th>
+                                        <th>Sisa LB3 di TPS (Ton)</th>
+                                        <th>Bukti Nomor Dokumen</th>
+                                        <th>Jumlah Ton</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="d-flex justify-content-end mt-4">
-                        <a href="{{ url()->previous() }}" class="btn" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Kembali</a>
+                                </thead>
+                                <tbody>
+                                    @foreach($limbahkeluar as $limbah)
+                                        <tr>
+                                            <td>{{ $limbah->id_limbah_keluar }}</td>
+                                            <td>{{ $limbah->jenisLimbah->jenis_limbah ?? '-' }}</td>
+                                            <td>{{ $limbah->tujuanPenyerahan }}</td>
+                                            <td>{{ $limbah->tanggal_keluar }}</td>
+                                            <td>{{ $limbah->jumlahkg }}</td>
+                                            <td>{{ $limbah->sisa_lb3 }}</td>
+                                            <td>{{ $limbah->buktiNomorDokumen }}</td>
+                                            <td>{{ $limbah->jumlahton }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-end mt-4">
+                            <a href="{{ url()->previous() }}" class="btn" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Kembali</a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -31276,4 +31276,14 @@ div.tagsinput span.tag a {
   }
 }
 
+.btn-mctn {
+  color: white; /* Warna teks */
+  background-color: #097B96; /* Warna latar belakang awal */
+}
+
+.btn-mctn:hover {
+  color: white;
+  background-color: #0B697F; /* Warna latar belakang saat mouse di atas elemen */
+}
+
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

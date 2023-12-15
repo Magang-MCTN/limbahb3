@@ -25,7 +25,6 @@
                                         <th>Jumlah Limbah</th>
                                         <th>Berat/Satuan</th>
                                         <th>Berat</th>
-                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,16 +40,13 @@
                                             <td>{{ $limbah->jumlah_limbah }}</td>
                                             <td>{{ $limbah->berat_satuan }}</td>
                                             <td>{{ $limbah->berat }}</td>
-                                            <td>
-                                                <!-- Tambahkan tombol aksi di sini jika diperlukan -->
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex justify-content-end mt-3">
-                            <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
+                        <div class="d-flex mt-3">
+                            <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>
                         </div>
                     </div>
                 </div>

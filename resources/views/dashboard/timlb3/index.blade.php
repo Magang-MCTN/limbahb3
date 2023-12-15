@@ -38,7 +38,7 @@
                                          <div class="row no-gutters align-items-center">
                                              <div class="col">
                                                  <div class="fw-bold text-black">
-                                                     Pengajuan <br> Laporan
+                                                     Draft <br> Laporan
                                                  </div>
                                                  <div class="card-title" style="font-size: 24px">{{ $jumlahDraft }}</div>
                                              </div>
@@ -60,9 +60,9 @@
                                              <div class="col">
                                                  <div class="fw-bold text-black">
                                                      Laporan  <br>
-                                                      Menunggu
+                                                      Disetujui
                                                  </div>
-                                                 <div class="card-title" style="font-size: 24px">{{ $jumlahMenunggu}}</div>
+                                                 <div class="card-title" style="font-size: 24px">{{ $jumlahSelesai }}</div>
                                              </div>
                                              <div class="col-auto">
                                                  <i class="mdi mdi-file-check" style="color: #097b96"></i>
@@ -74,74 +74,76 @@
                          </div>
 
                          <!-- Earnings (Monthly) Card Example -->
-                         <div class="col">
+                          <div class="col">
                              <a href="/history" class="text-decoration-none">
                                  <div class="card mb-2">
                                      <div class="card-body d-flex align-self-center">
                                          <div class="row no-gutters align-items-center">
                                              <div class="col">
                                                  <div class="fw-bold text-black">
-                                                     Pengajuan <br>
+                                                     Laporan <br>
                                                      Ditolak
                                                  </div>
                                                  <div class="card-title" style="font-size: 24px">{{ $jumlahDitolak }}</div>
                                              </div>
                                              <div class="col-auto">
-                                                 <i class="mdi mdi-file-check" style="color: #097b96"></i>
+                                                 <i class="mdi mdi-file-excel" style="color: #097b96"></i>
                                              </div>
                                          </div>
                                      </div>
                                  </div>
                              </a>
-                         </div>
+                          </div>
+                          <div class="container">
+                              <div class="card mt-2">
+                                  <div class="card-body">
+                                      <table class="table text-center">
+                                          <thead>
+                                              <tr>
+                                                  <th>No Dokumen</th>
+                                                  <th>Kuartal</th>
+                                                  <th>Tahun</th>
+                                                  <th>Status Surat</th>
+                                                  <th>Aksi</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              @php
+                                              $statuses= $statuses->slice(0, 5); // Ambil 4 data pertama
+                                          @endphp
+                                              @foreach ($statuses as $index => $status)
+                                              @if ($status->status->id_status != 6)
+                                                  <tr>
+                                                      <td>{{ $status ->no_dokumen_masuk }}</td>
+                                                      <td>{{ $status->kuartal }}</td>
+                                                      <td>{{ $status->tahun }}</td>
+                                                      @if ($status->status->nama == 'Disetujui')
+                                                      <td><p class="badge badge-success">{{ $status->status->nama }}</p></td>
+                                                      @elseif ($status->status->nama == 'Ditolak')
+                                                      <td><p class="badge badge-danger">{{ $status->status->nama }}</p></td>
+                                                      @else
+                                                      <td><p class="badge badge-warning">{{ $status->status->nama }}</p></td>
+                                                      @endif
+                                                      <td>
+                                                          <a href="{{ route('timlb3.detailPeriode', $status->id_periode_laporan) }}" class="btn" style="background-color: #097b96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Detail</a>
+                                                          <!-- Tambahkan tombol hapus jika dibutuhkan -->
+                                                      </td>
+                                                  </tr>
+                                                  @endif
+                                              @endforeach
+                                          </tbody>
+                                      </table>
+                                      <div class="text-center">
+                                        <a href="/status">Lihat Selengkapnya >></a>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                      </div>
                  </div>
 
 
 
-               <div class="container">
-                    <div class="card mt-2">
-                        <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>No Dokumen</th>
-                                <th>Kuartal</th>
-                                <th>Tahun</th>
-                                <th>Status Surat</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                            $statuses= $statuses->slice(0, 5); // Ambil 4 data pertama
-                        @endphp
-                            @foreach ($statuses as $index => $status)
-                            @if ($status->status->id_status != 6)
-                                <tr>
-                                    <td>{{ $status ->no_dokumen_masuk }}</td>
-                                    <td>{{ $status->kuartal }}</td>
-                                    <td>{{ $status->tahun }}</td>
-                                    @if ($status->status->nama == 'Disetujui')
-                                    <td><p class="badge badge-success">{{ $status->status->nama }}</p></td>
-                                    @elseif ($status->status->nama == 'Ditolak')
-                                    <td><p class="badge badge-danger">{{ $status->status->nama }}</p></td>
-                                    @else
-                                    <td><p class="badge badge-warning">{{ $status->status->nama }}</p></td>
-                                    @endif
-                                    <td>
-                                        <a href="{{ route('timlb3.detailPeriode', $status->id_periode_laporan) }}" class="btn" style="background-color: #097b96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Detail</a>
-                                        <!-- Tambahkan tombol hapus jika dibutuhkan -->
-                                    </td>
-                                </tr>
-                                @endif
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
                    {{-- <div class="col-lg-4 d-flex flex-column">
                       <div class="card card-rounded">
                         <div class="card-body">

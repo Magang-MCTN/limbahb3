@@ -6,57 +6,61 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <div class="main-panel">
-    <div class="container py-3 px-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="container table-responsive">
-                    <table class="table">
-                        <tr>
-                            <th>No Dokumen Masuk</th>
-                            <td>{{ $periode->no_dokumen_masuk }}</td>
-                        </tr>
-                        <tr>
-                            <th>Nama Laporan</th>
-                            <td>Limbah Masuk</td>
-                        </tr>
-                        <tr>
-                            <th>Kuartal</th>
-                            <td>Kuartal {{ $periode->kuartal }}</td>
-                        </tr>
-                        <tr>
-                            <th>Keterangan Kuartal</th>
-                            <td>{{ $periode->keterangan_kuartal }}</td>
-                        </tr>
-                        <tr>
-                            <th>Tahun</th>
-                            <td>{{ $periode->tahun }}</td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            @if ($periode->status->id_status == 3)
-                            <td><p class="badge badge-success">{{ $periode->status ? $periode->status->nama : 'Tidak Ada Status' }}</p></td>
-                            @elseif ($periode->status->id_status == 4)
-                            <td><p class="badge badge-danger">{{ $periode->status ? $periode->status->nama : 'Tidak Ada Status' }}</p></td>
-                            @else
-                            <td><p class="badge badge-warning">{{ $periode->status ? $periode->status->nama : 'Tidak Ada Status' }}</p></td>
-                            @endif
-                        </tr>
-                        <tr>
-                            <th>Alasan</th>
-                            <td>{{ $periode->alasan ?: 'Belum Ada' }}</td>
-                        </tr>
-                        <tr></tr>
-                    </table>
-                    <div class="d-flex mt-3">
-                        <a href="/status" class="btn btn-primary me-1">Kembali</a>
-                        {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button> --}}
-                        @if ($periode->status->id_status == 1) <!-- Ganti 1 dengan ID status yang sesuai -->
-                        <button type="button" class="btn btn-success ms-1" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button>
-                        @endif
-                    </div>
-                    <div class="d-flex justify-content-end mt-3">
-                        <a href="{{ route('limbah.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-success me-2">Lihat Detail</a>
-                        <a href="{{ route('limbah.export', $periode->id_periode_laporan) }}" class="btn btn-success ms-2">Unduh Dokumen</a>
+    <div class="content-wrapper">
+        <div class="container py-3 px-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>No Dokumen Masuk</th>
+                                <td>{{ $periode->no_dokumen_masuk }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nama Laporan</th>
+                                <td>Limbah Masuk</td>
+                            </tr>
+                            <tr>
+                                <th>Kuartal</th>
+                                <td>Kuartal {{ $periode->kuartal }}</td>
+                            </tr>
+                            <tr>
+                                <th>Keterangan Kuartal</th>
+                                <td>{{ $periode->keterangan_kuartal }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tahun</th>
+                                <td>{{ $periode->tahun }}</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                @if ($periode->status->id_status == 3)
+                                <td><p class="badge badge-success">{{ $periode->status ? $periode->status->nama : 'Tidak Ada Status' }}</p></td>
+                                @elseif ($periode->status->id_status == 4)
+                                <td><p class="badge badge-danger">{{ $periode->status ? $periode->status->nama : 'Tidak Ada Status' }}</p></td>
+                                @else
+                                <td><p class="badge badge-warning">{{ $periode->status ? $periode->status->nama : 'Tidak Ada Status' }}</p></td>
+                                @endif
+                            </tr>
+                            <tr>
+                                <th>Alasan</th>
+                                <td>{{ $periode->alasan ?: 'Belum Ada' }}</td>
+                            </tr>
+                            <tr></tr>
+                        </table>
+                        <div class="d-flex justify-content-between mt-3">
+                            <div class="">
+                                <a href="/status" class="btn btn-primary me-1">Kembali</a>
+                                {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button> --}}
+                                @if ($periode->status->id_status == 1) <!-- Ganti 1 dengan ID status yang sesuai -->
+                                <button type="button" class="btn btn-success ms-1" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button>
+                                @endif
+                            </div>
+                            <div>
+                                <a href="{{ route('limbah.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-success me-1">Lihat Detail</a>
+                                <a href="{{ route('limbah.export', $periode->id_periode_laporan) }}" class="btn btn-success ms-1">Unduh Dokumen</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

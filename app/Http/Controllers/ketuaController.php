@@ -60,8 +60,14 @@ class ketuaController extends Controller
         $statusesneraca = PeriodeLaporan::has('statusneraca')->with('statusneraca')->get();
         $periodes = PeriodeLaporan::with('status')->get();
 
-        return view('dashboard.ophar.index', compact('periodes', 'statusesneraca', 'statuses', 'jumlahLaporan', 'jumlahDraft', 'jumlahMenunggu', 'jumlahDitolak', 'jumlahSelesai'));
+        return view('dashboard.ketua.index', compact('periodes', 'statusesneraca', 'statuses', 'jumlahLaporan', 'jumlahDraft', 'jumlahMenunggu', 'jumlahDitolak', 'jumlahSelesai'));
         // return view('dashboard.ophar.index', compact('statusesneraca', 'statuses', 'jumlahLaporan', 'jumlahDraft', 'jumlahMenunggu', 'jumlahDitolak', 'jumlahSelesai'));
+    }
+    public function status()
+    {
+        $periodes = PeriodeLaporan::with('status')->get();
+
+        return view('dashboard.ketua.status', compact('periodes'));
     }
     public function persetujuan()
     {

@@ -53,25 +53,25 @@
 
                          <!-- Earnings (Monthly) Card Example -->
                          <div class="col">
-                             <a href="/history" class="text-decoration-none">
-                                 <div class="card mb-2">
-                                     <div class="card-body d-flex align-self-center">
-                                         <div class="row no-gutters align-items-center">
-                                             <div class="col">
-                                                 <div class="fw-bold text-black">
-                                                     Laporan  <br>
-                                                      Menunggu
-                                                 </div>
-                                                 <div class="card-title" style="font-size: 24px">{{ $jumlahMenunggu}}</div>
-                                             </div>
-                                             <div class="col-auto">
-                                                 <i class="mdi mdi-file-check" style="color: #097b96"></i>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </a>
-                         </div>
+                          <a href="/history" class="text-decoration-none">
+                              <div class="card mb-2">
+                                  <div class="card-body d-flex align-self-center">
+                                      <div class="row no-gutters align-items-center">
+                                          <div class="col">
+                                              <div class="fw-bold text-black">
+                                                  Laporan  <br>
+                                                   Disetujui
+                                              </div>
+                                              <div class="card-title" style="font-size: 24px">{{ $jumlahSelesai }}</div>
+                                          </div>
+                                          <div class="col-auto">
+                                              <i class="mdi mdi-file-check" style="color: #097b96"></i>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </a>
+                      </div>
 
                          <!-- Earnings (Monthly) Card Example -->
                          <div class="col">
@@ -81,113 +81,118 @@
                                          <div class="row no-gutters align-items-center">
                                              <div class="col">
                                                  <div class="fw-bold text-black">
-                                                     Pengajuan <br>
+                                                     Laporan <br>
                                                      Ditolak
                                                  </div>
                                                  <div class="card-title" style="font-size: 24px">{{ $jumlahDitolak }}</div>
                                              </div>
                                              <div class="col-auto">
-                                                 <i class="mdi mdi-file-check" style="color: #097b96"></i>
+                                                 <i class="mdi mdi-file-excel" style="color: #097b96"></i>
                                              </div>
                                          </div>
                                      </div>
                                  </div>
                              </a>
                          </div>
+                         <div class="container my-2">
+                              <div class="card mt-2">
+                                  <div class="card-body">
+                                      <table class="table text-center">
+                                          <thead>
+                                              <h3 class="px-2"><strong>Limbah Keluar</strong></h3>
+                                              <tr>
+                                                  <th>No Dokumen</th>
+                                                  <th>Kuartal</th>
+                                                  <th>Tahun</th>
+                                                  <th>Status Surat</th>
+                                                  <th>Aksi</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              @php
+                                                  $slicedStatuses = $statuses->slice(0, 4); // Ambil 4 data pertama
+                                              @endphp
+          
+                                              @foreach ($slicedStatuses as $index => $status)
+                                                  @if ($status->statuskeluar->id_status != 6)
+                                                      <tr>
+                                                          <td>{{ $status->no_dokumen_keluar }}</td>
+                                                          <td>{{ $status->kuartal }}</td>
+                                                          <td>{{ $status->tahun }}</td>
+                                                          @if ($status->statuskeluar->nama == 'Selesai')
+                                                              <td><p class="badge badge-success">{{ $status->statuskeluar->nama }}</p></td>
+                                                          @elseif ($status->statuskeluar->nama == 'Ditolak')
+                                                              <td><p class="badge badge-danger">{{ $status->statuskeluar->nama }}</p></td>
+                                                          @else
+                                                              <td><p class="badge badge-warning">{{ $status->statuskeluar->nama }}</p></td>
+                                                          @endif
+                                                          <td>
+                                                              <a href="{{ route('timk3.detailPeriodelkeluar', $status->id_periode_laporan) }}" class="btn" style="background-color: #097b96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Detail</a>
+                                                              <!-- Tambahkan tombol hapus jika dibutuhkan -->
+                                                          </td>
+                                                      </tr>
+                                                  @endif
+                                              @endforeach
+                                          </tbody>
+                                      </table>
+                                      <div class="d-flex justify-content-center">
+                                        <a href="/timk3/status">Lihat Selengkapnya</a>
+                                      </div>
+                                </div>
+          
+                            </div>
+                            
+                        </div>
+                         <div class="container my-2">
+                          <div class="card mt-2">
+                              <div class="card-body">
+                                  <table class="table text-center">
+                                      <thead>
+                                          <h3 class="px-2"><strong>Limbah Neraca</strong></h3>
+                                          <tr>
+                                              <th>No Dokumen</th>
+                                              <th>Kuartal</th>
+                                              <th>Tahun</th>
+                                              <th>Status Surat</th>
+                                              <th>Aksi</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          @php
+                                              $slicedStatusesNeraca = $statusesneraca->slice(0, 4); // Ambil 4 data pertama
+                                          @endphp
+          
+                                          @foreach ($slicedStatusesNeraca as $index => $status)
+                                              @if ($status->statusNeraca->id_status != 6)
+                                                  <tr>
+                                                      <td>{{ $status->no_dokumen_neraca }}</td>
+                                                      <td>{{ $status->kuartal }}</td>
+                                                      <td>{{ $status->tahun }}</td>
+                                                      @if ($status->statusNeraca->nama == 'Selesai')
+                                                          <td><p class="badge badge-success">{{ $status->statusNeraca->nama }}</p></td>
+                                                      @elseif ($status->statusNeraca->nama == 'Ditolak')
+                                                          <td><p class="badge badge-danger">{{ $status->statusNeraca->nama }}</p></td>
+                                                      @else
+                                                          <td><p class="badge badge-warning">{{ $status->statusNeraca->nama }}</p></td>
+                                                      @endif
+                                                      <td>
+                                                          <a href="{{ route('timk3.detailBulan', $status->id_periode_laporan) }}" class="btn" style="background-color: #097b96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Detail</a>
+                                                          <!-- Tambahkan tombol hapus jika dibutuhkan -->
+                                                      </td>
+                                                  </tr>
+                                              @endif
+                                          @endforeach
+                                      </tbody>
+                                  </table>
+                                  <div class="d-flex justify-content-center">
+                                    <a href="/timk3/statusneraca">Lihat Selengkapnya</a>
+                                  </div>
+                      </div>
                      </div>
                  </div>
 
 
 
-               <div class="container">
-                    <div class="card mt-2">
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <h3><strong>Limbah Keluar</strong></h3>
-                                    <tr>
-                                        <th>No Dokumen</th>
-                                        <th>Kuartal</th>
-                                        <th>Tahun</th>
-                                        <th>Status Surat</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $slicedStatuses = $statuses->slice(0, 4); // Ambil 4 data pertama
-                                    @endphp
-
-                                    @foreach ($slicedStatuses as $index => $status)
-                                        @if ($status->statuskeluar->id_status != 6)
-                                            <tr>
-                                                <td>{{ $status->no_dokumen_keluar }}</td>
-                                                <td>{{ $status->kuartal }}</td>
-                                                <td>{{ $status->tahun }}</td>
-                                                @if ($status->statuskeluar->nama == 'Selesai')
-                                                    <td><p class="badge badge-success">{{ $status->statuskeluar->nama }}</p></td>
-                                                @elseif ($status->statuskeluar->nama == 'Ditolak')
-                                                    <td><p class="badge badge-danger">{{ $status->statuskeluar->nama }}</p></td>
-                                                @else
-                                                    <td><p class="badge badge-warning">{{ $status->statuskeluar->nama }}</p></td>
-                                                @endif
-                                                <td>
-                                                    <a href="{{ route('timk3.detailPeriodelkeluar', $status->id_periode_laporan) }}" class="btn" style="background-color: #097b96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Detail</a>
-                                                    <!-- Tambahkan tombol hapus jika dibutuhkan -->
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
-                </div>
-
-            </div>
-
-        </div>
-               <div class="container">
-                <div class="card mt-2">
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <h3><strong>Limbah Neraca</strong></h3>
-                                <tr>
-                                    <th>No Dokumen</th>
-                                    <th>Kuartal</th>
-                                    <th>Tahun</th>
-                                    <th>Status Surat</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $slicedStatusesNeraca = $statusesneraca->slice(0, 4); // Ambil 4 data pertama
-                                @endphp
-
-                                @foreach ($slicedStatusesNeraca as $index => $status)
-                                    @if ($status->statusNeraca->id_status != 6)
-                                        <tr>
-                                            <td>{{ $status->no_dokumen_neraca }}</td>
-                                            <td>{{ $status->kuartal }}</td>
-                                            <td>{{ $status->tahun }}</td>
-                                            @if ($status->statusNeraca->nama == 'Selesai')
-                                                <td><p class="badge badge-success">{{ $status->statusNeraca->nama }}</p></td>
-                                            @elseif ($status->statusNeraca->nama == 'Ditolak')
-                                                <td><p class="badge badge-danger">{{ $status->statusNeraca->nama }}</p></td>
-                                            @else
-                                                <td><p class="badge badge-warning">{{ $status->statusNeraca->nama }}</p></td>
-                                            @endif
-                                            <td>
-                                                <a href="{{ route('timk3.detailBulan', $status->id_periode_laporan) }}" class="btn" style="background-color: #097b96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Detail</a>
-                                                <!-- Tambahkan tombol hapus jika dibutuhkan -->
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-                            </tbody>
-                        </table>
-
-            </div>
 
                    {{-- <div class="col-lg-4 d-flex flex-column">
                       <div class="card card-rounded">

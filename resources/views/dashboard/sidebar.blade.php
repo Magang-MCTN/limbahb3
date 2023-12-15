@@ -195,12 +195,21 @@
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/timlb3/form-kuartal-tahun">Tambah Limbah Masuk</a></li>
-              {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
               <li class="nav-item"> <a class="nav-link" href="/status">Status</a></li>
-            <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
-            <li class="nav-item"> <a class="nav-link" href="/tanda_tangan/create">Tanda Tangan</a></li>
-        </ul>
+            </ul>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/historilimbahadmin">
+            <i class="mdi mdi-folder-outline menu-icon"></i>
+            <span class="menu-title">Arsip Laporan</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tanda_tangan/create">
+            <i class="mdi mdi-draw menu-icon"></i>
+            <span class="menu-title">Tanda Tangan</span>
+          </a>
         </li>
 
         @elseif (Auth::user()->id_role === 2)
@@ -216,11 +225,16 @@
               <li class="nav-item"> <a class="nav-link" href="/timk3/formperiode">Tambah Limbah keluar</a></li>
               {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
               <li class="nav-item"> <a class="nav-link" href="/timk3/formneraca">Tambah Neraca</a></li>
-              <li class="nav-item"> <a class="nav-link" href="/timk3/status">Status Limbah</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/timk3/status">Status Limbah Keluar</a></li>
               <li class="nav-item"> <a class="nav-link" href="/timk3/statusneraca">Status Neraca</a></li>
-              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
             </ul>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/historilimbahadmin">
+            <i class="mdi mdi-folder-outline menu-icon"></i>
+            <span class="menu-title">Arsip Laporan</span>
+          </a>
         </li>
         @elseif (Auth::user()->id_role === 3)
         <li class="nav-item nav-category">Persetujuan Review</li>
@@ -233,10 +247,15 @@
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/ophar/persetujuan">Persetujuan</a></li>
-              {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
-              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/ophar/status">Status</a></li>
             </ul>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/historilimbahadmin">
+            <i class="mdi mdi-folder-outline menu-icon"></i>
+            <span class="menu-title">Arsip Laporan</span>
+          </a>
         </li>
         @elseif (Auth::user()->id_role === 7)
         <li class="nav-item nav-category">Persetujuan</li>
@@ -249,10 +268,15 @@
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/persetujuanadminpku">Persetujuan</a></li>
-              {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
-              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
+              
             </ul>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/historilimbahadmin">
+            <i class="mdi mdi-folder-outline menu-icon"></i>
+            <span class="menu-title">Arsip Laporan</span>
+          </a>
         </li>
         @elseif(Auth::user()->id_role === 4)
         <li class="nav-item nav-category">Persetujuan</li>
@@ -265,13 +289,22 @@
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/ketua/persetujuan">Persetujuan</a></li>
-              {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
-              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
-              <li class="nav-item"> <a class="nav-link" href="/tanda_tangan/create">Tanda Tangan</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/ketua/status">Status</a></li>
             </ul>
           </div>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" href="/historilimbahadmin">
+            <i class="mdi mdi-folder-outline menu-icon"></i>
+            <span class="menu-title">Arsip Laporan</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tanda_tangan/create">
+            <i class="mdi mdi-draw menu-icon"></i>
+            <span class="menu-title">Tanda Tangan</span>
+          </a>
+        </li>
         @elseif (Auth::user()->id_role === 5)
         {{-- adminlobi --}}
         <li class="nav-item nav-category">Persetujuan</li>
@@ -284,11 +317,35 @@
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/adminloby/dokumen">Persetujuan</a></li>
-              {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
-              <li class="nav-item"> <a class="nav-link" href="/historilimbahadmin">History</a></li>
             </ul>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/historilimbahadmin">
+            <i class="mdi mdi-folder-outline menu-icon"></i>
+            <span class="menu-title">Arsip Laporan</span>
+          </a>
+        </li>
+        
+        {{-- <li class="nav-item nav-category">Persetujuan</li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <i class="menu-icon mdi mdi-floor-plan"></i>
+            <span class="menu-title">Persetujuan</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="ui-basic">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="/adminloby/dokumen">Persetujuan</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/historilimbahadmin">
+            <i class="mdi mdi-folder-outline menu-icon"></i>
+            <span class="menu-title">Arsip Laporan</span>
+          </a>
+        </li> --}}
         @endif
 
         @if (Auth::user()->level === 'Admin Tim')

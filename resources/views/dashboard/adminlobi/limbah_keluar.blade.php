@@ -23,7 +23,6 @@
                                         <th>Sisa LB3 di TPS (Ton)</th>
                                         <th>Bukti Nomor Dokumen</th>
                                         <th>Jumlah Ton</th>
-                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -37,16 +36,13 @@
                                             <td>{{ $limbah->sisa_lb3 }}</td>
                                             <td>{{ $limbah->buktiNomorDokumen }}</td>
                                             <td>{{ $limbah->jumlahton }}</td>
-                                            <td>
-                                                <!-- Tambahkan tombol aksi di sini jika diperlukan -->
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex justify-content-end mt-3">
-                            <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
+                        <div class="d-flex mt-3">
+                            <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>
                         </div>
                     </div>
                 </div>

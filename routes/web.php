@@ -102,9 +102,10 @@ Route::middleware(['auth', 'role:2'])->group(function () {
 });
 Route::middleware(['auth', 'role:3'])->group(function () {
     // Rute yang akan dilindungi oleh middleware role "Specialist_OpHar"
-    Route::get('/ophar', [OpharController::class, 'index'])->name('ophar.dashboard');
+    Route::get('/ophar', [OpharController::class, 'index'])->name('ophar.index');
     Route::get('/ophar/persetujuan', [OpharController::class, 'persetujuan'])->name('ophar.persetujuan');
-    Route::get('ophar/{id}', [OpharController::class, 'show'])->name('ophr.show');
+    Route::get('/ophar/status', [OpharController::class, 'status'])->name('ophar.status');
+    Route::get('ophar/{id}', [OpharController::class, 'show'])->name('ophar.show');
     Route::get('/ophar/aprovemsk/{id}', [OpharController::class, 'approveLimbahMasuk'])->name('ophar.lbmasuk');
     Route::get('/ophar/rejctmsk/{id}', [OpharController::class, 'rejectLimbahMasuk'])->name('ophar.lbmskrj');
 
@@ -124,6 +125,7 @@ Route::middleware(['auth', 'role:4'])->group(function () {
 
     Route::get('/ketua', [ketuaController::class, 'index'])->name('ketua.dashboard');
     Route::get('/ketua/persetujuan', [ketuaController::class, 'persetujuan'])->name('ketua.persetujuan');
+    Route::get('/ketua/status', [ketuaController::class, 'status'])->name('ketua.status');
     Route::get('ketua/{id}', [ketuaController::class, 'show'])->name('ketua.show');
     Route::get('/ketua/aprovemsk/{id}', [ketuaController::class, 'approveLimbahMasuk'])->name('ketua.lbmasuk');
     Route::get('/ketua/rejctmsk/{id}', [ketuaController::class, 'rejectLimbahMasuk'])->name('ketua.lbmskrj');

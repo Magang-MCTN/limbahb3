@@ -1,36 +1,31 @@
-
-
 <table>
-    <thead>
+    <tr>
+        <th><b>No</b></th>
+        <th><b>Jenis Limbah B3</b></th>
+        <th><b>Satuan Limbah</b></th>
+        <th><b>Tanggal Masuk Limbah B3</b></th>
+        <th><b>Sumber Limbah B3</b></th>
+        <th><b>Bentuk Limbah B3</b></th>
+        <th><b>Maksimal Penyimpanan (180-360 hr)</b></th>
+        <th><b>Jumlah</b></th>
+        <th><b>Berat/Satuan</b></th>
+        <th><b>Berat (kg)</b></th>
+    </tr>
+    @foreach($limbahMasuk as $index => $limbah)
         <tr>
-            <th>No </th>
-            <th>Jenis Limbah B3</th>
-            <th>Satuan Limbah</th>
-            <th>Tanggal Masuk Limbah B3</th>
-            <th>Sumber Limbah B3</th>
-            <th>Bentuk Limbah B3</th>
-            <th>Maksimal Penyimpanan (180-360 hr)</th>
-            <th>Jumlah</th>
-            <th>Berat/Satuan</th>
-            <th>Berat (kg)</th>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ $limbah->jenis_limbah }}</td>
+            <td>{{ $limbah->satuan_limbah }}</td>
+            <td>{{ $limbah->tanggal_masuk }}</td>
+            <td>{{ $limbah->sumber_limbahB3 }}</td>
+            <td>{{ $limbah->bentuk_limbahB3 }}</td>
+            <td>{{ $limbah->maksimal_penyimpanan }}</td>
+            <td>{{ $limbah->jumlah_limbah }}</td>
+            <td>{{ $limbah->berat_satuan }}</td>
+            <td>{{ $limbah->berat }}</td>
         </tr>
-    </thead>
-    <tbody>
-        @foreach($limbahMasuk as $index => $limbah)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $limbah->jenis_limbah }}</td>
-                <td>{{ $limbah->satuan_limbah }}</td>
-                <td>{{ $limbah->tanggal_masuk }}</td>
-                <td>{{ $limbah->sumber_limbahB3 }}</td>
-                <td>{{ $limbah->bentuk_limbahB3 }}</td>
-                <td>{{ $limbah->maksimal_penyimpanan }}</td>
-                <td>{{ $limbah->jumlah_limbah }}</td>
-                <td>{{ $limbah->berat_satuan }}</td>
-                <td>{{ $limbah->berat }}</td>
-            </tr>
-        @endforeach
-    </tbody>
+    @endforeach
+
 </table>
 <div style="margin-top: 20px;">
     @php

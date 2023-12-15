@@ -1,146 +1,147 @@
 @extends('dashboard.app')
 
 @section('content')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <div class="main-panel">
-    <div class="container py-3 px-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="container">
-                    <div class="row px-5">
-                        <div class="col d-flex justify-content-center">
-                            <div class="d-flex rounded-circle justify-content-center mx-3" style="border-radius: 50%; width: 30px; height: 30px; background-color: #097B96">
-                                <i class="mdi mdi-clipboard-outline d-flex" style="color:white; align-items: center;"></i>
-                            </div>
-                            <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pengisian Limbah B3 Keluar</h2>
-                        </div>
-                    </div>
-                    <hr>
-
-                    @if(session('success'))
-                    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="successModalLabel">Sukses!</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="content-wrapper">
+        <div class="container py-3 px-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row px-5">
+                            <div class="col d-flex justify-content-center">
+                                <div class="d-flex rounded-circle justify-content-center mx-3" style="border-radius: 50%; width: 30px; height: 30px; background-color: #097B96">
+                                    <i class="mdi mdi-clipboard-outline d-flex" style="color:white; align-items: center;"></i>
                                 </div>
-                                <div class="modal-body">
-                                    {{ session('success') }}
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Oke</button>
-                                </div>
+                                <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pengisian Limbah B3 Keluar</h2>
                             </div>
                         </div>
-                    </div>
-
-                    <script>
-                        // Tampilkan modal ketika halaman dimuat
-                        $(document).ready(function() {
-                            $('#successModal').modal('show');
-                        });
-                    </script>
-                @endif
-
-                    <!-- Formulir Limbah Masuk -->
-                    <form id="form-limbah-keluar">
-                        @csrf
-                        <div class="form-group" style="display: none">
-                            <label for="id_periode_laporan">ID Periode</label>
-                            <input type="text" name="id_periode_laporan" value="{{ optional($periodeLaporan)->id_periode_laporan }}">
-                            {{-- {{ optional($periodeLaporan)->id_periode_laporan }} --}}
+                        <hr>
+    
+                        @if(session('success'))
+                        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="successModalLabel">Sukses!</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ session('success') }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Oke</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col form-group">
-                                <label for="id_jenis_limbah">Jenis Limbah</label>
-                                <select name="id_jenis_limbah" class="form-select form-control" required>
-                                    <option value="" selected disabled>Pilih</option>
+    
+                        <script>
+                            // Tampilkan modal ketika halaman dimuat
+                            $(document).ready(function() {
+                                $('#successModal').modal('show');
+                            });
+                        </script>
+                    @endif
+    
+                        <!-- Formulir Limbah Masuk -->
+                        <form id="form-limbah-keluar">
+                            @csrf
+                            <div class="form-group" style="display: none">
+                                <label for="id_periode_laporan">ID Periode</label>
+                                <input type="text" name="id_periode_laporan" value="{{ optional($periodeLaporan)->id_periode_laporan }}">
+                                {{-- {{ optional($periodeLaporan)->id_periode_laporan }} --}}
+                            </div>
+                            <div class="row">
+                                <div class="col form-group">
+                                    <label for="id_jenis_limbah">Jenis Limbah</label>
+                                    <select name="id_jenis_limbah" class="form-select form-control" required>
+                                        <option value="" selected disabled>Pilih</option>
+                                        @foreach($jenisLimbah as $limbah)
+                                        <option value="{{ $limbah->id_jenis_limbah }}">{{ $limbah->jenis_limbah }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="tujuanPenyerahan">Tujuan Penyerahan</label>
+                                    <input type="text" name="tujuanPenyerahan" class="form-control" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="tanggal_keluar">Tanggal Keluar</label>
+                                    <input type="date" name="tanggal_keluar" class="form-control" required>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col form-group">
+                                    <label for="buktiNomorDokumen">Bukti Nomor Dokumen</label>
+                                    <input type="text" name="buktiNomorDokumen" class="form-control" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="jumlahkg">Jumlah Limbah B3 Keluar</label>
+                                    <input type="number" name="jumlahkg" placeholder="Kilogram" class="form-control" required>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="berat_satuan">Sisa LB3 di TPS (Ton)</label>
+                                    <input type="number" name="sisa_lb3" class="form-control" required>
+                                </div>
+                            </div>
+                            {{-- <div class="form-group">
+                                <label for="id_jenis_limbah">Jenis Limbah:</label>
+                                <select name="id_jenis_limbah" class="form-control" required>
                                     @foreach($jenisLimbah as $limbah)
                                     <option value="{{ $limbah->id_jenis_limbah }}">{{ $limbah->jenis_limbah }}</option>
                                     @endforeach
                                 </select>
+                            </div> --}}
+    
+                            {{-- <div class="form-group">
+                                <label for="satuan_limbah">Periode Limbah Masuk</label>
+                                <input type="text" name="satuan_limbah" class="form-control" required>
+                            </div> --}}
+    
+    
+    
+                            {{-- <div class="form-group">
+                                <label for="maksimal_penyimpanan">Maksimal Penyimpanan (hari):</label>
+                                <input type="number" name="maksimal_penyimpanan" class="form-control" required>
+                            </div> --}}
+    
+    
+                            <!-- ... (Form input lainnya) -->
+    
+                            <div class="d-flex justify-content-end mt-3">
+                                <button class="btn" type="button" id="tambahData" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
                             </div>
-                            <div class="col form-group">
-                                <label for="tujuanPenyerahan">Tujuan Penyerahan</label>
-                                <input type="text" name="tujuanPenyerahan" class="form-control" required>
-                            </div>
-                            <div class="col form-group">
-                                <label for="tanggal_keluar">Tanggal Keluar</label>
-                                <input type="date" name="tanggal_keluar" class="form-control" required>
-                            </div>
+                        </form>
+    
+                        <!-- Tabel Sementara Limbah keluar -->
+                        <div class="table-responsive">
+    
+                            <table class="table mt-4">
+                                <thead>
+                                    <tr>
+                                        <th>ID Periode </th>
+                                        <th>Jenis Limbah</th>
+    
+                                        <th>Tujuan Penyerahan</th>
+                                        <th>Tanggal Keluar</th>
+                                        <th>Jumlah Limbah B3 Keluar KG</th>
+                                        <th>Sisa LB3 di TPS (Ton)</th>
+                                        <th>Bukti Nomor Dokumen</th>
+    
+                                        {{-- <th>Jumlah Limbah</th>
+                                        <th>Berat/Satuan</th> --}}
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelSementara">
+                                    <!-- Data limbah keluar yang ditambahkan akan muncul di sini -->
+                                </tbody>
+                            </table>
                         </div>
-
-                        <div class="row">
-                            <div class="col form-group">
-                                <label for="buktiNomorDokumen">Bukti Nomor Dokumen</label>
-                                <input type="text" name="buktiNomorDokumen" class="form-control" required>
-                            </div>
-                            <div class="col form-group">
-                                <label for="jumlahkg">Jumlah Limbah B3 Keluar</label>
-                                <input type="number" name="jumlahkg" placeholder="Kilogram" class="form-control" required>
-                            </div>
-                            <div class="col form-group">
-                                <label for="berat_satuan">Sisa LB3 di TPS (Ton)</label>
-                                <input type="number" name="sisa_lb3" class="form-control" required>
-                            </div>
-                        </div>
-                        {{-- <div class="form-group">
-                            <label for="id_jenis_limbah">Jenis Limbah:</label>
-                            <select name="id_jenis_limbah" class="form-control" required>
-                                @foreach($jenisLimbah as $limbah)
-                                <option value="{{ $limbah->id_jenis_limbah }}">{{ $limbah->jenis_limbah }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-
-                        {{-- <div class="form-group">
-                            <label for="satuan_limbah">Periode Limbah Masuk</label>
-                            <input type="text" name="satuan_limbah" class="form-control" required>
-                        </div> --}}
-
-
-
-                        {{-- <div class="form-group">
-                            <label for="maksimal_penyimpanan">Maksimal Penyimpanan (hari):</label>
-                            <input type="number" name="maksimal_penyimpanan" class="form-control" required>
-                        </div> --}}
-
-
-                        <!-- ... (Form input lainnya) -->
-
                         <div class="d-flex justify-content-end mt-3">
-                            <button class="btn" type="button" id="tambahData" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
+                            <button class="btn" type="button" id="submitFormLimbahkeluar" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Simpan</button>
                         </div>
-                    </form>
-
-                    <!-- Tabel Sementara Limbah keluar -->
-                    <div class="table-responsive">
-
-                        <table class="table mt-4">
-                            <thead>
-                                <tr>
-                                    <th>ID Periode </th>
-                                    <th>Jenis Limbah</th>
-
-                                    <th>Tujuan Penyerahan</th>
-                                    <th>Tanggal Keluar</th>
-                                    <th>Jumlah Limbah B3 Keluar KG</th>
-                                    <th>Sisa LB3 di TPS (Ton)</th>
-                                    <th>Bukti Nomor Dokumen</th>
-
-                                    {{-- <th>Jumlah Limbah</th>
-                                    <th>Berat/Satuan</th> --}}
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabelSementara">
-                                <!-- Data limbah keluar yang ditambahkan akan muncul di sini -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="d-flex justify-content-end mt-3">
-                        <button class="btn" type="button" id="submitFormLimbahkeluar" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Simpan</button>
                     </div>
                 </div>
             </div>

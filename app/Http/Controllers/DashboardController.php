@@ -18,7 +18,7 @@ class DashboardController extends Controller
                 return redirect()->route('admin.dashboard');
                 break;
             case 3:
-                return redirect()->route('ophar.dashboard');
+                return redirect()->route('ophar.index');
                 break;
             case 4:
                 return redirect()->route('ketua.dashboard');
