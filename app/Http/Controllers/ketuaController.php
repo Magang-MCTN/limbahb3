@@ -6,7 +6,11 @@ use App\Models\BulanModel;
 use App\Models\NeracaLimbah1;
 use App\Models\NeracaLimbah2;
 use App\Models\PeriodeLaporan;
+use App\Models\status;
+use App\Models\TandaTangan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class ketuaController extends Controller
 {
@@ -63,11 +67,31 @@ class ketuaController extends Controller
         return view('dashboard.ketua.index', compact('periodes', 'statusesneraca', 'statuses', 'jumlahLaporan', 'jumlahDraft', 'jumlahMenunggu', 'jumlahDitolak', 'jumlahSelesai'));
         // return view('dashboard.ophar.index', compact('statusesneraca', 'statuses', 'jumlahLaporan', 'jumlahDraft', 'jumlahMenunggu', 'jumlahDitolak', 'jumlahSelesai'));
     }
-    public function status()
+    public function status(Request $request)
     {
-        $periodes = PeriodeLaporan::with('status')->get();
 
-        return view('dashboard.ketua.status', compact('periodes'));
+        $tahun = $request->input('tahun');
+        $statusSurat = $request->input('status_surat');
+
+        // Query data dengan kondisi pencarian
+        $query = PeriodeLaporan::has('status')->with('status');
+
+        if (!empty($tahun)) {
+            $query->where('tahun', 'LIKE', "%$tahun%");
+        }
+
+        if (!empty($statusSurat)) {
+            $query->whereHas('status', function ($q) use ($statusSurat) {
+                $q->where('id_status', $statusSurat);
+            });
+        }
+
+        $statuses = $query->paginate(5);
+
+        // Ambil daftar status untuk dropdown filter
+        $daftarStatus = status::all();
+
+        return view('dashboard.ketua.status', compact('statuses', 'tahun', 'daftarStatus', 'statusSurat'));
     }
     public function persetujuan()
     {
@@ -109,14 +133,12 @@ class ketuaController extends Controller
     }
     public function approveLimbahKeluar($id)
     {
-        try {
-            $periode = PeriodeLaporan::findOrFail($id);
-            $periode->update(['id_status_keluar' => 3]); // Ubah status masuk menjadi disetujui (ID status 2)
 
-            return redirect()->route('ketua.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Keluar.');
-        } catch (\Exception $e) {
-            return redirect()->route('ketua.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-        }
+        $periode = PeriodeLaporan::findOrFail($id);
+        $periode->update(['id_status_keluar' => 3]); // Ubah status masuk menjadi disetujui (ID status 2)
+        $this->generateSuratPDF($id);
+        $this->generateSuratPDF2($id);
+        return redirect()->route('ketua.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Keluar.');
     }
 
     public function rejectLimbahKeluar($id)
@@ -140,6 +162,54 @@ class ketuaController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('ketua.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
+    }
+    public function generateSuratPDF($id)
+    {
+        $periode = PeriodeLaporan::findOrFail($id);
+        $user = Auth::user();
+        $tandaTangan = TandaTangan::where('id_user', $user->id)->first();
+
+        $data = [
+            'kuartal' => $periode->kuartal,
+            'tahun' => $periode->tahun,
+            'ttd' => $tandaTangan->path,
+            'keterangan' => $periode->keterangan_kuartal,
+
+            // tambahkan data lain sesuai kebutuhan
+        ];
+
+        // Gunakan resolve untuk mendapatkan instance PDF dari container Layanan
+        $pdf = App::make('dompdf.wrapper')->loadView('export.laporan_pengelolaanTTD', array_merge($data,));
+
+        $pdf->save(public_path('surat/laporan_pengelolaanTTD_' . $id . '.pdf'));
+
+        return $pdf->download('laporan_pengelolaanTTD_' . $id . '.pdf');
+    }
+    public function generateSuratPDF2($id)
+    {
+        $periode = PeriodeLaporan::findOrFail($id);
+        $user = Auth::user();
+        $tandaTangan = TandaTangan::where('id_user', $user->id)->first();
+        $data = [
+            'kuartal' => $periode->kuartal,
+            'tahun' => $periode->tahun,
+            'ttd' => $tandaTangan->path,
+            'keterangan' => $periode->keterangan_kuartal,
+            // tambahkan data lain sesuai kebutuhan
+        ];
+
+        // Gunakan resolve untuk mendapatkan instance PDF dari container Layanan
+        $pdf = App::make('dompdf.wrapper')->loadView('export.laporan_pengelolaanTTD2', $data);
+
+        $pdf->save(public_path('surat/laporan_pengelolaanTTD2_' . $id . '.pdf'));
+
+        return $pdf->download('laporan_pengelolaanTTD2_' . $id . '.pdf');
+        $pdf->reset();
+        $pdf = App::make('dompdf.wrapper')->loadView('export.laporan_pengelolaanTTD2', $data);
+
+        $pdf->save(public_path('surat/laporan_pengelolaanTTD2_' . $id . '.pdf'));
+
+        return $pdf->download('laporan_pengelolaanTTD2_' . $id . '.pdf');
     }
 
     public function rejectLimbahNeraca($id)

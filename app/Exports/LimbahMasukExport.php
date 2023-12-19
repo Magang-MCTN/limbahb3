@@ -18,11 +18,12 @@ class LimbahMasukExport implements FromView, ShouldAutoSize
 {
     private $judul;
     private $limbahMasuk;
-
-    public function __construct($judul, $limbahMasuk)
+    private $periodes;
+    public function __construct($judul, $limbahMasuk, $periodes)
     {
         $this->judul = $judul;
         $this->limbahMasuk = $limbahMasuk;
+        $this->periodes = $periodes;
     }
 
     public function view(): ViewView // Update the return type to Illuminate\View\View
@@ -30,6 +31,7 @@ class LimbahMasukExport implements FromView, ShouldAutoSize
         return view('export.limbah_masuk', [
             'judul' => $this->judul,
             'limbahMasuk' => $this->limbahMasuk,
+            'periodes' => $this->periodes,
         ]);
     }
 }

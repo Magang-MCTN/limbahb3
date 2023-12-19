@@ -14,6 +14,8 @@ use App\Models\BulanModel;
 use App\Models\NeracaLimbah1;
 use App\Models\NeracaLimbah2;
 use App\Models\TandaTangan;
+use App\Models\User;
+
 use PDF;
 use Illuminate\Support\Facades\View;
 
@@ -23,12 +25,12 @@ class ExportController extends Controller
     {
         $periode = PeriodeLaporan::findOrFail($id_periode_laporan);
         $limbahMasuk = $periode->limbahMasuk;
-
+        $periodes = $periode->tanggal_masuk;
         // Buat judul sesuai kebutuhan
         $judul = 'PT. MANDAU CIPTA TENAGA NUSANTARA - NORTH DURI COGEN (' . date('Y') . ')';
 
         // Inisialisasi kelas eksport dengan judul dan data Limbah Masuk
-        $export = new LimbahMasukExport($judul, $limbahMasuk);
+        $export = new LimbahMasukExport($judul, $limbahMasuk, $periodes);
 
         // Export dengan nama file tertentu (opsional)
         return Excel::download($export, 'limbah_masuk.xlsx');
@@ -37,16 +39,24 @@ class ExportController extends Controller
     {
         $periode = PeriodeLaporan::findOrFail($id_periode_laporan);
         $limbahKeluar = $periode->limbahKeluar;
+        $periodes = $periode->tanggal_keluar;
 
-        // Buat judul sesuai kebutuhan
+        $tandaTangan = $this->getTandaTanganForRoleFour();
         $judul = 'PT. MANDAU CIPTA TENAGA NUSANTARA - NORTH DURI COGEN (' . date('Y') . ')';
 
-        // Inisialisasi kelas eksport dengan judul dan data Limbah Masuk
-        $export = new LimbahKeluarExport($judul, $limbahKeluar);
+        // Sesuaikan nama variabel menjadi $tandaTangan
+        $export = new LimbahKeluarExport($judul, $limbahKeluar, $tandaTangan, $periodes);
 
-        // Export dengan nama file tertentu (opsional)
         return Excel::download($export, 'limbah_keluar.xlsx');
     }
+
+    private function getTandaTanganForRoleFour()
+    {
+        $user = User::where('id_role', 4)->first();
+        return $user ? $user->tandaTangan : null;
+    }
+
+
 
 
     // public function exportLimbahKeluar($id_periode_laporan)
@@ -60,10 +70,10 @@ class ExportController extends Controller
 
     //     return Excel::download($export, 'limbah_keluar.xlsx');
     // }
-    public function exportNeraca($id_periode_laporan)
-    {
-        return Excel::download(new NeracaExport($id_periode_laporan), 'neraca.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
-    }
+    // public function exportNeraca($id_periode_laporan)
+    // {
+    //     return Excel::download(new NeracaExport($id_periode_laporan), 'neraca.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    // }
     // public function exportNeracaPDF($id_periode_laporan)
     // {
     //     $periode = PeriodeLaporan::findOrFail($id_periode_laporan);
@@ -78,18 +88,32 @@ class ExportController extends Controller
 
     //     return $pdf->stream('neraca.pdf');
     // }
+    // public function exportNeracaPDF($id_periode_laporan)
+    // {
+    //     // Ambil data periode
+    //     $periode = PeriodeLaporan::findOrFail($id_periode_laporan);
+
+    //     // Ambil data id_bulan yang terkait dengan periode
+    //     $idBulans = $periode->bulans->pluck('id_bulan')->toArray();
+
+    //     // Buat instance dari NeracaPDFExport dan kirimkan variabel $idBulans ke constructor
+    //     $export = new NeracaPDFExport($idBulans, $periode);
+
+    //     // Ekspor dengan nama file tertentu jika diperlukan
+    //     return Excel::download($export, 'neraca.pdf');
+    // }
     public function exportNeracaPDF($id_periode_laporan)
     {
-        // Ambil data periode
         $periode = PeriodeLaporan::findOrFail($id_periode_laporan);
-
-        // Ambil data id_bulan yang terkait dengan periode
         $idBulans = $periode->bulans->pluck('id_bulan')->toArray();
 
-        // Buat instance dari NeracaPDFExport dan kirimkan variabel $idBulans ke constructor
-        $export = new NeracaPDFExport($idBulans, $periode);
+        $neraca1 = NeracaLimbah1::whereIn('id_bulan', $idBulans)->get();
+        $neraca2 = NeracaLimbah2::whereIn('id_bulan', $idBulans)->first();
+        $namaBulans = BulanModel::whereIn('id_bulan', $idBulans)->pluck('nama_bulan');
+        $periode = $periode;
 
-        // Ekspor dengan nama file tertentu jika diperlukan
-        return Excel::download($export, 'neraca.pdf');
+        $pdf = PDF::loadView('export.neraca', compact('neraca1', 'neraca2', 'namaBulans', 'periode'));
+
+        return $pdf->stream('neraca.pdf');
     }
 }

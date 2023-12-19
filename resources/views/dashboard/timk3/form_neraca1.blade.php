@@ -14,16 +14,16 @@
                                 <div class="d-flex rounded-circle justify-content-center mx-3" style="border-radius: 50%; width: 30px; height: 30px; background-color: #097B96">
                                     <i class="mdi mdi-clipboard-outline d-flex" style="color:white; align-items: center;"></i>
                                 </div>
-                                <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pelaporan Neraca Limbah</h2>
+                                <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pelaporan Neraca Limbah B3</h2>
                             </div>
                         </div>
                         <hr>
-    
+
                         <form id="form-neraca1">
                             @csrf
                             <div class="row">
                                 <div class="col form-group col-sm-6 col-md-8">
-                                    <label for="id_jenis_limbah">Jenis Limbah</label>
+                                    <label for="id_jenis_limbah">Jenis Limbah B3</label>
                                     <select name="id_jenis_limbah" class="form-select form-control" required>
                                         <option value="" selected disabled>Pilih</option>
                                         @foreach($jenisLimbah as $limbah)
@@ -31,7 +31,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-    
+
                                 <div class="col form-group col-sm-6 col-md-4">
                                     <label for="sumber">Sumber</label>
                                     <select name="sumber" class="form-select form-control" required>
@@ -60,7 +60,7 @@
                                     <input type="number" name="dimanfaatkan" class="form-control" required>
                                 </div>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col form-group">
                                     <label for="diolah">Diolah</label>
@@ -75,7 +75,7 @@
                                     <input type="number" name="diserahkan" class="form-control" required>
                                 </div>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col form-group">
                                     <label for="eksport">Ekspor</label>
@@ -93,13 +93,13 @@
                         <div class="d-flex justify-content-end">
                             <button class="btn" type="button" id="tambahDataNeraca1" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
                         </div>
-    
+
                         <!-- Tabel Sementara Neraca 1 -->
                         <div class="table-responsive">
                             <table class="table mt-4">
                                 <thead>
                                     <tr>
-                                        <th>Jenis Limbah</th>
+                                        <th>Jenis Limbah B3</th>
                                         <th>Sumber</th>
                                         <th>Dihasilkan</th>
                                         <th>Disimpan</th>
@@ -109,7 +109,7 @@
                                         <th>Diserahkan Pihak Ketiga</th>
                                         <th>Ekspor</th>
                                         <th>Lainnya</th>
-    
+
                                         <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
                                         <th>Aksi</th>
                                     </tr>
@@ -119,7 +119,7 @@
                                 </tbody>
                             </table>
                         </div>
-    
+
                         <div class="d-flex justify-content-end mt-3">
                             <button class="btn btn-success" type="button" id="submitFormNeraca1" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Simpan</button>
                         </div>

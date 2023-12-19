@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="container">
                         <h3 class="fw-bold ms-2 mb-4">Detail Laporan</h3>
-    
+
                         <div class="table-responsive">
                             <table class="table mb-4">
                                 <tr>
@@ -22,15 +22,15 @@
                                     <td>{{ $periode->tahun }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Status Limbah Masuk </th>
+                                    <th>Status Limbah B3 Masuk </th>
                                     <td>{{ $periode->status ? $periode->status->nama : 'Data tidak tersedia' }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Status Limbah Keluar </th>
+                                    <th>Status Limbah B3 Keluar </th>
                                     <td>{{ $periode->statuskeluar ? $periode->statuskeluar->nama : 'Data tidak tersedia' }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Status Limbah Neraca </th>
+                                    <th>Status Neraca Limbah B3 </th>
                                     <td>{{ $periode->statusNeraca ? $periode->statusNeraca->nama : 'Data tidak tersedia' }}</td>
                                 </tr>
                                 <tr>
@@ -40,32 +40,32 @@
                                 <tr></tr>
                             </table>
                         </div>
-    
+
                         <div class="row my-2">
                             <div class="col">
                                 <!-- Dokumen Limbah Masuk -->
-                                <h4 class="fw-bold my-2">Limbah Masuk</h4>
-                                
+                                <h4 class="fw-bold my-2">Limbah B3 Masuk</h4>
+
                                 <!-- Tombol "Approve" dan "Reject" -->
-                                
+
                                 @if ($periode->limbahMasuk && optional($periode->status)->id_status == 5)
                                 <a href="{{ route('ophar.lbmasuk', ['id' => $periode->id_periode_laporan, 'doc' => 'limbah_masuk']) }}" class="btn btn-success" onclick="showReasonInput('limbah_masuk')">Approve</a>
                                 <a href="{{ route('ophar.lbmskrj', ['id' => $periode->id_periode_laporan, 'doc' => 'limbah_masuk']) }}" class="btn btn-danger" onclick="showReasonInput('limbah_masuk')">Reject</a>
-                                <div id="reasonInput_limbah_masuk" style="display: none;">
+                                {{-- <div id="reasonInput_limbah_masuk" style="display: none;">
                                     <label for="alasan_limbah_masuk">Alasan:</label>
                                     <textarea id="alasan_limbah_masuk" class="form-control"></textarea>
                                     <!-- Tombol "Submit" untuk approve atau reject -->
                                     <button class="btn btn-primary mt-2" onclick="submitApproval('limbah_masuk')">Submit</button>
-                                </div>
+                                </div> --}}
                                 @endif
                                 <a href="{{ route('limbah.masukophar', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-primary">Detail Limbah Masuk</a>
                                 <!-- Input alasan untuk Limbah Masuk -->
                             </div>
-    
+
                             <div class="col">
                                 <!-- Dokumen Limbah Keluar -->
                                 <div>
-                                    <h4 class="fw-bold my-2">Limbah Keluar</h4>
+                                    <h4 class="fw-bold my-2">Limbah B3 Keluar</h4>
                                     {{-- Tampilkan informasi dan tombol approve/reject --}}
                                     @if ($periode->limbahKeluar && optional($periode->statuskeluar)->id_status == 5)
                                     <a href="{{ route('ophar.lbkrl', ['id' => $periode->id_periode_laporan, 'doc' => 'limbah_keluar']) }}" class="btn btn-success">Approve</a>
@@ -75,11 +75,11 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="row my-2">
                             <div class="col">
                                 <!-- Dokumen Neraca Limbah 1 -->
-                                <h4 class="fw-bold my-2">Neraca Limbah</h4>
+                                <h4 class="fw-bold my-2">Neraca Limbah B3</h4>
                                 {{-- Tampilkan informasi dan tombol approve/reject --}}
                                 @if ($periode->statusNeraca && optional($periode->statusNeraca)->id_status == 5)
                                 <a href="{{ route('ophar.lnrcs', ['id' => $periode->id_periode_laporan, 'doc' => 'neraca_limbah_1']) }}" class="btn btn-success">Approve</a>
@@ -91,15 +91,23 @@
                             <div class="col">
                                 <h4 class="fw-bold my-2">Surat Laporan</h4>
                                 @if (file_exists(public_path('surat/laporan_pengelolaan_' . $periode->id_periode_laporan . '.pdf')))
-                                    <a href="{{ asset('surat/laporan_pengelolaan_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info me-1" download>Unduh Surat PDF</a>
+                                    <a href="{{ asset('surat/laporan_pengelolaan_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info me-1" download>Unduh Surat Kota</a>
                                 @endif
                                 @if (file_exists(public_path('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf')))
-                                <a href="{{ asset('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info ms-1" download>Unduh Surat PDF</a>
+                                <a href="{{ asset('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info ms-1" download>Unduh Surat Kota</a>
+                                @endif
+
+
+                                @if (file_exists(public_path('surat/laporan_pengelolaan3_' . $periode->id_periode_laporan . '.pdf')))
+                                    <a href="{{ asset('surat/laporan_pengelolaan3_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info me-1" download>Unduh Surat Kabupaten</a>
+                                @endif
+                                @if (file_exists(public_path('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf')))
+                                <a href="{{ asset('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info ms-1" download>Unduh Surat Kabupaten</a>
                                 @endif
                             </div>
                         </div>
                         <br>
-    
+
                         <a href="/ophar/status" class="btn btn-primary">Kembali</a>
                     </div>
                 </div>

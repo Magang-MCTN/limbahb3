@@ -10,58 +10,58 @@
                 <div class="card-body">
                     <div class="container">
                         <h3 class="fw-bold mb-4">Edit Data Neraca</h3>
-    
+
                         <form action="{{ route('updateNeraca2', $neraca2->id_neraca_limbah_2) }}" method="POST">
                             @csrf
                             @method('PUT')
-    
+
                             <div class="row">
                                 <div class="col form-group">
                                     <label for="total_neraca">Total Neraca</label>
                                     <input type="text" class="form-control" id="total_neraca" name="total_neraca" value="{{ $neraca2->total_neraca }}">
                                 </div>
-    
+
                                 <div class="col form-group">
                                     <label for="residu">Residu</label>
                                     <input type="text" class="form-control" id="residu" name="residu" value="{{ $neraca2->residu }}">
                                 </div>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col form-group">
-                                    <label for="limbah_belum_dikelola">Limbah Belum Dikelola</label>
+                                    <label for="limbah_belum_dikelola">Limbah B3 Belum Dikelola</label>
                                     <input type="text" class="form-control" id="limbah_belum_dikelola" name="limbah_belum_dikelola" value="{{ $neraca2->limbah_belum_dikelola }}">
                                 </div>
-    
+
                                 <div class="col form-group">
-                                    <label for="limbah_tersisa">Limbah Tersisa</label>
+                                    <label for="limbah_tersisa">Limbah B3 Tersisa</label>
                                     <input type="text" class="form-control" id="limbah_tersisa" name="limbah_tersisa" value="{{ $neraca2->limbah_tersisa }}">
                                 </div>
                             </div>
-    
+
                             <div class="form-group">
                                 <label for="kinerja_pengelolaan">Kinerja Pengelolaan</label>
                                 <input type="text" class="form-control" id="kinerja_pengelolaan" name="kinerja_pengelolaan" value="{{ $neraca2->kinerja_pengelolaan }}">
                             </div>
-    
+
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="dokumen_kontrol">Dokumen Kontrol</label>
                                         <input type="text" class="form-control" id="dokumen_kontrol" name="dokumen_kontrol" value="{{ $neraca2->dokumen_kontrol }}">
                                     </div>
-    
+
                                     <div class="form-group">
-                                        <label for="perizinan_limbah_klh">Perizinan Limbah KLH</label>
+                                        <label for="perizinan_limbah_klh">Perizinan Limbah B3 KLH</label>
                                         <select class="form-select form-control" id="perizinan_limbah_klh" name="perizinan_limbah_klh">
                                             <option value="ada" {{ $neraca2->perizinan_limbah_klh == 'ada' ? 'selected' : '' }}>Ada</option>
                                             <option value="tidak" {{ $neraca2->perizinan_limbah_klh == 'tidak' ? 'selected' : '' }}>Tidak</option>
                                             <option value="kadaluarsa" {{ $neraca2->perizinan_limbah_klh == 'kadaluarsa' ? 'selected' : '' }}>Kadaluarsa</option>
                                         </select>
                                     </div>
-    
+
                                     <div class="form-group">
-                                        <label for="no_izin_limbah_klh">No Izin Limbah KLH</label>
+                                        <label for="no_izin_limbah_klh">No Izin Limbah B3 KLH</label>
                                         <input type="text" class="form-control" id="no_izin_limbah_klh" name="no_izin_limbah_klh" value="{{ $neraca2->no_izin_limbah_klh }}">
                                     </div>
                                 </div>

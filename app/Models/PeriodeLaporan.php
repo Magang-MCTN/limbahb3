@@ -9,7 +9,7 @@ class PeriodeLaporan extends Model
 {
     protected $primaryKey = 'id_periode_laporan';
 
-    protected $fillable = ['bulan', 'tahun', 'kuartal', 'keterangan_kuartal', 'no_dokumen_masuk', 'no_dokumen_keluar', 'no_dokumen_neraca', 'id_status_masuk', 'id_status_keluar', 'id_status_neraca', 'alasan_limbah_masuk', 'alasan_limbah_keluar', 'alasan_limbah_neraca'];
+    protected $fillable = ['bulan', 'tahun', 'kuartal', 'keterangan_kuartal', 'keterangan_kuartal', 'no_dokumen_masuk', 'no_dokumen_keluar', 'no_dokumen_neraca', 'id_status_masuk', 'id_status_keluar', 'id_status_neraca', 'alasan_limbah_masuk', 'alasan_limbah_keluar', 'alasan_limbah_neraca', 'tanggal_masuk', 'tanggal_keluar', 'tanggal_neraca'];
 
     public $timestamps = true;
 

@@ -8,36 +8,41 @@
         <div class="home-tab">
             <div class="container px-4">
                 <div class="row">
-                    <h2 class="col fw-bold ms-4 mt-4">Status Neraca</h2>
+                    <h2 class="col fw-bold ms-4 mt-4">Status Laporan</h2>
                     <div class="col">
                         <div class="row">
                             <div class="col form-group">
-                                <label for="cari" class="form-label">Cari</label>
+                                <form id="search-form" method="get" action="{{ route('timk3.status') }}">
+                                <label for="tahun" class="form-label">Cari Tahun</label>
                                 <div class="input-group">
-                                    <input type="text" name="cari" class="form-control">
+                                    <input type="text" name="tahun" class="form-control" value="{{ $tahun}}">
                                     <div class="input-group-append">
-                                        <button class="btn badge ms-1" style="background-color: #097b96; color: white;" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Cari</button>
+                                        <button class="btn btn-mctn badge ms-1" style="color: white">Cari</button>
                                     </div>
-        
-                                </div>
+                                </form>
+
+                            </div>
                             </div>
                             <div class="col form-group">
-                                <form method="get" action="">
+                                <form method="get" action="{{ route('timk3.status') }}">
                                     <div class="form-group">
-                                        <label for="status_surat" class="form-label">Filter</label>
+                                        <label for="status_surat" class="form-label">Filter Status</label>
                                         <div class="input-group">
-                                            <select id="status_surat" class="form-select form-control" name="status_surat" style="border-radius: 5px">
+                                            <select id="status_surat" class="form-select form-control" name="status_surat">
                                                 <option value="">Semua</option>
-                                                {{-- <option value="2" @if($statusSurat == 2) selected @endif>Disetujui</option>
-                                                <option value="5" @if($statusSurat == 5) selected @endif>Ditolak</option> --}}
+                                                @foreach($daftarStatus as $status)
+                                                    @if($status->id_status !== 6)
+                                                    <option value="{{ $status->id_status }}" @if($statusSurat == $status->id_status) selected @endif>{{ $status->nama }}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
-                                            <button class="btn mb-1 ms-1" type="submit" style="background-color: #097b96; color: white; border-radius: 5px" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Filter</button>
+                                            <button class="btn mb-1 ms-1" type="submit" style="background-color: #097b96; color: white; border-radius:5px" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Filter</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
-        
+
                     </div>
                 </div>
                 <div class="card">
@@ -54,15 +59,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($periodes as $periode)
+                                        @foreach($statuses as $periode)
                                         @if ($periode->statusNeraca->id_status != 6)
                                             <tr>
-                                                <td>{{ $periode->kuartal }} ({{ $periode->keterangan_kuartal }})</td>
+                                                <td>{{ $periode->kuartal }}  ({{ $periode->keterangan_kuartal }})</td>
                                                 <td>{{ $periode->tahun }}</td>
                                                 <td>
-                                                    @if($periode->statusNeraca->nama == 'Selesai')
+                                                    @if($periode->statusNeraca->id_status == 6)
                                                         <span class="badge badge-success">{{ $periode->statusNeraca->nama }}</span>
-                                                    @elseif($periode->statusNeraca->nama == 'Ditolak')
+                                                    @elseif($periode->statusNeraca->id_status == 4)
                                                         <span class="badge badge-danger">{{ $periode->statusNeraca->nama }}</span>
                                                     @else
                                                         <span class="badge badge-warning">{{ $periode->statusNeraca->nama }}</span>
@@ -83,33 +88,33 @@
                 <div class="container mt-3 d-flex justify-content-end">
                     <ul class="pagination">
                         {{-- Previous Page Link --}}
-                        @if ($periodes->onFirstPage())
+                        @if ($statuses->onFirstPage())
                             <li class="page-item disabled">
                                 <span class="page-link">&laquo;</span>
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $periodes->previousPageUrl() }}" rel="prev">&laquo;</a>
+                                <a class="page-link" href="{{ $statuses->previousPageUrl() }}" rel="prev">&laquo;</a>
                             </li>
                         @endif
 
                         {{-- Pagination Elements --}}
-                        @for ($page = max(1, $periodes->currentPage() - 2); $page <= min($periodes->lastPage(), $periodes->currentPage() + 2); $page++)
-                            @if ($periodes->currentPage() == $page)
+                        @for ($page = max(1, $statuses->currentPage() - 2); $page <= min($statuses->lastPage(), $statuses->currentPage() + 2); $page++)
+                            @if ($statuses->currentPage() == $page)
                                 <li class="page-item active" aria-current="page">
                                     <span class="page-link">{{ $page }}</span>
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $periodes->url($page) }}">{{ $page }}</a>
+                                    <a class="page-link" href="{{ $statuses->url($page) }}">{{ $page }}</a>
                                 </li>
                             @endif
                         @endfor
 
                         {{-- Next Page Link --}}
-                        @if ($periodes->hasMorePages())
+                        @if ($statuses->hasMorePages())
                             <li class="page-item">
-                                <a class="page-link" href="{{ $periodes->nextPageUrl() }}" rel="next">&raquo;</a>
+                                <a class="page-link" href="{{ $statuses->nextPageUrl() }}" rel="next">&raquo;</a>
                             </li>
                         @else
                             <li class="page-item disabled">

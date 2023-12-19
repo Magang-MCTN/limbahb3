@@ -217,10 +217,10 @@ class AdminlobiController extends Controller
         $dokumen = new DataPengelolaanLb3();
 
         $dokumen->id_periode = $id_periode_laporan;
-        $dokumen->file_klhk = $request->file_klhk->store('public/dokumen_tambahan');
-        $dokumen->file_pemda_riau = $request->file_pemda_riau->store('public/dokumen_tambahan');
+        $dokumen->file_klhk = $request->file_klhk->store('dokumen_tambahan');
+        $dokumen->file_pemda_riau = $request->file_pemda_riau->store('dokumen_tambahan');
         $dokumen->id_user = Auth::id();
-        $dokumen->file_pemda_bengkalis = $request->file_pemda_bengkalis->store('public/dokumen_tambahan');
+        $dokumen->file_pemda_bengkalis = $request->file_pemda_bengkalis->store('dokumen_tambahan');
         $dokumen->save();
 
         // Update status periode menjadi selesai (id_status 6)

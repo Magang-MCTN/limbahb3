@@ -9346,7 +9346,11 @@ progress {
 .col {
   flex: 1 0 0%;
 }
-
+.custom-icon {
+    color: #097b96;
+    width: 40px; /* Sesuaikan lebar ikon sesuai kebutuhan */
+    /* Tambahkan properti lain sesuai kebutuhan */
+}
 .row-cols-auto > * {
   flex: 0 0 auto;
   width: auto;
@@ -28822,7 +28826,7 @@ div.tagsinput span.tag a {
 }
 
 .auth .brand-logo img {
-  width: 90px;
+  width: 150px;
 }
 
 .auth form .form-group {

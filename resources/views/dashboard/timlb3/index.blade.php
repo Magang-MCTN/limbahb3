@@ -117,9 +117,9 @@
                                                       <td>{{ $status ->no_dokumen_masuk }}</td>
                                                       <td>{{ $status->kuartal }}</td>
                                                       <td>{{ $status->tahun }}</td>
-                                                      @if ($status->status->nama == 'Disetujui')
+                                                      @if ($status->status->id_status == 6)
                                                       <td><p class="badge badge-success">{{ $status->status->nama }}</p></td>
-                                                      @elseif ($status->status->nama == 'Ditolak')
+                                                      @elseif ($status->status->id_status == 4)
                                                       <td><p class="badge badge-danger">{{ $status->status->nama }}</p></td>
                                                       @else
                                                       <td><p class="badge badge-warning">{{ $status->status->nama }}</p></td>
@@ -134,7 +134,7 @@
                                           </tbody>
                                       </table>
                                       <div class="text-center">
-                                        <a href="/status">Lihat Selengkapnya >></a>
+                                        <a href="/status">Lihat Selengkapnya</a>
                                       </div>
                                   </div>
                               </div>

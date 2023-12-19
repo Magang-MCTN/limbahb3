@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="container">
                         <h2 class="fw-bold">Detail Laporan Neraca</h2>
-    
+
                         <div class="">
                             <table class="table">
                                 <tr>
@@ -23,11 +23,11 @@
                                 </tr>
                                 <tr>
                                     <th>Nama Laporan</th>
-                                    <td>Limbah Neraca</td>
+                                    <td>Neraca Limbah B3</td>
                                 </tr>
                                 <tr>
                                     <th>Kuartal</th>
-                                    <td>Kuartal {{ $periode->kuartal }}</td>
+                                    <td>{{ $periode->kuartal }}</td>
                                 </tr>
                                 <tr>
                                     <th>Keterangan Kuartal</th>
@@ -41,9 +41,9 @@
                                     <th>Status</th>
                                     <td>
                                         @if ($periode->statusNeraca)
-                                            @if ($periode->statusNeraca->nama == 'Selesai')
+                                            @if ($periode->statusNeraca->id_status == 6)
                                                 <span class="badge badge-success">{{ $periode->statusNeraca->nama }}</span>
-                                            @elseif ($periode->statusNeraca->nama == 'Ditolak')
+                                            @elseif ($periode->statusNeraca->id_status == 4)
                                                 <span class="badge badge-danger">{{ $periode->statusNeraca->nama }}</span>
                                             @else
                                                 <span class="badge badge-warning">{{ $periode->statusNeraca->nama }}</span>
@@ -54,14 +54,14 @@
                                         @endif
                                     </td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                     <th>Alasan</th>
                                     <td>{{ $periode->alasan ?: 'Belum Ada' }}</td>
-                                </tr>
+                                </tr> --}}
                                 <tr></tr>
                             </table>
                         </div>
-    
+
                         <div class="table-bordered text-center">
                             <table class="table mt-4">
                                 <thead>
@@ -85,7 +85,7 @@
                                 </tbody>
                             </table>
                         </div>
-    
+
                         {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button> --}}
                         <div class="d-flex mt-4">
                             <a href="/timk3/statusneraca" class="btn btn-primary me-1">Kembali</a>
@@ -108,9 +108,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-    
+
                     <a href="{{ route('timk3.kirimneraca', $periode->id_periode_laporan) }}" class="btn btn-success">Ya, Kirim</a>
-    
+
                 </div>
             </div>
         </div>

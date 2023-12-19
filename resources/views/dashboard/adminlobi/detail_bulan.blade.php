@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="container">
                         <h3 class="fw-bold">Detail Laporan Neraca</h3>
-    
+
                         <div class="">
                             <table class="table">
                                 <tr>
@@ -23,7 +23,7 @@
                                 </tr>
                                 <tr>
                                     <th>Nama Laporan</th>
-                                    <td>Limbah Neraca</td>
+                                    <td>Neraca Limbah B3</td>
                                 </tr>
                                 <tr>
                                     <th>Kuartal</th>
@@ -48,7 +48,7 @@
                                 <tr></tr>
                             </table>
                         </div>
-    
+
                         <div class="table-bordered text-center">
                             <table class="table mt-4">
                                 <thead>
@@ -72,7 +72,7 @@
                                 </tbody>
                             </table>
                         </div>
-    
+
                         <div class="d-flex mt-3">
                            {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button> --}}
                            <a href="{{ url()->previous() }}" class="btn btn-primary me-1">Kembali</a>
@@ -95,9 +95,9 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        
+
                                         <a href="{{ route('timk3.kirimneraca', $periode->id_periode_laporan) }}" class="btn btn-success">Ya, Kirim</a>
-                        
+
                                     </div>
                                 </div>
                             </div>

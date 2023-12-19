@@ -15,7 +15,7 @@
                     {{ session('error') }}
                 </div>
                 @endif
-        
+
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -32,13 +32,13 @@
                                     <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pengisian Limbah B3 Masuk</h2>
                                 </div>
                             </div>
-                            <hr>        
-        
+                            <hr>
+
                             <!-- Formulir Limbah Masuk -->
                             <form id="form-limbah-masuk">
                                 @csrf
                                 <div class="row mb-3 form-group">
-                                    <label for="id_jenis_limbah" class="form-label">Jenis Limbah</label>
+                                    <label for="id_jenis_limbah" class="form-label">Jenis Limbah B3</label>
                                     <div class="col-md-8 col-sm-6">
                                         <div class="form-group">
                                             <select name="id_jenis_limbah" class="form-select form-control" required>
@@ -53,23 +53,17 @@
                                         <a type="button" class="btn btn-sm btn-mctn" data-toggle="modal" data-target="#modalTambahJenisLimbah" style="font-size: 20px">+</a>
                                     </div>
                                 </div>
-        
+
                                 <div class="row mb-3">
-                                    <div class="col">
-                                        <div class="form-group" class="form-label">
-                                            <label for="satuan_limbah">Satuan Limbah</label>
-                                            <select name="satuan_limbah" id="satuan_limbah" class="form-select form-control" required>
-                                                <option value="" selected disabled>Pilih</option>
-                                                <option value="Bag">Bag</option>
-                                                <option value="Drum">Drum</option>
-                                                <option value="Ea">Ea</option>
-                                                <option value="Lot">Lot</option>
-                                                <option value="Pail">Pail</option>
-                                                <option value="Pcs">Pcs</option>
-                                                <option value="Unit">Unit</option>
-                                            </select>
-                                        </div>
+                                    <div class="col form-group">
+                                        <label for="bentuk_limbahB3" class="form-label">Bentuk Limbah B3</label>
+                                        <select name="bentuk_limbahB3" class="form-select form-control" required>
+                                            <option value="" selected disabled>Pilih</option>
+                                            <option value="liquid">Liquid</option>
+                                            <option value="solid">Solid</option>
+                                        </select>
                                     </div>
+
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="tanggal_masuk" class="form-label">Tanggal Masuk</label>
@@ -83,24 +77,30 @@
                                         </div>
                                     </div>
                                 </div>
-        
                                 <div class="row mb-3">
                                     <div class="col form-group">
-                                        <label for="sumber_limbahB3" class="form-label">Sumber Limbah</label>
+                                        <label for="sumber_limbahB3" class="form-label">Sumber Limbah B3</label>
                                         <input type="text" name="sumber_limbahB3" class="form-control" placeholder="Sumber" required>
                                     </div>
-                                    <div class="col form-group">
-                                        <label for="bentuk_limbahB3" class="form-label">Bentuk Limbah</label>
-                                        <select name="bentuk_limbahB3" class="form-select form-control" required>
-                                            <option value="" selected disabled>Pilih</option>
-                                            <option value="liquid">Liquid</option>
-                                            <option value="solid">Solid</option>
-                                        </select>
+                                    <div class="col">
+                                        <div class="form-group" class="form-label">
+                                            <label for="satuan_limbah">Satuan Limbah B3</label>
+                                            <select name="satuan_limbah" id="satuan_limbah" class="form-select form-control" required>
+                                                <option value="" selected disabled>Pilih</option>
+                                                <option value="Bag">Bag</option>
+                                                <option value="Drum">Drum</option>
+                                                <option value="Ea">Ea</option>
+                                                <option value="Lot">Lot</option>
+                                                <option value="Pail">Pail</option>
+                                                <option value="Pcs">Pcs</option>
+                                                <option value="Unit">Unit</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="col">
                                         <div class="row">
                                             <div class="col form-group">
-                                                <label for="jumlah_limbah">Jumlah Limbah</label>
+                                                <label for="jumlah_limbah">Jumlah Limbah B3</label>
                                                 <input type="number" name="jumlah_limbah" class="form-control" placeholder="Jumlah" required>
                                             </div>
                                             <div class="col form-group">
@@ -115,9 +115,9 @@
                                     <input type="text" name="id_periode_laporan" value="{{ optional($periodeLaporan)->id_periode_laporan }}">
                                     {{-- {{ optional($periodeLaporan)->id_periode_laporan }} --}}
                                 </div>
-        
+
                                 <!-- ... (Form input lainnya) -->
-        
+
                                 <div class="d-flex justify-content-end mt-3">
                                     <button class="btn" style="background-color: #097B96; color: white;" type="button" id="tambahData" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
                                 </div>
@@ -128,7 +128,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title fw-bold" id="exampleModalLabel">Tambah Jenis Limbah Baru</h5>
+                                            <h5 class="modal-title fw-bold" id="exampleModalLabel">Tambah Jenis Limbah B3 Baru</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -138,7 +138,7 @@
                                             <form action="{{ route('jenislimbah.store') }}" method="post">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <label for="jenis_limbah">Jenis Limbah</label>
+                                                    <label for="jenis_limbah">Jenis Limbah B3</label>
                                                     <input type="text" name="jenis_limbah" class="form-control" required>
                                                     <button type="submit" class="btn btn-sm btn-mctn mt-2">Simpan</button>
                                                 </div>
@@ -153,13 +153,13 @@
                                     <thead>
                                         <tr>
                                             <th>ID Periode </th>
-                                            <th>Jenis Limbah</th>
-                                            <th>Satuan Limbah</th>
+                                            <th>Jenis Limbah B3</th>
+                                            <th>Satuan Limbah B3</th>
                                             <th>Tanggal Masuk</th>
                                             <th>Maksimal Penyimpanan (hari)</th>
-                                            <th>Sumber Limbah</th>
-                                            <th>Bentuk Limbah</th>
-                                            <th>Jumlah Limbah</th>
+                                            <th>Sumber Limbah B3</th>
+                                            <th>Bentuk Limbah B3</th>
+                                            <th>Jumlah Limbah B3</th>
                                             <th>Berat/Satuan</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -169,10 +169,10 @@
                                     </tbody>
                                 </table>
                             </div>
-        
+
                             <div class="d-flex justify-content-between mt-3">
                                 <a href="{{ route('timlb3.import-form', [$periodeLaporan ->id_periode_laporan]) }}" class="btn btn-primary">
-                                    Import Excel Limbah Masuk
+                                    Import Excel Limbah B3 Masuk
                                 </a>
                                 <button class="btn btn-success" type="button" id="submitFormLimbahMasuk" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Submit</button>
                             </div>

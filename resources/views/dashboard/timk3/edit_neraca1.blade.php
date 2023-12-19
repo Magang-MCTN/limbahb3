@@ -8,16 +8,16 @@
                 <div class="card-body">
                     <div class="container">
                         <h3 class="fw-bold">Edit Data Neraca</h3>
-    
+
                         <form method="POST" action="{{ route('timk3.updateNeraca1', $neraca1->id_neraca_limbah_1) }}">
                             @csrf
                             @method('PUT')
-    
+
                             <!-- Tambahkan input fields sesuai dengan atribut Neraca 1 -->
-    
+
                             <div class="row">
                                 <div class="col form-group col-sm-6 col-md-8">
-                                    <label for="id_jenis_limbah">Jenis Limbah</label>
+                                    <label for="id_jenis_limbah">Jenis Limbah B3</label>
                                     <select class="form-select form-control" id="id_jenis_limbah" name="id_jenis_limbah">
                                         @foreach($jenisLimbahs as $jenisLimbah)
                                             <option value="{{ $jenisLimbah->id_jenis_limbah }}" {{ $neraca1->id_jenis_limbah == $jenisLimbah->id_jenis_limbah ? 'selected' : '' }}>
@@ -26,13 +26,13 @@
                                         @endforeach
                                     </select>
                                 </div>
-    
+
                                 <div class="col form-group col-sm-6 col-md-4">
-                                    <label for="sumber_limbah">Sumber Limbah</label>
+                                    <label for="sumber_limbah">Sumber Limbah B3</label>
                                     <input type="text" class="form-control" id="sumber_limbah" name="sumber_limbah" value="{{ $neraca1->sumber_limbah }}">
                                 </div>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col form-group">
                                     <label for="sumber_limbah">Dihasilkan</label>
@@ -73,7 +73,7 @@
                                 <div class="col"></div>
                             </div>
                             <!-- Tambahkan input fields lainnya -->
-    
+
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Perbarui Data</button>
                             </div>

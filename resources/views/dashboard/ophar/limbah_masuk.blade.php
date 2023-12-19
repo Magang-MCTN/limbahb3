@@ -9,20 +9,20 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container">
-                        <h3 class="fw-bold my-2 mb-4">Data Limbah Masuk - {{ $periode->no_dokumen_masuk }}</h3>
-    
+                        <h3 class="fw-bold my-2 mb-4">Data Limbah B3 Masuk - {{ $periode->no_dokumen_masuk }}</h3>
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Jenis Limbah</th>
-                                        <th>Satuan Limbah</th>
+                                        <th>Jenis Limbah B3</th>
+                                        <th>Satuan Limbah B3</th>
                                         <th>Tanggal Masuk</th>
                                         <th>Maksimal Penyimpanan (hari)</th>
-                                        <th>Sumber Limbah</th>
-                                        <th>Bentuk Limbah</th>
-                                        <th>Jumlah Limbah</th>
+                                        <th>Sumber Limbah B3</th>
+                                        <th>Bentuk Limbah B3</th>
+                                        <th>Jumlah Limbah B3</th>
                                         <th>Berat/Satuan</th>
                                         <th>Berat</th>
                                     </tr>

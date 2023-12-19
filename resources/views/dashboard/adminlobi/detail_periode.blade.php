@@ -18,15 +18,15 @@
                                 <td>{{ $periode->tahun }}</td>
                             </tr>
                             <tr>
-                                <th>Status Limbah Masuk </th>
+                                <th>Status Limbah B3 Masuk </th>
                                 <td>{{ $periode->status ? $periode->status->nama : 'Data tidak tersedia' }}</td>
                             </tr>
                             <tr>
-                                <th>Status Limbah Keluar </th>
+                                <th>Status Limbah B3 Keluar </th>
                                 <td>{{ $periode->statuskeluar ? $periode->statuskeluar->nama : 'Data tidak tersedia' }}</td>
                             </tr>
                             <tr>
-                                <th>Status Limbah Neraca </th>
+                                <th>Status Neraca Limbah B3 </th>
                                 <td>{{ $periode->statusNeraca ? $periode->statusNeraca->nama : 'Data tidak tersedia' }}</td>
                             </tr>
                             <tr>
@@ -40,18 +40,18 @@
                     <div class="row px-4 my-4">
                         <div class="col">
                             <!-- Dokumen Limbah Masuk -->
-                            <h4 class="fw-bold text-left">Limbah Masuk</h4>
+                            <h4 class="fw-bold text-left">Limbah B3 Masuk</h4>
                             @if ($periode->limbahMasuk && optional($periode->status)->id_status !== 1)
-                                <a href="{{ route('admin.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah Masuk</a>
+                                <a href="{{ route('admin.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah B3 Masuk</a>
                                 <a href="{{ route('limbah.export', $periode->id_periode_laporan) }}" class="btn btn-success ml-2">Export to Excel</a>
                             @endif
                         </div>
                         <div class="col">
                             <!-- Dokumen Limbah Keluar -->
-                            <h4 class="fw-bold">Limbah Keluar</h4>
+                            <h4 class="fw-bold">Limbah B3 Keluar</h4>
                             @if ($periode->limbahKeluar && optional($periode->statuskeluar)->id_status !== 1)
                                 {{-- Tampilkan informasi dan tombol approve/reject --}}
-                                <a href="{{ route('admin.keluar', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah Keluar</a>
+                                <a href="{{ route('admin.keluar', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah B3 Keluar</a>
                                 <a href="{{ route('keluar.export', $periode->id_periode_laporan) }}" class="btn btn-success ml-2">Export to Excel</a>
                             @endif
                         </div>
@@ -59,20 +59,20 @@
                     <div class="row px-4 my-4">
                         <div class="col">
                             <!-- Dokumen Neraca Limbah 1 -->
-                            <h4 class="fw-bold">Neraca Limbah</h4>
+                            <h4 class="fw-bold">Neraca Limbah B3</h4>
                             @if ($periode->statusNeraca && optional($periode->statusNeraca)->id_status !== 1)
                                 {{-- Tampilkan informasi dan tombol approve/reject --}}
-                                <a href="{{ route('admin.detailBulan', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah Neraca</a>
+                                <a href="{{ route('admin.detailBulan', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info">Detail Limbah B3 Neraca</a>
                                 <a href="{{ route('export.neraca.pdf', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-success ml-2">Ekspor Neraca</a>
                             @endif
                         </div>
                         <div class="col">
                             <h4 class="fw-bold">Surat Laporan</h4>
-                            @if (file_exists(public_path('surat/laporan_pengelolaan_' . $periode->id_periode_laporan . '.pdf')))
-                                <a href="{{ asset('surat/laporan_pengelolaan_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info" download>Kabupaten</a>
+                            @if (file_exists(public_path('surat/laporan_pengelolaanTTD_' . $periode->id_periode_laporan . '.pdf')))
+                                <a href="{{ asset('surat/laporan_pengelolaanTTD_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info" download>Kabupaten</a>
                             @endif
-                            @if (file_exists(public_path('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf')))
-                                <a href="{{ asset('surat/laporan_pengelolaan2_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-success" download>Kota</a>
+                            @if (file_exists(public_path('surat/laporan_pengelolaanTTD2_' . $periode->id_periode_laporan . '.pdf')))
+                                <a href="{{ asset('surat/laporan_pengelolaanTTD2_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-success" download>Kota</a>
                             @endif
                         </div>
                     </div>

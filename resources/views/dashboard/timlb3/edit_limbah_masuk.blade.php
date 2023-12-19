@@ -9,11 +9,11 @@
                 <div class="card-body">
                     <div class="container">
                         <h3 class="fw-bold my-4">Edit Data Limbah Masuk</h3>
-    
+
                         <form method="POST" action="{{ route('limbah_masuk.update', $limbahMasuk->id_limbah_masuk) }}">
                             @csrf
                             @method('PUT')
-    
+
                             <div class="form-group">
                                 <label for="id_jenis_limbah" class="form-label">Jenis Limbah</label>
                                 <select name="id_jenis_limbah" class="form-select form-control">
@@ -24,20 +24,14 @@
                                     @endforeach
                                 </select>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col">
-                                    <div class="form-group" class="form-label">
-                                        <label for="satuan_limbah">Satuan Limbah</label>
-                                        <select name="satuan_limbah" id="satuan_limbah" class="form-select form-control" required>
-                                            <option value="{{ $limbahMasuk->satuan_limbah }}" selected>{{ $limbahMasuk->satuan_limbah }}</option>
-                                            <option value="Bag">Bag</option>
-                                            <option value="Drum">Drum</option>
-                                            <option value="Ea">Ea</option>
-                                            <option value="Lot">Lot</option>
-                                            <option value="Pail">Pail</option>
-                                            <option value="Pcs">Pcs</option>
-                                            <option value="Unit">Unit</option>
+                                    <div class="form-group">
+                                        <label for="bentuk_limbahB3">Bentuk Limbah</label>
+                                        <select name="bentuk_limbahB3" class="form-control">
+                                            <option value="liquid" {{ $limbahMasuk->bentuk_limbahB3 == 'liquid' ? 'selected' : '' }}>Liquid</option>
+                                            <option value="solid" {{ $limbahMasuk->bentuk_limbahB3 == 'solid' ? 'selected' : '' }}>Solid</option>
                                         </select>
                                     </div>
                                 </div>
@@ -54,7 +48,7 @@
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -63,21 +57,28 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="form-group">
-                                        <label for="bentuk_limbahB3">Bentuk Limbah</label>
-                                        <select name="bentuk_limbahB3" class="form-control">
-                                            <option value="liquid" {{ $limbahMasuk->bentuk_limbahB3 == 'liquid' ? 'selected' : '' }}>Liquid</option>
-                                            <option value="solid" {{ $limbahMasuk->bentuk_limbahB3 == 'solid' ? 'selected' : '' }}>Solid</option>
+                                    <div class="form-group" class="form-label">
+                                        <label for="satuan_limbah">Satuan Limbah</label>
+                                        <select name="satuan_limbah" id="satuan_limbah" class="form-select form-control" required>
+                                            <option value="{{ $limbahMasuk->satuan_limbah }}" selected>{{ $limbahMasuk->satuan_limbah }}</option>
+                                            <option value="Bag">Bag</option>
+                                            <option value="Drum">Drum</option>
+                                            <option value="Ea">Ea</option>
+                                            <option value="Lot">Lot</option>
+                                            <option value="Pail">Pail</option>
+                                            <option value="Pcs">Pcs</option>
+                                            <option value="Unit">Unit</option>
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col">
                                     <div class="row">
                                         <div class="col form-group">
                                             <label for="jumlah_limbah">Jumlah Limbah</label>
                                             <input type="number" name="jumlah_limbah" class="form-control" value="{{ $limbahMasuk->jumlah_limbah }}">
                                         </div>
-    
+
                                         <div class="col form-group">
                                             <label for="berat_satuan">Berat/Satuan:</label>
                                             <input type="number" name="berat_satuan" class="form-control" value="{{ $limbahMasuk->berat_satuan }}">

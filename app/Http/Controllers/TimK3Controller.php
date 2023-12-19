@@ -10,6 +10,7 @@ use App\Models\LimbahMasuk;
 use App\Models\NeracaLimbah1;
 use App\Models\NeracaLimbah2;
 use App\Models\PeriodeLaporan;
+use App\Models\status;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
@@ -74,7 +75,7 @@ class TimK3Controller extends Controller
     public function submitFormKuartalTahun(Request $request)
     {
         $request->validate([
-            'kuartal' => 'required|string|in:1,2,3,4',
+            'kuartal' => 'required',
             'tahun' => 'required|numeric|min:4',
         ]);
 
@@ -88,23 +89,42 @@ class TimK3Controller extends Controller
             $idPeriode = $periode->id_periode_laporan;
         } else {
             // Jika periode belum ada, buat periode baru
-            $kuartalKeterangan = [
-                '1' => 'Januari - Maret',
-                '2' => 'April - Juni',
-                '3' => 'Juli - September',
-                '4' => 'Oktober - Desember',
-            ];
+            // $kuartalKeterangan = [
+            //     '1' => 'Januari - Maret',
+            //     '2' => 'April - Juni',
+            //     '3' => 'Juli - September',
+            //     '4' => 'Oktober - Desember',
+            // ];
 
-            $periode = new PeriodeLaporan();
-            $periode->kuartal = $request->input('kuartal');
-            $periode->tahun = $request->input('tahun');
-            $periode->keterangan_kuartal = $kuartalKeterangan[$request->input('kuartal')];
+            // Tentukan keterangan kuartal berdasarkan nilai kuartal
+            if ($request->input('kuartal') == 1) {
+                $keteranganKuartal = 'Januari - Maret';
+            } elseif ($request->input('kuartal') == 2) {
+                $keteranganKuartal = 'April - Juni';
+            } elseif ($request->input('kuartal') == 3) {
+                $keteranganKuartal = 'Juli - September';
+            } elseif ($request->input('kuartal') == 4) {
+                $keteranganKuartal = 'Oktober - Desember';
+            } else {
+                // Penanganan jika nilai kuartal tidak sesuai dengan yang diharapkan
+                return redirect()->back()->withInput()->withErrors(['Kuartal tidak valid']);
+            }
+
+            // Buat periode baru dan simpan ke dalam variabel $periode
+            $periode = new PeriodeLaporan([
+                'kuartal' => $request->input('kuartal'),
+                'tahun' => $request->input('tahun'),
+                'keterangan_kuartal' => $keteranganKuartal,
+            ]);
+
+            // Simpan periode ke dalam database
             $periode->save();
 
             $idPeriode = $periode->id_periode_laporan;
         }
 
-        return redirect()->route('timk3.showFormLimbahKeluar2', ['id_periode_laporan' => $idPeriode])->with('success', 'Data periode berhasil disubmit.');
+        return redirect()->route('timk3.showFormLimbahKeluar2', ['id_periode_laporan' => $idPeriode])
+            ->with('success', 'Data periode berhasil disubmit.');
     }
     public function showFormLimbahkeluar2($id_periode_laporan = null)
     {
@@ -173,12 +193,29 @@ class TimK3Controller extends Controller
             return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
-    public function statuskeluar()
+    public function statuskeluar(Request $request)
     {
-        // Hanya ambil data periode yang memiliki id_status_keluar
-        $statuses = PeriodeLaporan::has('statuskeluar')->with('statuskeluar')->paginate(5); // Sesuaikan jumlah item per halaman
+        $tahun = $request->input('tahun');
+        $statusSurat = $request->input('status_surat');
 
-        return view('dashboard.timk3.status', compact('statuses'));
+        $query = PeriodeLaporan::has('statuskeluar')->with('statuskeluar');
+        // Hanya ambil data periode yang memiliki id_status_keluar
+        // Sesuaikan jumlah item per halaman
+        if (!empty($tahun)) {
+            $query->where('tahun', 'LIKE', "%$tahun%");
+        }
+
+        if (!empty($statusSurat)) {
+            $query->whereHas('statuskeluar', function ($q) use ($statusSurat) {
+                $q->where('id_status', $statusSurat);
+            });
+        }
+
+        $statuses = $query->paginate(5);
+
+        // Ambil daftar status untuk dropdown filter
+        $daftarStatus = status::all();
+        return view('dashboard.timk3.status', compact('statuses', 'tahun', 'daftarStatus', 'statusSurat'));
     }
     public function showDetailPeriode($id)
     {
@@ -267,6 +304,7 @@ class TimK3Controller extends Controller
 
         // Generate dan simpan surat PDF
         $this->generateSuratPDF($id);
+        $this->generateSuratPDF2($id);
 
         return redirect('/timk3/status');
     }
@@ -277,6 +315,7 @@ class TimK3Controller extends Controller
         $data = [
             'kuartal' => $periode->kuartal,
             'tahun' => $periode->tahun,
+            'keterangan' => $periode->keterangan_kuartal,
             // tambahkan data lain sesuai kebutuhan
         ];
 
@@ -292,6 +331,30 @@ class TimK3Controller extends Controller
         $pdf->save(public_path('surat/laporan_pengelolaan2_' . $id . '.pdf'));
 
         return $pdf->download('laporan_pengelolaan2_' . $id . '.pdf');
+    }
+    public function generateSuratPDF2($id)
+    {
+        $periode = PeriodeLaporan::findOrFail($id);
+
+        $data = [
+            'kuartal' => $periode->kuartal,
+            'tahun' => $periode->tahun,
+            'keterangan' => $periode->keterangan_kuartal,
+            // tambahkan data lain sesuai kebutuhan
+        ];
+
+        // Gunakan resolve untuk mendapatkan instance PDF dari container Layanan
+        $pdf = App::make('dompdf.wrapper')->loadView('export.laporan_pengelolaan3', $data);
+
+        $pdf->save(public_path('surat/laporan_pengelolaan3_' . $id . '.pdf'));
+
+        return $pdf->download('laporan_pengelolaan3_' . $id . '.pdf');
+        $pdf->reset();
+        $pdf = App::make('dompdf.wrapper')->loadView('export.laporan_pengelolaan3', $data);
+
+        $pdf->save(public_path('surat/laporan_pengelolaan3_' . $id . '.pdf'));
+
+        return $pdf->download('laporan_pengelolaan3_' . $id . '.pdf');
     }
 
     public function showFormNeraca()
@@ -317,13 +380,42 @@ class TimK3Controller extends Controller
             ->first();
 
         // Jika belum ada, buat data periode baru
-        if (!$periode) {
-            $periode = new PeriodeLaporan();
-            $periode->kuartal = $request->kuartal;
-            $periode->tahun = $request->tahun;
-            $periode->save();
-        }
+        if ($periode) {
+            $idPeriode = $periode->id_periode_laporan;
+        } else {
+            // Jika periode belum ada, buat periode baru
+            // $kuartalKeterangan = [
+            //     '1' => 'Januari - Maret',
+            //     '2' => 'April - Juni',
+            //     '3' => 'Juli - September',
+            //     '4' => 'Oktober - Desember',
+            // ];
 
+            // Tentukan keterangan kuartal berdasarkan nilai kuartal
+            if ($request->input('kuartal') == 1) {
+                $keteranganKuartal = 'Januari - Maret';
+            } elseif ($request->input('kuartal') == 2) {
+                $keteranganKuartal = 'April - Juni';
+            } elseif ($request->input('kuartal') == 3) {
+                $keteranganKuartal = 'Juli - September';
+            } elseif ($request->input('kuartal') == 4) {
+                $keteranganKuartal = 'Oktober - Desember';
+            } else {
+                // Penanganan jika nilai kuartal tidak sesuai dengan yang diharapkan
+                return redirect()->back()->withInput()->withErrors(['Kuartal tidak valid']);
+            }
+
+            // Buat periode baru dan simpan ke dalam variabel $periode
+            $periode = new PeriodeLaporan([
+                'kuartal' => $request->input('kuartal'),
+                'tahun' => $request->input('tahun'),
+                'keterangan_kuartal' => $keteranganKuartal,
+            ]);
+
+            // Simpan periode ke dalam database
+            $periode->save();
+            $idPeriode = $periode->id_periode_laporan;
+        }
         // Buat data bulan
         $bulan = new BulanModel();
         $bulan->nama_bulan = $request->nama_bulan;
@@ -442,17 +534,33 @@ class TimK3Controller extends Controller
                 'no_dokumen_neraca' => $nomorDokumenneraca,
             ]);
 
-            return redirect()->route('statuskeluar.index')->with('success', 'Data Neraca Limbah 2 berhasil disubmit.');
+            return redirect()->route('timk3.status')->with('success', 'Data Neraca Limbah 2 berhasil disubmit.');
         } catch (\Exception $e) {
             return redirect()->route('timk3.showFormNeraca2', $id_bulan)->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
-    public function showStatusNeraca()
+    public function showStatusNeraca(Request $request)
     {
+        $tahun = $request->input('tahun');
+        $statusSurat = $request->input('status_surat');
+        $query = PeriodeLaporan::has('statusNeraca')->with('statusNeraca');
         // Ambil data periode yang memiliki status neraca
-        $periodes = PeriodeLaporan::has('statusNeraca')->with('statusNeraca')->paginate(5);
+        if (!empty($tahun)) {
+            $query->where('tahun', 'LIKE', "%$tahun%");
+        }
 
-        return view('dashboard.timk3.status_neraca', compact('periodes'));
+        if (!empty($statusSurat)) {
+            $query->whereHas('statusNeraca', function ($q) use ($statusSurat) {
+                $q->where('id_status', $statusSurat);
+            });
+        }
+
+        $statuses = $query->paginate(5);
+
+        // Ambil daftar status untuk dropdown filter
+        $daftarStatus = status::all();
+
+        return view('dashboard.timk3.status_neraca',  compact('statuses', 'tahun', 'daftarStatus', 'statusSurat'));
     }
     public function showDetailneraca($id_status_neraca)
     {

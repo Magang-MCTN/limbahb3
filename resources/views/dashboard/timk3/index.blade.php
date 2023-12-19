@@ -99,12 +99,12 @@
                                   <div class="card-body">
                                       <table class="table text-center">
                                           <thead>
-                                              <h3 class="px-2"><strong>Limbah Keluar</strong></h3>
+                                              <h3 class="px-2"><strong>Limbah B3 Keluar</strong></h3>
                                               <tr>
                                                   <th>No Dokumen</th>
                                                   <th>Kuartal</th>
                                                   <th>Tahun</th>
-                                                  <th>Status Surat</th>
+                                                  <th>Status</th>
                                                   <th>Aksi</th>
                                               </tr>
                                           </thead>
@@ -112,16 +112,16 @@
                                               @php
                                                   $slicedStatuses = $statuses->slice(0, 4); // Ambil 4 data pertama
                                               @endphp
-          
+
                                               @foreach ($slicedStatuses as $index => $status)
                                                   @if ($status->statuskeluar->id_status != 6)
                                                       <tr>
                                                           <td>{{ $status->no_dokumen_keluar }}</td>
                                                           <td>{{ $status->kuartal }}</td>
                                                           <td>{{ $status->tahun }}</td>
-                                                          @if ($status->statuskeluar->nama == 'Selesai')
+                                                          @if ($status->statuskeluar->id_status== 6)
                                                               <td><p class="badge badge-success">{{ $status->statuskeluar->nama }}</p></td>
-                                                          @elseif ($status->statuskeluar->nama == 'Ditolak')
+                                                          @elseif ($status->statuskeluar->id_status == 4)
                                                               <td><p class="badge badge-danger">{{ $status->statuskeluar->nama }}</p></td>
                                                           @else
                                                               <td><p class="badge badge-warning">{{ $status->statuskeluar->nama }}</p></td>
@@ -139,21 +139,21 @@
                                         <a href="/timk3/status">Lihat Selengkapnya</a>
                                       </div>
                                 </div>
-          
+
                             </div>
-                            
+
                         </div>
                          <div class="container my-2">
                           <div class="card mt-2">
                               <div class="card-body">
                                   <table class="table text-center">
                                       <thead>
-                                          <h3 class="px-2"><strong>Limbah Neraca</strong></h3>
+                                          <h3 class="px-2"><strong>Limbah B3 Neraca</strong></h3>
                                           <tr>
                                               <th>No Dokumen</th>
                                               <th>Kuartal</th>
                                               <th>Tahun</th>
-                                              <th>Status Surat</th>
+                                              <th>Status</th>
                                               <th>Aksi</th>
                                           </tr>
                                       </thead>
@@ -161,7 +161,7 @@
                                           @php
                                               $slicedStatusesNeraca = $statusesneraca->slice(0, 4); // Ambil 4 data pertama
                                           @endphp
-          
+
                                           @foreach ($slicedStatusesNeraca as $index => $status)
                                               @if ($status->statusNeraca->id_status != 6)
                                                   <tr>

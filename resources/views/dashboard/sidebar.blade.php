@@ -194,7 +194,7 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/timlb3/form-kuartal-tahun">Tambah Limbah Masuk</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/timlb3/form-kuartal-tahun">Tambah Limbah B3 Masuk</a></li>
               <li class="nav-item"> <a class="nav-link" href="/status">Status</a></li>
             </ul>
           </div>
@@ -213,7 +213,7 @@
         </li>
 
         @elseif (Auth::user()->id_role === 2)
-        <li class="nav-item nav-category">Menu </li>
+        <li class="nav-item nav-category">Limbah B3 </li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="menu-icon mdi mdi-floor-plan"></i>
@@ -222,10 +222,10 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/timk3/formperiode">Tambah Limbah keluar</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/timk3/formperiode">Tambah Limbah B3 keluar</a></li>
               {{-- <li class="nav-item"> <a class="nav-link" href="/status-pengadaan">Status</a></li> --}}
               <li class="nav-item"> <a class="nav-link" href="/timk3/formneraca">Tambah Neraca</a></li>
-              <li class="nav-item"> <a class="nav-link" href="/timk3/status">Status Limbah Keluar</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/timk3/status">Status Limbah B3 Keluar</a></li>
               <li class="nav-item"> <a class="nav-link" href="/timk3/statusneraca">Status Neraca</a></li>
             </ul>
           </div>
@@ -268,7 +268,7 @@
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="/persetujuanadminpku">Persetujuan</a></li>
-              
+
             </ul>
           </div>
         </li>
@@ -326,7 +326,7 @@
             <span class="menu-title">Arsip Laporan</span>
           </a>
         </li>
-        
+
         {{-- <li class="nav-item nav-category">Persetujuan</li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">

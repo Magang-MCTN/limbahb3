@@ -142,6 +142,7 @@ Route::middleware(['auth', 'role:4'])->group(function () {
     Route::get('/ketua/lihat-neraca-perbulan/{id_bulan}', [ketuaController::class, 'lihatNeracaPerbulan'])->name('ketua.lihatNeracaPerbulan');
 
     Route::get('/historilimbah', [ketuaController::class, 'historilimbah'])->name('historilimbah');
+    Route::get('/generate-pdf/{id}', [ketuaController::class, 'generateSuratPDF'])->name('generate-pdf');
 });
 Route::middleware(['auth', 'role:5'])->group(function () {
     // Rute yang akan dilindungi oleh middleware role "admin_lobby"

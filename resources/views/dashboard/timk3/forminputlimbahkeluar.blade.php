@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <hr>
-    
+
                         @if(session('success'))
                         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <script>
                             // Tampilkan modal ketika halaman dimuat
                             $(document).ready(function() {
@@ -42,7 +42,7 @@
                             });
                         </script>
                     @endif
-    
+
                         <!-- Formulir Limbah Masuk -->
                         <form id="form-limbah-keluar">
                             @csrf
@@ -53,7 +53,7 @@
                             </div>
                             <div class="row">
                                 <div class="col form-group">
-                                    <label for="id_jenis_limbah">Jenis Limbah</label>
+                                    <label for="id_jenis_limbah">Jenis Limbah B3</label>
                                     <select name="id_jenis_limbah" class="form-select form-control" required>
                                         <option value="" selected disabled>Pilih</option>
                                         @foreach($jenisLimbah as $limbah)
@@ -70,7 +70,7 @@
                                     <input type="date" name="tanggal_keluar" class="form-control" required>
                                 </div>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col form-group">
                                     <label for="buktiNomorDokumen">Bukti Nomor Dokumen</label>
@@ -86,49 +86,48 @@
                                 </div>
                             </div>
                             {{-- <div class="form-group">
-                                <label for="id_jenis_limbah">Jenis Limbah:</label>
+                                <label for="id_jenis_limbah">Jenis Limbah B3:</label>
                                 <select name="id_jenis_limbah" class="form-control" required>
                                     @foreach($jenisLimbah as $limbah)
                                     <option value="{{ $limbah->id_jenis_limbah }}">{{ $limbah->jenis_limbah }}</option>
                                     @endforeach
                                 </select>
                             </div> --}}
-    
+
                             {{-- <div class="form-group">
                                 <label for="satuan_limbah">Periode Limbah Masuk</label>
                                 <input type="text" name="satuan_limbah" class="form-control" required>
                             </div> --}}
-    
-    
-    
+
+
+
                             {{-- <div class="form-group">
                                 <label for="maksimal_penyimpanan">Maksimal Penyimpanan (hari):</label>
                                 <input type="number" name="maksimal_penyimpanan" class="form-control" required>
                             </div> --}}
-    
-    
+
+
                             <!-- ... (Form input lainnya) -->
-    
+
                             <div class="d-flex justify-content-end mt-3">
                                 <button class="btn" type="button" id="tambahData" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Tambah</button>
                             </div>
                         </form>
-    
+
                         <!-- Tabel Sementara Limbah keluar -->
                         <div class="table-responsive">
-    
+
                             <table class="table mt-4">
                                 <thead>
                                     <tr>
                                         <th>ID Periode </th>
-                                        <th>Jenis Limbah</th>
-    
+                                        <th>Jenis Limbah B3</th>
+
                                         <th>Tujuan Penyerahan</th>
                                         <th>Tanggal Keluar</th>
                                         <th>Jumlah Limbah B3 Keluar KG</th>
                                         <th>Sisa LB3 di TPS (Ton)</th>
                                         <th>Bukti Nomor Dokumen</th>
-    
                                         {{-- <th>Jumlah Limbah</th>
                                         <th>Berat/Satuan</th> --}}
                                         <th>Aksi</th>

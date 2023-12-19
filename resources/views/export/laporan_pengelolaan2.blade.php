@@ -29,6 +29,7 @@
 <body>
     <div class="header">
         <h2>Laporan Pelaksanaan Pengelolaan Limbah B3</h2>
+        <p>North Duri Cogeneration Plant</p>
         <p>Lapangan Gas Turbin Duri-PT. Mandau Cipta Tenaga Nusantara</p>
     </div>
 
@@ -44,6 +45,18 @@
         <!-- Gantilah dengan tanda tangan yang sesuai -->
         <img src="{{ public_path('path/to/tanda_tangan.jpg') }}" alt="Tanda Tangan" width="100">
         <p>Nama TTD</p>
+    </div>
+
+    <div class="lampiran">
+        <p>Lampiran:</p>
+        <ul>
+            <li>Tanda Terima Elektronik Pemerintah Kabupaten Bengkalis </li>
+            <li>Tanda Terima Elektronik Direktur Penilaian Kinerja Pengelolaan Limbah B3 dan Limbah Non B3 </li>
+            <li>Tanda Terima Elektronik Pemerintah Daerah Provinsi Riau </li>
+            <li>Tanda Terima Elektronik Kementrian Lingkungan Hidup dan Kehutanan  </li>
+            <li>Lembar Kegiatan Limbah B3  </li>
+            <li>Neraca Limbah B3 </li>
+        </ul>
     </div>
 </body>
 </html>

@@ -8,7 +8,6 @@
         body {
             font-family: 'Times New Roman', Times, serif;
             margin: 20px;
-            font-size: 11px;
         }
 
         .header {
@@ -33,12 +32,6 @@
         .perihal span{
         	text-decoration: underline;
         }
-        .lampiran {
-            text-align: left;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            font-size: 9px;
-        }
 
     </style>
 </head>
@@ -50,11 +43,11 @@
 
     <div class="kepada">
             Kepada Yth. <br>
-            Bupati Kabupaten Bengkalis<br>
-            u.p. Kepala Dinas Lingkungan Hidup<br>
-            Kabupaten Bengkalis<br>
-            Jln Antara No 437<br>
-            Bengkalis-Riau<br>
+            Kepala Pusat Pengendalian Pembangunan<br>
+            Ekoregion Sumatera<br>
+            Jln HR. Subrantas KM 10.5 Panam, Delima<br>
+            Pekanbaru<br>
+            Kota Pekanbaru, Riau 28289<br>
 	</div>
 
     <div class="perihal">
@@ -69,11 +62,10 @@
     </div>
 
     <div class="footer">
-        <p>{{ now()->format('d F Y') }}</p>
         <p>Hormat kami,</p>
         <!-- Gantilah dengan tanda tangan yang sesuai -->
-        {{-- <img src="{{ public_path('path/to/tanda_tangan.jpg') }}" alt="Tanda Tangan" width="100"> --}}
-        <p>Radpandji Edy Widjaja </p><br>
+        <img src="{{ public_path('storage/'.$ttd) }}" alt="Tanda Tangan" width="100">
+        <p style="text-decoration: underline;"><b>Radpandji Edy Widjaja</b></p>
         <p>Direktur AsOpHar MCTN </p>
     </div>
 

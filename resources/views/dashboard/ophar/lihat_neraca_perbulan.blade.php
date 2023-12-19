@@ -10,18 +10,18 @@
                 <div class="card-body">
                     <div class="container">
                         <h3 class="fw-bold">Data Neraca untuk Bulan {{ $bulan->nama_bulan }}</h3 >
-                    
+
                         <!-- Tampilkan data neraca 1 -->
                         <h4 class="fw-bold">Neraca 1</h4>
-                    
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Jenis Limbah</th>
-                                                <th>Sumber Limbah</th>
+                                                <th>Jenis Limbah B3</th>
+                                                <th>Sumber Limbah B3</th>
                                                 <th>Dihasilkan</th>
                                                 <th>Dimanfaatkan</th>
                                                 <th>Diolah</th>
@@ -50,10 +50,10 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                         <!-- Tampilkan data neraca 2 -->
                         <h4 class="fw-bold">Neraca 2</h4>
-                    
+
                         @if ($neraca2)
                         <div class="row">
                             <div class="col-md-12">
@@ -69,11 +69,11 @@
                                                 <td>{{ $neraca2->residu }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Limbah Belum Dikelola</th>
+                                                <th>Limbah B3 Belum Dikelola</th>
                                                 <td>{{ $neraca2->limbah_belum_dikelola }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Limbah Tersisa</th>
+                                                <th>Limbah B3 Tersisa</th>
                                                 <td>{{ $neraca2->limbah_tersisa }}</td>
                                             </tr>
                                             <tr>
@@ -85,7 +85,7 @@
                                                 <td>{{ $neraca2->dokumen_kontrol }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Perizinan Limbah KLH</th>
+                                                <th>Perizinan Limbah B3 KLH</th>
                                                 <td>{{ $neraca2->perizinan_limbah_klh }}</td>
                                             </tr>
                                             <tr>

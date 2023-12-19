@@ -14,23 +14,23 @@
                                 <div class="d-flex rounded-circle justify-content-center mx-3" style="border-radius: 50%; width: 30px; height: 30px; background-color: #097B96">
                                     <i class="mdi mdi-clipboard-outline d-flex" style="color:white; align-items: center;"></i>
                                 </div>
-                                <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pelaporan Neraca Limbah</h2>
+                                <h2 class="fw-bold d-flex" style="color: #097B96;">Formulir Pelaporan Neraca Limbah B3</h2>
                             </div>
                         </div>
                         <hr>
-    
+
                         @if($errors->any())
                             <div class="alert alert-danger">
                                 {{ $errors->first() }}
                             </div>
                         @endif
-    
+
                         @if(session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
                             </div>
                         @endif
-    
+
                         <form action="{{ route('timk3.submitFormNeraca') }}" method="post">
                             @csrf
                             <div class="row">
@@ -52,7 +52,7 @@
                                         <option value="Desember">Desember</option>
                                     </select>
                                 </div>
-    
+
                                 <div class="col form-group">
                                     <label for="kuartal">Kuartal</label>
                                     <select name="kuartal" class="form-select form-control" required>
@@ -63,13 +63,13 @@
                                         <option value="4">Kuartal IV</option>
                                     </select>
                                 </div>
-    
+
                                 <div class="col form-group">
                                     <label for="tahun">Tahun</label>
                                     <input type="number" name="tahun" class="form-control" placeholder="Tahun" required>
                                 </div>
                             </div>
-    
+
                             <!-- Tambahkan input lainnya sesuai kebutuhan -->
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Submit</button>

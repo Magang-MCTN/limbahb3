@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="container">
                         <h3 class="fw-bold ms-2 mb-4">Detail Laporan Neraca</h3>
-    
+
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
@@ -19,7 +19,7 @@
                                 </tr>
                                 <tr>
                                     <th>Nama Laporan</th>
-                                    <td>Limbah Keluar</td>
+                                    <td>Neraca Limbah B3</td>
                                 </tr>
                                 <tr>
                                     <th>Kuartal</th>
@@ -44,7 +44,7 @@
                                 <tr></tr>
                             </table>
                         </div>
-    
+
                         <div class="table-responsive">
                             <table class="table text-center mt-4">
                                 <thead>
@@ -68,7 +68,7 @@
                                 </tbody>
                             </table>
                         </div>
-    
+
                         <div class="d-flex mt-3">
                             <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>
                         </div>

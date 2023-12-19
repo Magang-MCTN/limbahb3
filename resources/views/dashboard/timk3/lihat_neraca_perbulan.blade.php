@@ -11,16 +11,16 @@
                     <div class="container">
                         <h2 class="fw-bold">Data Neraca Bulan {{ $bulan->nama_bulan }}</h2>
                         <hr>
-    
+
                         <!-- Tampilkan data neraca 1 -->
                         {{-- <h4 class="fw-bold">Neraca 1</h4> --}}
-    
+
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Jenis Limbah</th>
-                                        <th>Sumber Limbah</th>
+                                        <th>Jenis Limbah B3</th>
+                                        <th>Sumber Limbah B3</th>
                                         <th>Dihasilkan</th>
                                         <th>Disimpan</th>
                                         <th>Dimanfaatkan</th>
@@ -53,7 +53,7 @@
                                 </tbody>
                             </table>
                         </div>
-    
+
                         <!-- Tampilkan data neraca 2 -->
                         {{-- <h4 class="fw-bold mt-4">Neraca 2</h4> --}}
                        @if ($neraca2)
@@ -69,11 +69,11 @@
                                     <td>{{ $neraca2->residu }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Limbah Belum Dikelola</th>
+                                    <th>Limbah B3 Belum Dikelola</th>
                                     <td>{{ $neraca2->limbah_belum_dikelola }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Limbah Tersisa</th>
+                                    <th>Limbah B3 Tersisa</th>
                                     <td>{{ $neraca2->limbah_tersisa }}</td>
                                 </tr>
                                 <tr>
@@ -85,7 +85,7 @@
                                     <td>{{ $neraca2->dokumen_kontrol }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Perizinan Limbah KLH</th>
+                                    <th>Perizinan Limbah B3 KLH</th>
                                     <td>{{ $neraca2->perizinan_limbah_klh }}</td>
                                 </tr>
                                 <tr>
@@ -97,22 +97,28 @@
                                     <td>{{ $neraca2->catatan }}</td>
                                 </tr>
                                 <tr></tr>
-    
+
                             </table>
                             <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
                         </div>
+
                         <div>
                         {{-- <a class="btn btn-primary mt-4" href="{{ route('timk3.detailBulan', ['id_periode_laporan' => $bulan->id_periode_laporan]) }}">Kembali</a> --}}
 
                             <a href="{{ route('editNeraca2', $neraca2->id_neraca_limbah_2) }}" class="btn btn-primary my-4">Edit</a>
                         </div>
+                        @else
+                            <p>Data Neraca belum diisi untuk bulan ini.</p>
+                        @endif
                     </div>
+                    <div class="mt-3">
+                        <a class="btn btn-mctn" href="{{ url()->previous() }}">Kembali</a>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-@else
-    <p>Data Neraca belum diisi untuk bulan ini.</p>
-@endif
+
 @endsection

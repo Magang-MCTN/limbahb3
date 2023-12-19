@@ -8,6 +8,7 @@ use App\Models\LimbahMasuk;
 use App\Models\NeracaLimbah1;
 use App\Models\NeracaLimbah2;
 use App\Models\PeriodeLaporan;
+use App\Models\status;
 use Illuminate\Http\Request;
 
 class OpharController extends Controller
@@ -66,11 +67,30 @@ class OpharController extends Controller
         // return view('dashboard.ophar.index', compact('statusesneraca', 'statuses', 'jumlahLaporan', 'jumlahDraft', 'jumlahMenunggu', 'jumlahDitolak', 'jumlahSelesai'));
     }
 
-    public function status()
+    public function status(Request $request)
     {
-        $periodes = PeriodeLaporan::with('status')->get();
+        $tahun = $request->input('tahun');
+        $statusSurat = $request->input('status_surat');
 
-        return view('dashboard.ophar.status', compact('periodes'));
+        // Query data dengan kondisi pencarian
+        $query = PeriodeLaporan::has('status')->with('status');
+
+        if (!empty($tahun)) {
+            $query->where('tahun', 'LIKE', "%$tahun%");
+        }
+
+        if (!empty($statusSurat)) {
+            $query->whereHas('status', function ($q) use ($statusSurat) {
+                $q->where('id_status', $statusSurat);
+            });
+        }
+
+        $statuses = $query->paginate(5);
+
+        // Ambil daftar status untuk dropdown filter
+        $daftarStatus = status::all();
+
+        return view('dashboard.ophar.status', compact('statuses', 'tahun', 'daftarStatus', 'statusSurat'));
     }
     public function persetujuan()
     {

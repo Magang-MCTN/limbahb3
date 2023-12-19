@@ -18,11 +18,11 @@
                             </tr>
                             <tr>
                                 <th>Nama Laporan</th>
-                                <td>Limbah Masuk</td>
+                                <td>Limbah B3 Masuk</td>
                             </tr>
                             <tr>
                                 <th>Kuartal</th>
-                                <td>Kuartal {{ $periode->kuartal }}</td>
+                                <td>{{ $periode->kuartal }}</td>
                             </tr>
                             <tr>
                                 <th>Keterangan Kuartal</th>
@@ -34,7 +34,7 @@
                             </tr>
                             <tr>
                                 <th>Status</th>
-                                @if ($periode->status->id_status == 3)
+                                @if ($periode->status->id_status == 6)
                                 <td><p class="badge badge-success">{{ $periode->status ? $periode->status->nama : 'Tidak Ada Status' }}</p></td>
                                 @elseif ($periode->status->id_status == 4)
                                 <td><p class="badge badge-danger">{{ $periode->status ? $periode->status->nama : 'Tidak Ada Status' }}</p></td>
@@ -42,10 +42,10 @@
                                 <td><p class="badge badge-warning">{{ $periode->status ? $periode->status->nama : 'Tidak Ada Status' }}</p></td>
                                 @endif
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <th>Alasan</th>
                                 <td>{{ $periode->alasan ?: 'Belum Ada' }}</td>
-                            </tr>
+                            </tr> --}}
                             <tr></tr>
                         </table>
                         <div class="d-flex justify-content-between mt-3">
@@ -54,6 +54,8 @@
                                 {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button> --}}
                                 @if ($periode->status->id_status == 1) <!-- Ganti 1 dengan ID status yang sesuai -->
                                 <button type="button" class="btn btn-success ms-1" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button>
+                                @elseif ($periode->status->id_status == 4)
+                                <button type="button" class="btn btn-success ms-1" data-toggle="modal" data-target="#konfirmasiModal">Kirim Ulang</button>
                                 @endif
                             </div>
                             <div>

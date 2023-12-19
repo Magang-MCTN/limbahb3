@@ -8,7 +8,7 @@
         <div class="home-tab">
             <div class="container py-3 px-4">
                 <div class="row">
-                    <h3 class="col fw-bold mt-4">Arsip Laporan Limbah</h3>
+                    <h3 class="col fw-bold mt-4">Arsip Laporan Limbah B3</h3>
                     <div class="col">
                         <div class="row">
                             <div class="col"></div>
@@ -19,7 +19,7 @@
                                     <div class="input-group-append">
                                         <button class="btn btn-mctn badge ms-1" style="color: white;">Cari</button>
                                     </div>
-    
+
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                     <a class="page-link" href="{{ $periodes->previousPageUrl() }}" rel="prev">&laquo;</a>
                                 </li>
                             @endif
-        
+
                             {{-- Pagination Elements --}}
                             @for ($page = max(1, $periodes->currentPage() - 2); $page <= min($periodes->lastPage(), $periodes->currentPage() + 2); $page++)
                                 @if ($periodes->currentPage() == $page)
@@ -87,7 +87,7 @@
                                     </li>
                                 @endif
                             @endfor
-        
+
                             {{-- Next Page Link --}}
                             @if ($periodes->hasMorePages())
                                 <li class="page-item">

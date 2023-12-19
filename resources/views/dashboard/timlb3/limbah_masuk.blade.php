@@ -8,18 +8,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container">
-                        <h3 class="my-4"> Data Limbah Masuk - <span class="fw-bold">{{ $periode->no_dokumen_masuk }}</span></h3>
+                        <h3 class="my-4"> Data Limbah B3 Masuk - <span class="fw-bold">{{ $periode->no_dokumen_masuk }}</span></h3>
                         <div class="table-responsive">
                             <table class="table text-center">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Jenis Limbah</th>
-                                        <th>Satuan Limbah</th>
+                                        <th>Jenis Limbah B3</th>
+                                        <th>Satuan Limbah B3</th>
                                         <th>Tanggal Masuk</th>
-                                        <th>Sumber Limbah</th>
-                                        <th>Bentuk Limbah</th>
-                                        <th>Jumlah Limbah</th>
+                                        <th>Sumber Limbah B3</th>
+                                        <th>Bentuk Limbah B3</th>
+                                        <th>Jumlah Limbah B3</th>
                                         <th>Berat/Satuan</th>
                                         <th>Berat</th>
                                         <th>Maksimal Penyimpanan (hari)</th>
@@ -39,7 +39,7 @@
                                             <td>{{ $limbah->berat_satuan }}</td>
                                             <td>{{ $limbah->berat }}</td>
                                             <td>{{ $limbah->maksimal_penyimpanan }}</td>
-                                            @if($limbah->status == 'Draft')
+                                            @if($periode->id_status_masuk === 1 || $periode->id_status_masuk === 4)
                                             <td>
                                                 <a href="{{ route('timlb3.editLimbahMasuk', $limbah->id_limbah_masuk) }}" class="btn btn-sm btn-primary">Edit</a>
                                                  <!-- Button trigger modal -->
@@ -49,38 +49,39 @@
                                             </td>
                                             @else
                                             <td>
-                                                <a href="{{ route('timlb3.editLimbahMasuk', $limbah->id_limbah_masuk) }}" @disabled(true) class="btn btn-sm btn-primary disabled">Edit</a>
+                                                <a href="{{ route('timlb3.editLimbahMasuk', $limbah->id_limbah_masuk) }}" class="btn btn-sm btn-primary disabled">Edit</a>
                                                  <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-sm btn-danger" disabled data-toggle="modal" data-target="#hapusModal{{ $limbah->id_limbah_masuk }}">
                                                     Hapus
                                                 </button>
+                                            </td>
                                                 @endif
                                         </tr>
                                         <!-- Modal -->
-                                    <div class="modal fade" id="hapusModal{{ $limbah->id_limbah_masuk }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus data ini?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <form action="{{ route('timlb3.destroyLimbahMasuk', $limbah->id_limbah_masuk) }}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                                    </form>
+                                        <div class="modal fade" id="hapusModal{{ $limbah->id_limbah_masuk }}" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah Anda yakin ingin menghapus data ini?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                        <form action="{{ route('timlb3.destroyLimbahMasuk', $limbah->id_limbah_masuk) }}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    @endforeach
+                                        @endforeach
                                 </tbody>
                             </table>
                         </div>

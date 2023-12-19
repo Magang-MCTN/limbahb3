@@ -17,7 +17,7 @@
                         </tr>
                         <tr>
                             <th>Nama Laporan</th>
-                            <td>Limbah Keluar</td>
+                            <td>Neraca Limbah B3</td>
                         </tr>
                         <tr>
                             <th>Kuartal</th>

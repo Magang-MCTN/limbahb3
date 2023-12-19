@@ -7,7 +7,7 @@
     <div class="content-wrapper">
         <div class="container py-3 px-4">
             <div class="home-tab row">
-                <h3 class="col fw-bold mt-4 ms-4">Persetujuan Laporan Limbah</h3>
+                <h3 class="col fw-bold mt-4 ms-4">Persetujuan Laporan Limbah B3</h3>
                 <div class="col">
                     <div class="row">
                         <div class="col form-group">
@@ -17,7 +17,7 @@
                                 <div class="input-group-append">
                                     <button class="btn badge ms-1" style="background-color: #097b96; color: white;" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Cari</button>
                                 </div>
-    
+
                             </div>
                         </div>
                         <div class="col form-group">

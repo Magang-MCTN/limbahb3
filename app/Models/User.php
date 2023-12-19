@@ -18,6 +18,10 @@ class User extends Authenticatable
 
     public $timestamps = true;
 
+    public function tandaTangan()
+    {
+        return $this->hasOne(TandaTangan::class, 'id_user', 'id');
+    }
     // Relasi ke tabel Role
     public function role()
     {

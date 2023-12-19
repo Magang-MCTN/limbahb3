@@ -11,29 +11,28 @@
                     <h3 class="col fw-bold mt-4 ms-4">Persetujuan Laporan</h3>
                     <div class="col">
                         <div class="row">
-                            <div class="col form-group">
+                            {{-- <div class="col form-group">
                                 <label for="cari" class="form-label">Cari</label>
                                 <div class="input-group">
                                     <input type="text" name="cari" class="form-control">
                                     <div class="input-group-append">
                                         <button class="btn badge ms-1" style="background-color: #097b96; color: white;" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Cari</button>
                                     </div>
-        
+
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col form-group">
                                 <form method="get" action="">
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="status_surat" class="form-label">Filter</label>
                                         <div class="input-group">
                                             <select id="status_surat" class="form-select form-control" name="status_surat">
                                                 <option value="">Semua</option>
-                                                {{-- <option value="2" @if($statusSurat == 2) selected @endif>Disetujui</option>
-                                                <option value="5" @if($statusSurat == 5) selected @endif>Ditolak</option> --}}
+
                                             </select>
                                             <button class="btn mb-1 ms-1" type="submit" style="background-color: #097b96; color: white; border-radius:5px" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Filter</button>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </form>
                             </div>
                         </div>

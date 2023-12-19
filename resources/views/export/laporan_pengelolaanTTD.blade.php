@@ -69,11 +69,10 @@
     </div>
 
     <div class="footer">
-        <p>{{ now()->format('d F Y') }}</p>
         <p>Hormat kami,</p>
         <!-- Gantilah dengan tanda tangan yang sesuai -->
-        {{-- <img src="{{ public_path('path/to/tanda_tangan.jpg') }}" alt="Tanda Tangan" width="100"> --}}
-        <p>Radpandji Edy Widjaja </p><br>
+        <img src="{{ public_path('storage/'.$ttd) }}" alt="Tanda Tangan" width="100">
+        <p style="text-decoration: underline;"><b>Radpandji Edy Widjaja</b></p>
         <p>Direktur AsOpHar MCTN </p>
     </div>
 

@@ -1,16 +1,20 @@
-
-
 <table>
     <thead>
         <tr>
-            <th>No </th>
-            <th>Jenis Limbah B3</th>
-            <th>Jumlah KG</th>
-            <th>Jumlah Ton</th>
-            <th>Tujuan Penyerahan</th>
-            <th>Bukti Nomor dokumen</th>
-            <th>Sisa Lb 3</th>
+            <th colspan="7" style="background-color: #00b0f0"><b>KELUARNYA LIMBAH B3 KE TPS</b></th>
+        </tr>
+        <tr>
+            <th rowspan="2"><b>No</b></th>
+            <th rowspan="2"><b>Jenis Limbah B3</b></th>
+            <th colspan="2"><b>Jumlah Limbah B3</b></th>
+            <th rowspan="2"><b>Tujuan Penyerahan</b></th>
+            <th rowspan="2"><b>Bukti Nomor dokumen</b></th>
+            <th rowspan="2"><b>Sisa Lb 3</b></th>
 
+        </tr>
+        <tr>
+            <th><b>Kg</b></th>
+            <th><b>Ton</b></th>
         </tr>
     </thead>
     <tbody>
@@ -28,27 +32,42 @@
         @endforeach
     </tbody>
 </table>
-{{-- <div style="margin-top: 20px;">
-    @php
-        $lastUserId = null; // Inisialisasi variabel untuk menyimpan id_user terakhir
-        $lastSignature = null; // Inisialisasi variabel untuk menyimpan tanda tangan terakhir
-    @endphp
+<div style="margin-top: 20px;">
 
-    @foreach($limbahMasuk as $limbah)
-        @php
-            // Simpan id_user dan tanda tangan pada setiap iterasi
-            $lastUserId = $limbah->id_user;
-            $lastSignature = $limbah->tandaTangan;
-        @endphp
-    @endforeach
+    <?php
+    function tgl_indo($tanggal){
+        $bulan = array (
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
 
-    <!-- Cek apakah ada tanda tangan untuk id_user terakhir -->
-    <p>Data Tanda Tangan:</p>
-    @if($lastSignature && is_object($lastSignature))
-        <img src="{{ public_path('storage/'.$lastSignature->path) }}" alt="Tanda Tangan {{ $lastSignature->user->name }}" width="150">
-        <p>{{ $lastSignature->user->name }}</p>
-    @else
-        <p>Tidak Ada Tanda Tangan untuk User ini</p>
-    @endif
-</div> --}}
+        // variabel pecahkan 0 = tanggal
+        // variabel pecahkan 1 = bulan
+        // variabel pecahkan 2 = tahun
+
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+    }
+    ?>
+
+
+  <!-- Cek apakah ada tanda tangan untuk id_user terakhir -->
+<p>Duri, {{tgl_indo($periodes)}}</p>
+ <!-- Cetak nilai variabel untuk debugging -->
+@if($tandaTangan && is_object($tandaTangan))
+    <img src="{{ public_path('storage/'.$tandaTangan->path) }}" alt="Tanda Tangan {{ $tandaTangan->user->name }}" width="150">
+    <p>{{ $tandaTangan->user->name }}</p>
+@else
+    <p>Tidak Ada Tanda Tangan untuk User dengan role 4</p>
+@endif
 

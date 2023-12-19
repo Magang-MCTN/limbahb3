@@ -9,14 +9,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container">
-                        <h3 class="fw-bold">Data Limbah Keluar - {{ $periode->no_dokumen_keluar }}</h3>
-    
+                        <h3 class="fw-bold">Data Limbah B3 Keluar - {{ $periode->no_dokumen_keluar }}</h3>
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Jenis Limbah</th>
+                                        <th>Jenis Limbah B3</th>
                                         <th>Tujuan Penyerahan</th>
                                         <th>Tanggal Keluar</th>
                                         <th>Jumlah Limbah B3 Keluar (KG)</th>

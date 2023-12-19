@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h2 >Buat Jenis Limbah</h2>
+        <h2 >Buat Jenis Limbah B3</h2>
         <!-- Form untuk membuat jenis limbah -->
         <form method="post" action="{{ route('jenislimbah.store') }}">
             @csrf

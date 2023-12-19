@@ -6,6 +6,7 @@ use App\Imports\LimbahMasukImport;
 use App\Models\JenisLimbah;
 use App\Models\LimbahMasuk;
 use App\Models\PeriodeLaporan;
+use App\Models\status;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -33,7 +34,7 @@ class TimLb3Controller extends Controller
     public function submitFormKuartalTahun(Request $request)
     {
         $request->validate([
-            'kuartal' => 'required|string|in:1,2,3,4',
+            'kuartal' => 'required',
             'tahun' => 'required|numeric|min:4',
         ]);
 
@@ -47,17 +48,35 @@ class TimLb3Controller extends Controller
             $idPeriode = $periode->id_periode_laporan;
         } else {
             // Jika periode belum ada, buat periode baru
-            $kuartalKeterangan = [
-                '1' => 'Januari - Maret',
-                '2' => 'April - Juni',
-                '3' => 'Juli - September',
-                '4' => 'Oktober - Desember',
-            ];
+            // $kuartalKeterangan = [
+            //     '1' => 'Januari - Maret',
+            //     '2' => 'April - Juni',
+            //     '3' => 'Juli - September',
+            //     '4' => 'Oktober - Desember',
+            // ];
 
-            $periode = new PeriodeLaporan();
-            $periode->kuartal = $request->input('kuartal');
-            $periode->tahun = $request->input('tahun');
-            $periode->keterangan_kuartal = $kuartalKeterangan[$request->input('kuartal')];
+            // Tentukan keterangan kuartal berdasarkan nilai kuartal
+            if ($request->input('kuartal') == 1) {
+                $keteranganKuartal = 'Januari - Maret';
+            } elseif ($request->input('kuartal') == 2) {
+                $keteranganKuartal = 'April - Juni';
+            } elseif ($request->input('kuartal') == 3) {
+                $keteranganKuartal = 'Juli - September';
+            } elseif ($request->input('kuartal') == 4) {
+                $keteranganKuartal = 'Oktober - Desember';
+            } else {
+                // Penanganan jika nilai kuartal tidak sesuai dengan yang diharapkan
+                return redirect()->back()->withInput()->withErrors(['Kuartal tidak valid']);
+            }
+
+            // Buat periode baru dan simpan ke dalam variabel $periode
+            $periode = new PeriodeLaporan([
+                'kuartal' => $request->input('kuartal'),
+                'tahun' => $request->input('tahun'),
+                'keterangan_kuartal' => $keteranganKuartal,
+            ]);
+
+            // Simpan periode ke dalam database
             $periode->save();
 
             $idPeriode = $periode->id_periode_laporan;
@@ -135,10 +154,36 @@ class TimLb3Controller extends Controller
             return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
-    public function status()
+    // public function status()
+    // {
+    //     $statuses = PeriodeLaporan::has('status')->with('status')->paginate(5);
+    //     return view('dashboard.timlb3.status', compact('statuses'));
+    // }
+    public function status(Request $request)
     {
-        $statuses = PeriodeLaporan::has('status')->with('status')->paginate(5);
-        return view('dashboard.timlb3.status', compact('statuses'));
+        // Ambil nilai pencarian dari input form
+        $tahun = $request->input('tahun');
+        $statusSurat = $request->input('status_surat');
+
+        // Query data dengan kondisi pencarian
+        $query = PeriodeLaporan::has('status')->with('status');
+
+        if (!empty($tahun)) {
+            $query->where('tahun', 'LIKE', "%$tahun%");
+        }
+
+        if (!empty($statusSurat)) {
+            $query->whereHas('status', function ($q) use ($statusSurat) {
+                $q->where('id_status', $statusSurat);
+            });
+        }
+
+        $statuses = $query->paginate(5);
+
+        // Ambil daftar status untuk dropdown filter
+        $daftarStatus = status::all();
+
+        return view('dashboard.timlb3.status', compact('statuses', 'tahun', 'daftarStatus', 'statusSurat'));
     }
     public function showDetailPeriode($id)
     {
@@ -220,7 +265,10 @@ class TimLb3Controller extends Controller
     {
         $periode = PeriodeLaporan::findOrFail($id);
         // Tambahkan logika lain yang diperlukan
-        $periode->update(['id_status_masuk' => 5]);
+        $periode->update([
+            'id_status_masuk' => 5,
+            'tanggal_masuk' => now(), // Menggunakan fungsi now() untuk mendapatkan tanggal dan waktu saat ini
+        ]);
 
         return redirect('/status');
     }

@@ -19,11 +19,15 @@ class LimbahKeluarExport implements FromView, ShouldAutoSize
 {
     private $judul;
     private $limbahkeluar;
+    private $tandaTangan;
+    private $periodes;
 
-    public function __construct($judul, $limbahkeluar)
+    public function __construct($judul, $limbahkeluar, $tandaTangan, $periodes)
     {
         $this->judul = $judul;
         $this->limbahkeluar = $limbahkeluar;
+        $this->tandaTangan = $tandaTangan;
+        $this->periodes = $periodes;
     }
 
     public function view(): ViewView // Update the return type to Illuminate\View\View
@@ -31,6 +35,8 @@ class LimbahKeluarExport implements FromView, ShouldAutoSize
         return view('export.limbah_keluar', [
             'judul' => $this->judul,
             'limbahkeluar' => $this->limbahkeluar,
+            'tandaTangan' => $this->tandaTangan,
+            'periodes' => $this->periodes,
         ]);
     }
 }

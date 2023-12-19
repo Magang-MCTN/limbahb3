@@ -13,19 +13,19 @@
                 <div class="card-body">
                     <div class="container">
                         <h2 class="m-3 fw-bold">Detail Periode Laporan</h2>
-    
+
                         <table class="table">
                             <tr>
-                                <th>No Dokumen Masuk</th>
-                                <td>{{ $periode->no_dokumen_masuk }}</td>
+                                <th>No Dokumen</th>
+                                <td>{{ $periode->no_dokumen_keluar }}</td>
                             </tr>
                             <tr>
                                 <th>Nama Laporan</th>
-                                <td>Limbah Keluar</td>
+                                <td>Limbah B3 Keluar</td>
                             </tr>
                             <tr>
                                 <th>Kuartal</th>
-                                <td>Kuartal {{ $periode->kuartal }} ( {{ $periode->keterangan_kuartal }} )</td>
+                                <td>{{ $periode->kuartal }} ( {{ $periode->keterangan_kuartal }} )</td>
                             </tr>
                             <tr>
                                 <th>Tahun</th>
@@ -35,9 +35,9 @@
                                 <th>Status</th>
                                 <td>
                                     @if ($periode->statuskeluar)
-                                        @if ($periode->statuskeluar->nama == 'Selesai')
+                                        @if ($periode->statuskeluar->id_status == 6)
                                             <span class="badge badge-success">{{ $periode->statuskeluar ? $periode->statuskeluar->nama : 'Tidak Ada Status' }}</span>
-                                        @elseif ($periode->statuskeluar->nama == 'Ditolak')
+                                        @elseif ($periode->statuskeluar->id_status == 4)
                                             <span class="badge badge-danger">{{ $periode->statuskeluar ? $periode->statuskeluar->nama : 'Tidak Ada Status' }}</span>
                                         @else
                                             <span class="badge badge-warning">{{ $periode->statuskeluar ? $periode->statuskeluar->nama : 'Tidak Ada Status' }}</span>
@@ -45,16 +45,16 @@
                                     @endif
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <th>Alasan</th>
                                 <td>{{ $periode->alasan ?: 'Belum Ada' }}</td>
-                            </tr>
+                            </tr> --}}
                             <tr></tr>
                         </table>
                         <div class="d-flex justify-content-between mt-4">
                             <div>
                                 <a href="/timk3/status" class="btn btn-primary me-1">Kembali</a>
-        
+
                                 {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button> --}}
                                 @if ($periode->statuskeluar && $periode->statuskeluar->id_status == 1)
                                 <button type="button" class="btn btn-success ms-1" data-toggle="modal" data-target="#konfirmasiModal">Kirim</button>

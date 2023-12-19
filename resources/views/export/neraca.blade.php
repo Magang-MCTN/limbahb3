@@ -7,7 +7,8 @@
     <title>Neraca Limbah B3</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10px;
         }
         table {
             border-collapse: collapse;
@@ -45,7 +46,10 @@
                 <th>I</th>
                 <th>Jenis Awal Limbah </th>
                 <th>Jumlah (Ton) </th>
-                <th>Catatan : </th>
+                <?php
+                $totalData = count($neraca1);
+                ?>
+                <td colspan="6" rowspan="{{ $totalData+2 }}">Catatan : <br>asdasd <br>asdasd <br> asdasd <br></td>
             </tr>
         </thead>
         <tbody>
@@ -54,26 +58,17 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $data->id_jenis_limbah }}</td>
                     <td>{{ $data->dihasilkan }}</td>
-                    <td>{{ $data->catatan }}</td>
+                    {{-- <td colspan="6"></td> --}}
                 </tr>
             @endforeach
             <tr>
                 <td colspan="2">Total</td>
                 <td>####</td>
-                <td></td>
             </tr>
-        </tbody>
-    </table>
-
-    <!-- Tabel II: Perlakuan -->
-    <h2>II. Perlakuan</h2>
-
-    <table>
-        <thead>
             <tr>
                 <th>II</th>
                 <th>Perlakuan </th>
-                <th>Jumlah  (Ton) </th>
+                <th>Jumlah (Ton) </th>
                 <th>JENIS LIMBAH YANG DIKELOLA </th>
                 <th>DOKUMEN KONTROL </th>
                 <th>PERIZINAN LIMBAH DARI KLH </th>
@@ -81,35 +76,24 @@
                 <th>TIDAK</th>
                 <th>KEDALUARSA</th>
             </tr>
-        </thead>
-        <tbody>
+
             @foreach ($neraca1 as $index => $data)
-                <tr>
-                    <td>1</td>
-                    <td>DISIMPAN</td>
-                    <td>{{ $data->disimpan }}</td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ $data->dokumen_kontrol }}</td>
-                    <td>{{ $data->periizin_limbah_klh }}</td>
-                    <td>{{ $data->ada_tidak_kadaluarasa }}</td>
-                    <td>{{ $data->keterangan_lainnya }}</td>
-                </tr>
-            @endforeach
-            <!-- Tambahkan baris untuk jenis perlakuan lainnya -->
-            <!-- contoh:
             <tr>
-                <td>2</td>
-                <td>PERLAKUAN LAIN</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ $index + 1 }}</td>
+                <td>DISIMPAN</td>
+                <td>{{ $data->disimpan }}</td>
+                <td>{{ $data->dikelola }}</td>
+                <td>{{ $data->dokumen_kontrol }}</td>
+                <td>{{ $data->periizin_limbah_klh }}</td>
+
+                @if ($index === 0)
+                    <td rowspan="{{ $totalData }}">{{ $data->ada_tidak_kadaluarasa }}</td>
+                    <td rowspan="{{ $totalData }}">{{ $data->ada_tidak_kadaluarasa }}</td>
+                    <td rowspan="{{ $totalData }}">{{ $data->ada_tidak_kadaluarasa }}</td>
+                @endif
+                {{-- <td>{{ $data->keterangan_lainnya }}</td> --}}
             </tr>
-            -->
+        @endforeach
         </tbody>
     </table>
 

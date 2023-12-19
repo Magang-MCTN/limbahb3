@@ -9,14 +9,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container">
-                        <h3 class="fw-bold">Data Limbah Keluar - {{ $periode->no_dokumen_keluar }}</h3>
-    
+                        <h3 class="fw-bold">Data Limbah B3 Keluar - {{ $periode->no_dokumen_keluar }}</h3>
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Jenis Limbah</th>
+                                        <th>Jenis Limbah B3</th>
                                         <th>Tujuan Penyerahan</th>
                                         <th>Tanggal Keluar</th>
                                         <th>Jumlah Limbah B3 Keluar (KG)</th>
@@ -42,7 +42,7 @@
                             </table>
                         </div>
                         <div class="d-flex justify-content-end mt-4">
-                            <a href="{{ url()->previous() }}" class="btn" style="background-color:#097B96; color: white" onmouseover="this.style.backgroundColor='#0B697F'" onmouseout="this.style.backgroundColor='#097B96'">Kembali</a>
+                            <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>
                         </div>
                     </div>
                 </div>
