@@ -8,7 +8,7 @@
         <div class="home-tab">
             <div class="container px-4">
                 <div class="row">
-                    <h2 class="col fw-bold ms-4 mt-4">Status Laporan</h2>
+                    <h2 class="col fw-bold ms-4 mt-4">Status Limbah B3 Keluar</h2>
                     <div class="col">
                         <div class="row">
                             <div class="col form-group">

@@ -6,7 +6,7 @@
         <div class="container py-3 px-4">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="fw-bold ms-3 my-3">Detail Periode</h3>
+                    <h3 class="fw-bold ms-3 my-3">Detail Laporan Limbah B3</h3>
                     <div class="table-responsive mb-4">
                         <table class="table">
                             <tr>
@@ -28,10 +28,6 @@
                             <tr>
                                 <th>Status Neraca Limbah B3 </th>
                                 <td>{{ $periode->statusNeraca ? $periode->statusNeraca->nama : 'Data tidak tersedia' }}</td>
-                            </tr>
-                            <tr>
-                                <th>Alasan</th>
-                                <td>{{ $periode->alasan ?: 'Tidak Ada Alasan' }}</td>
                             </tr>
                             <tr></tr>
                         </table>
@@ -69,10 +65,10 @@
                         <div class="col">
                             <h4 class="fw-bold">Surat Laporan</h4>
                             @if (file_exists(public_path('surat/laporan_pengelolaanTTD_' . $periode->id_periode_laporan . '.pdf')))
-                                <a href="{{ asset('surat/laporan_pengelolaanTTD_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info" download>Kabupaten</a>
+                                <a href="{{ asset('surat/laporan_pengelolaanTTD_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-info" download>Unduh Surat Kabupaten</a>
                             @endif
                             @if (file_exists(public_path('surat/laporan_pengelolaanTTD2_' . $periode->id_periode_laporan . '.pdf')))
-                                <a href="{{ asset('surat/laporan_pengelolaanTTD2_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-success" download>Kota</a>
+                                <a href="{{ asset('surat/laporan_pengelolaanTTD2_' . $periode->id_periode_laporan . '.pdf') }}" class="btn btn-success" download>Unduh Surat Kota</a>
                             @endif
                         </div>
                     </div>

@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container">
-                        <h3 class="fw-bold">Detail Laporan Neraca</h3>
+                        <h3 class="fw-bold">Detail Laporan Neraca Limbah B3</h3>
 
                         <div class="">
                             <table class="table">
@@ -27,7 +27,7 @@
                                 </tr>
                                 <tr>
                                     <th>Kuartal</th>
-                                    <td>Kuartal {{ $periode->kuartal }}</td>
+                                    <td>{{ $periode->kuartal }}</td>
                                 </tr>
                                 <tr>
                                     <th>Keterangan Kuartal</th>
@@ -40,10 +40,6 @@
                                 <tr>
                                     <th>Status</th>
                                     <td>{{ $periode->statuskeluar ? $periode->statuskeluar->nama : 'Tidak Ada Status' }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Alasan</th>
-                                    <td>{{ $periode->alasan ?: 'Belum Ada' }}</td>
                                 </tr>
                                 <tr></tr>
                             </table>

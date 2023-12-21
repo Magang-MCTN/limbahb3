@@ -14,7 +14,9 @@
 
                         <!-- Tampilkan data neraca 1 -->
                         {{-- <h4 class="fw-bold">Neraca 1</h4> --}}
-
+                        <div class="mb-3">
+                            <a href="{{ route('timk3.showFormNeraca1baru', $bulan->id_bulan) }}" class="btn btn-success">Tambah Data </a>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -47,6 +49,7 @@
                                             <td>{{ $data->lainnya }}</td>
                                             <td>
                                                 <a href="{{ route('timk3.editNeraca1', $data->id_neraca_limbah_1) }}" class="btn btn-primary">Edit</a>
+                                                <a href="{{ route('timk3.deleteNeraca1', ['id_neraca1' => $data->id_neraca_limbah_1]) }}" onclick="return confirm('Apakah Anda yakin ingin menghapus data Neraca 1 ini?')"class="btn btn-danger">Hapus</a>
                                             </td>
                                         </tr>
                                     @endforeach

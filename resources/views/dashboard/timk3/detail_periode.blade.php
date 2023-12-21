@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container">
-                        <h2 class="m-3 fw-bold">Detail Periode Laporan</h2>
+                        <h2 class="m-3 fw-bold">Detail Laporan Limbah B3 Keluar</h2>
 
                         <table class="table">
                             <tr>
@@ -62,7 +62,9 @@
                             </div>
                             <div>
                                 <a href="{{ route('limbah.keluar', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-info me-2">Lihat Detail</a>
+                                @if ($periode->statuskeluar->id_status !== 1)
                                 <a href="#" class="btn btn-success">Unduh Dokumen</a>
+                                @endif
                             </div>
                         </div>
                     </div>

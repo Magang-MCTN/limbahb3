@@ -15,7 +15,7 @@ use App\Models\NeracaLimbah1;
 use App\Models\NeracaLimbah2;
 use App\Models\TandaTangan;
 use App\Models\User;
-
+use Carbon\Carbon;
 use PDF;
 use Illuminate\Support\Facades\View;
 
@@ -102,17 +102,57 @@ class ExportController extends Controller
     //     // Ekspor dengan nama file tertentu jika diperlukan
     //     return Excel::download($export, 'neraca.pdf');
     // }
+    public function exportNeracaPDFnottd($id_periode_laporan)
+    {
+        $periode = PeriodeLaporan::findOrFail($id_periode_laporan);
+        $idBulans = $periode->bulans->pluck('id_bulan')->toArray();
+        $tandaTangan = TandaTangan::whereHas('user', function ($query) {
+            $query->where('id_role', 4);
+        })->first();
+        $ttd = $tandaTangan->path;
+        $formattedDate = Carbon::parse($periode->tanggal_neraca)->formatLocalized('%d %B %Y');
+        $bulanData = [];
+        foreach ($idBulans as $idBulan) {
+            $neraca1 = NeracaLimbah1::where('id_bulan', $idBulan)
+
+                ->get();
+
+            $neraca2 = NeracaLimbah2::where('id_bulan', $idBulan)
+
+                ->first();
+
+            $namaBulan = BulanModel::find($idBulan)->nama_bulan;
+            $bulanData[] = compact('ttd', 'neraca1', 'neraca2', 'namaBulan', 'periode', 'formattedDate');
+        }
+
+        $pdf = PDF::loadView('export.neraca_multi_bulannottd', compact('ttd', 'bulanData', 'neraca1', 'neraca2', 'namaBulan', 'periode', 'formattedDate'));
+
+        return $pdf->stream('neraca.pdf');
+    }
     public function exportNeracaPDF($id_periode_laporan)
     {
         $periode = PeriodeLaporan::findOrFail($id_periode_laporan);
         $idBulans = $periode->bulans->pluck('id_bulan')->toArray();
+        $tandaTangan = TandaTangan::whereHas('user', function ($query) {
+            $query->where('id_role', 4);
+        })->first();
+        $ttd = $tandaTangan->path;
+        $formattedDate = Carbon::parse($periode->tanggal_neraca)->formatLocalized('%d %B %Y');
+        $bulanData = [];
+        foreach ($idBulans as $idBulan) {
+            $neraca1 = NeracaLimbah1::where('id_bulan', $idBulan)
 
-        $neraca1 = NeracaLimbah1::whereIn('id_bulan', $idBulans)->get();
-        $neraca2 = NeracaLimbah2::whereIn('id_bulan', $idBulans)->first();
-        $namaBulans = BulanModel::whereIn('id_bulan', $idBulans)->pluck('nama_bulan');
-        $periode = $periode;
+                ->get();
 
-        $pdf = PDF::loadView('export.neraca', compact('neraca1', 'neraca2', 'namaBulans', 'periode'));
+            $neraca2 = NeracaLimbah2::where('id_bulan', $idBulan)
+
+                ->first();
+
+            $namaBulan = BulanModel::find($idBulan)->nama_bulan;
+            $bulanData[] = compact('ttd', 'neraca1', 'neraca2', 'namaBulan', 'periode', 'formattedDate');
+        }
+
+        $pdf = PDF::loadView('export.neraca_multi_bulan', compact('ttd', 'bulanData', 'neraca1', 'neraca2', 'namaBulan', 'periode', 'formattedDate'));
 
         return $pdf->stream('neraca.pdf');
     }

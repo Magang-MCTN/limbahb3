@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Imports\LimbahMasukImport;
+use App\Mail\Sendpengajuan;
 use App\Models\JenisLimbah;
 use App\Models\LimbahMasuk;
 use App\Models\PeriodeLaporan;
 use App\Models\status;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TimLb3Controller extends Controller
@@ -263,14 +266,29 @@ class TimLb3Controller extends Controller
     }
     public function kirimPeriode($id)
     {
-        $periode = PeriodeLaporan::findOrFail($id);
-        // Tambahkan logika lain yang diperlukan
-        $periode->update([
-            'id_status_masuk' => 5,
-            'tanggal_masuk' => now(), // Menggunakan fungsi now() untuk mendapatkan tanggal dan waktu saat ini
-        ]);
+        try {
+            $periode = PeriodeLaporan::findOrFail($id);
 
-        return redirect('/status');
+            // Ambil data user dengan id_role 3
+            $user = User::where('id_role', 3)->first();
+
+            if (!$user) {
+                return redirect('/status')->with('error', 'Tidak ada pengguna dengan role 3.');
+            }
+
+            // Ganti status periode
+            $periode->update([
+                'id_status_masuk' => 5,
+                'tanggal_masuk' => now(),
+            ]);
+
+            // Kirim email
+            Mail::to($user->email)->send(new Sendpengajuan($id));
+
+            return redirect('/status')->with('success', 'Periode berhasil dikirim dan email terkirim.');
+        } catch (\Exception $e) {
+            return redirect('/status')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
     public function showImportForm($id_periode)
     {

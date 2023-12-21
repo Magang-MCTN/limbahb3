@@ -41,7 +41,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex justify-content-end mt-4">
+                        <div class="d-flex mt-4">
                             <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>
                         </div>
                     </div>

@@ -36,9 +36,6 @@
                             <td>{{ $periode->statuskeluar ? $periode->statuskeluar->nama : 'Tidak Ada Status' }}</td>
                         </tr>
                         <tr>
-                            <th>Alasan</th>
-                            <td>{{ $periode->alasan ?: 'Belum Ada' }}</td>
-                        </tr>
                         <tr></tr>
                     </table>
 
@@ -64,10 +61,12 @@
                         </tbody>
                     </table>
 
-                    <div class="d-flex mt-3">
+                    <div class="d-flex justify-content-between mt-3">
                         <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>
+                        <a href="{{ route('export.neraca.pdfnottd', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-primary">Unduh Laporan Neraca</a>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

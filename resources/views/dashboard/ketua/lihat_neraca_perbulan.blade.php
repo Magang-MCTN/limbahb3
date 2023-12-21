@@ -4,18 +4,20 @@
 
 @section('content')
 <div class="main-panel">
-    <div class="container py-3 px-4">
+    <div class="content-wrapper">
         <div class="card">
             <div class="card-body">
-                <div class="container">
+                <div class="container home-tab">
+
                     <h3 class="fw-bold">Data Neraca untuk Bulan {{ $bulan->nama_bulan }}</h3>
 
                     <!-- Tampilkan data neraca 1 -->
-                    <h3 class="fw-bold">Neraca 1</h3>
+                    {{-- <h3 class="fw-bold">Neraca 1</h3> --}}
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table">
+                            <div class="table-responsive">
+                                <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Jenis Limbah B3</th>
@@ -32,7 +34,7 @@
                                 <tbody>
                                     @foreach($neraca1 as $data)
                                     <tr>
-                                        <td>{{ $data->id_jenis_limbah }}</td>
+                                        <td>{{ $data->jenislimbah->jenis_limbah }}</td>
                                         <td>{{ $data->sumber_limbah }}</td>
                                         <td>{{ $data->dihasilkan }}</td>
                                         <td>{{ $data->dimanfaatkan }}</td>
@@ -49,12 +51,12 @@
                     </div>
 
                     <!-- Tampilkan data neraca 2 -->
-                    <h3 class="fw-bold">Neraca 2</h3>
+                    {{-- <h3 class="fw-bold">Neraca 2</h3> --}}
 
                     @if ($neraca2)
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
+
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table">
@@ -103,9 +105,9 @@
                     @else
                     <p>Data Neraca 2 belum diisi untuk bulan ini.</p>
                     @endif
-                    <div class="d-flex justify-content-end mt-3">
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
-                    </div>
+                        <div class="d-flex mt-3">
+                            <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>
+                        </div>
                 </div>
             </div>
         </div>

@@ -13,14 +13,15 @@
                         <div class="row">
                             <div class="col"></div>
                             <div class="col form-group">
-                                <label for="cari" class="form-label">Cari</label>
+                                <form id="search-form" method="get" action="{{ route('historiadmlimbah') }}">
+                                <label for="tahun" class="form-label">Cari Tahun</label>
                                 <div class="input-group">
-                                    <input type="text" name="cari" class="form-control">
+                                    <input type="text" name="tahun" class="form-control" value="{{ $tahun}}">
                                     <div class="input-group-append">
-                                        <button class="btn btn-mctn badge ms-1" style="color: white;">Cari</button>
+                                        <button class="btn btn-mctn badge ms-1" style="color: white">Cari</button>
                                     </div>
+                                </form>
 
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -40,7 +41,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($periodes as $periode)
+                                        @foreach($statuses as $periode)
                                             @if ($periode->status && $periode->status->id_status == 6)
                                                 <tr>
                                                     {{-- <td>{{ $periode->no_dokumen_masuk }}</td> --}}
@@ -65,33 +66,33 @@
                     <div class="mt-3 d-flex justify-content-end">
                         <ul class="pagination">
                             {{-- Previous Page Link --}}
-                            @if ($periodes->onFirstPage())
+                            @if ($statuses->onFirstPage())
                                 <li class="page-item disabled">
                                     <span class="page-link">&laquo;</span>
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $periodes->previousPageUrl() }}" rel="prev">&laquo;</a>
+                                    <a class="page-link" href="{{ $statuses->previousPageUrl() }}" rel="prev">&laquo;</a>
                                 </li>
                             @endif
 
                             {{-- Pagination Elements --}}
-                            @for ($page = max(1, $periodes->currentPage() - 2); $page <= min($periodes->lastPage(), $periodes->currentPage() + 2); $page++)
-                                @if ($periodes->currentPage() == $page)
+                            @for ($page = max(1, $statuses->currentPage() - 2); $page <= min($statuses->lastPage(), $statuses->currentPage() + 2); $page++)
+                                @if ($statuses->currentPage() == $page)
                                     <li class="page-item active" aria-current="page">
                                         <span class="page-link">{{ $page }}</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" href="{{ $periodes->url($page) }}">{{ $page }}</a>
+                                        <a class="page-link" href="{{ $statuses->url($page) }}">{{ $page }}</a>
                                     </li>
                                 @endif
                             @endfor
 
                             {{-- Next Page Link --}}
-                            @if ($periodes->hasMorePages())
+                            @if ($statuses->hasMorePages())
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $periodes->nextPageUrl() }}" rel="next">&raquo;</a>
+                                    <a class="page-link" href="{{ $statuses->nextPageUrl() }}" rel="next">&raquo;</a>
                                 </li>
                             @else
                                 <li class="page-item disabled">

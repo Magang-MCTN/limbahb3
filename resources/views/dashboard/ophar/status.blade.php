@@ -61,16 +61,41 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($statuses as $periode)
-                                            @if ($periode->status && ($periode->status->id_status == 2 || $periode->status->id_status == 3 || $periode->status->id_status == 4))
+                                            @foreach($statuses as $periode)
+                                            @php
+                                            $hasStatus = $periode->status && in_array($periode->status->id_status, [3, 2, 4]);
+                                            $hasStatusKeluar = $periode->statuskeluar && in_array($periode->statuskeluar->id_status, [3, 2, 4]);
+                                            $hasStatusNeraca = $periode->statusNeraca && in_array($periode->statusNeraca->id_status, [3, 2, 4]);
+                                            $hasStatusTolak = $periode->status && $periode->status->id_status == 4;
+                                            $hasStatusKeluarTolak = $periode->statuskeluar && $periode->statuskeluar->id_status == 4;
+                                            $hasStatusNeracaTolak = $periode->statusNeraca && $periode->statusNeraca->id_status == 4;
+                                        @endphp
+
+                                            @if($hasStatus || $hasStatusKeluar || $hasStatusNeraca)
                                                 <tr>
                                                     <td>{{ $periode->kuartal }} ({{ $periode->keterangan_kuartal }})</td>
                                                     <td>{{ $periode->tahun }}</td>
-                                                    @if($periode->status->id_status == 4)
-                                                    <td><p class="badge badge-danger">{{ $periode->status ? $periode->status->nama : 'Belum Ada Status' }}</p></td>
-                                                    @else
-                                                    <td><p class="badge badge-warning">{{ $periode->status ? $periode->status->nama : 'Belum Ada Status' }}</p></td>
-                                                    @endif
+                                                    <td>
+                                                        @if($hasStatus)
+                                                            @if($hasStatusTolak)
+                                                                <p class="badge badge-danger">{{ $periode->status->nama }}</p>
+                                                            @else
+                                                                <p class="badge badge-warning">{{ $periode->status->nama }}</p>
+                                                            @endif
+                                                        @elseif($hasStatusKeluar)
+                                                            @if($hasStatusKeluarTolak)
+                                                                <p class="badge badge-danger">{{ $periode->statuskeluar->nama }}</p>
+                                                            @else
+                                                                <p class="badge badge-warning">{{ $periode->statuskeluar->nama }}</p>
+                                                            @endif
+                                                        @elseif($hasStatusNeraca)
+                                                            @if($hasStatusNeracaTolak)
+                                                                <p class="badge badge-danger">{{ $periode->statusNeraca->nama }}</p>
+                                                            @else
+                                                                <p class="badge badge-warning">{{ $periode->statusNeraca->nama }}</p>
+                                                            @endif
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <a href="{{ route('ophar.show', $periode->id_periode_laporan) }}" class="btn btn-mctn" style="color: white">Detail</a>
                                                     </td>

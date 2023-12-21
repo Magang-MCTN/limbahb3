@@ -78,7 +78,7 @@
 
                             <div class="row">
                                 <div class="col form-group">
-                                    <label for="eksport">Ekspor</label>
+                                    <label for="eksport">Eksport</label>
                                     <input type="number" name="eksport" class="form-control" required>
                                 </div>
                                 <div class="col form-group">

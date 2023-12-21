@@ -23,7 +23,7 @@
                                 </tr>
                                 <tr>
                                     <th>Kuartal</th>
-                                    <td>Kuartal {{ $periode->kuartal }}</td>
+                                    <td>{{ $periode->kuartal }}</td>
                                 </tr>
                                 <tr>
                                     <th>Keterangan Kuartal</th>
@@ -37,16 +37,12 @@
                                     <th>Status</th>
                                     <td>{{ $periode->statuskeluar ? $periode->statuskeluar->nama : 'Tidak Ada Status' }}</td>
                                 </tr>
-                                <tr>
-                                    <th>Alasan</th>
-                                    <td>{{ $periode->alasan ?: 'Belum Ada' }}</td>
-                                </tr>
                                 <tr></tr>
                             </table>
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table text-center mt-4">
+                            <table class="table table-bordered text-center mt-4">
                                 <thead>
                                     <tr>
                                         <th>Bulan</th>
@@ -69,8 +65,9 @@
                             </table>
                         </div>
 
-                        <div class="d-flex mt-3">
+                        <div class="d-flex justify-content-between mt-3">
                             <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>
+                            <a href="{{ route('export.neraca.pdfnottd', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-primary">Unduh Laporan Neraca</a>
                         </div>
                     </div>
                 </div>

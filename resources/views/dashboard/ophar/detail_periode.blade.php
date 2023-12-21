@@ -33,10 +33,6 @@
                                     <th>Status Neraca Limbah B3 </th>
                                     <td>{{ $periode->statusNeraca ? $periode->statusNeraca->nama : 'Data tidak tersedia' }}</td>
                                 </tr>
-                                <tr>
-                                    <th>Alasan</th>
-                                    <td>{{ $periode->alasan ?: 'Tidak Ada Alasan' }}</td>
-                                </tr>
                                 <tr></tr>
                             </table>
                         </div>

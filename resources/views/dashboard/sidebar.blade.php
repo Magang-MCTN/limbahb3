@@ -217,7 +217,7 @@
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="menu-icon mdi mdi-floor-plan"></i>
-            <span class="menu-title">Laporan Triwulan</span>
+            <span class="menu-title">Laporan Limbah B3</span>
             <i class="menu-arrow"></i>
           </a>
           <div class="collapse" id="ui-basic">
@@ -237,16 +237,16 @@
           </a>
         </li>
         @elseif (Auth::user()->id_role === 3)
-        <li class="nav-item nav-category">Persetujuan Review</li>
+        <li class="nav-item nav-category">Menunggu Review</li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="menu-icon mdi mdi-floor-plan"></i>
-            <span class="menu-title">Persetujuan</span>
+            <span class="menu-title">Limbah B3</span>
             <i class="menu-arrow"></i>
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="/ophar/persetujuan">Persetujuan</a></li>
+              <li class="nav-item"> <a class="nav-link" href="/ophar/persetujuan">Review</a></li>
               <li class="nav-item"> <a class="nav-link" href="/ophar/status">Status</a></li>
             </ul>
           </div>

@@ -83,9 +83,12 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/timk3/showFormNeraca1/{id_bulan}', [TimK3Controller::class, 'showFormNeraca1'])->name('timk3.showFormNeraca1');
     Route::post('/timk3/submit-neraca1/{id_bulan}', [TimK3Controller::class, 'submitFormNeraca1'])
         ->name('timk3.submitFormNeraca1');
+    Route::get('/timk3/showFormNeraca1baru/{id_bulan}', [TimK3Controller::class, 'showFormNeraca1baru'])->name('timk3.showFormNeraca1baru');
+    Route::post('/timk3/submit-neraca1baru/{id_bulan}', [TimK3Controller::class, 'submitFormNeraca1baru'])
+        ->name('timk3.submitFormNeraca1baru');
     Route::get('/timk3/neraca2/{id_bulan}', [TimK3Controller::class, 'showFormNeraca2'])->name('timk3.showFormNeraca2');
     Route::post('/timk3/neraca2/{id_bulan}', [TimK3Controller::class, 'submitFormNeraca2'])->name('timk3.submitFormNeraca2');
-
+    Route::get('/neraca1/delete/{id_neraca1}',  [TimK3Controller::class, 'deleteNeraca1'])->name('timk3.deleteNeraca1');
     Route::get('/timk3/statusneraca', [TimK3Controller::class, 'showStatusNeraca'])
         ->name('timk3.status');
 
@@ -183,6 +186,7 @@ Route::get('/export-limbah-keluar/{id_periode_laporan}', [ExportController::clas
 Route::get('/export-neraca/{id_periode_laporan}', [ExportController::class, 'exportNeraca'])->name('neraca.export');
 // Route::get('/export-neraca-pdf/{id_bulan}', [ExportController::class, 'exportNeracaPDF'])->name('export.neraca.pdf');
 Route::get('/export-neraca-pdf/{id_periode_laporan}', [ExportController::class, 'exportNeracaPDF'])->name('export.neraca.pdf');
+Route::get('/export-neraca-pdfnottd/{id_periode_laporan}', [ExportController::class, 'exportNeracaPDFnottd'])->name('export.neraca.pdfnottd');
 Route::get('/historilimbahadmin', [AdminlobiController::class, 'historilimbah'])->name('historiadmlimbah');
 Route::get('adminloby/{id}', [AdminlobiController::class, 'show'])->name('admin.show');
 Route::get('/timadminloby/limbahmasuk/{id_periode_laporan}', [AdminlobiController::class, 'limbah'])->name('admin.masuk');

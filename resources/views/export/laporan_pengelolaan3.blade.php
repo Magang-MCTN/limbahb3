@@ -8,6 +8,7 @@
         body {
             font-family: 'Times New Roman', Times, serif;
             margin: 20px;
+            font-size: 15px;
         }
 
         .header {
@@ -31,6 +32,12 @@
         }
         .perihal span{
         	text-decoration: underline;
+        }
+        .lampiran {
+            text-align: left;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 12px;
         }
 
     </style>
@@ -67,6 +74,18 @@
         {{-- <img src="{{ public_path('storage/'.$ttd) }}" alt="Tanda Tangan" width="100"> --}}
         <p style="text-decoration: underline;"><b>Radpandji Edy Widjaja</b></p>
         <p>Direktur AsOpHar MCTN </p>
+    </div>
+
+    <div class="lampiran">
+        <p>Lampiran:</p>
+        <ul>
+            <li>Tanda Terima Elektronik Pemerintah Kabupaten Bengkalis </li>
+            <li>Tanda Terima Elektronik Direktur Penilaian Kinerja Pengelolaan Limbah B3 dan Limbah Non B3 </li>
+            <li>Tanda Terima Elektronik Pemerintah Daerah Provinsi Riau </li>
+            <li>Tanda Terima Elektronik Kementrian Lingkungan Hidup dan Kehutanan  </li>
+            <li>Lembar Kegiatan Limbah B3  </li>
+            <li>Neraca Limbah B3 </li>
+        </ul>
     </div>
 </body>
 </html>

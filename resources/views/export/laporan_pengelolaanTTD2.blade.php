@@ -8,6 +8,7 @@
         body {
             font-family: 'Times New Roman', Times, serif;
             margin: 20px;
+            font-size: 15px;
         }
 
         .header {
@@ -31,6 +32,12 @@
         }
         .perihal span{
         	text-decoration: underline;
+        }
+        .lampiran {
+            text-align: left;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 12px;
         }
 
     </style>

@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Pengajuanreject;
+use App\Mail\Pengajuanrejectk3;
+use App\Mail\Pengajuanrejectneraca;
+use App\Mail\Sendpengajuanadmin;
 use App\Models\BulanModel;
 use App\Models\NeracaLimbah1;
 use App\Models\NeracaLimbah2;
 use App\Models\PeriodeLaporan;
 use App\Models\status;
 use App\Models\TandaTangan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ketuaController extends Controller
 {
@@ -123,9 +129,10 @@ class ketuaController extends Controller
     public function rejectLimbahMasuk($id)
     {
         try {
+            $user = User::where('id_role', 1)->first();
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_masuk' => 4]); // Ubah status masuk menjadi ditolak (ID status 4)
-
+            Mail::to($user->email)->send(new Pengajuanreject($id));
             return redirect()->route('ketua.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Masuk.');
         } catch (\Exception $e) {
             return redirect()->route('ketua.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -133,20 +140,30 @@ class ketuaController extends Controller
     }
     public function approveLimbahKeluar($id)
     {
+        try {
 
-        $periode = PeriodeLaporan::findOrFail($id);
-        $periode->update(['id_status_keluar' => 3]); // Ubah status masuk menjadi disetujui (ID status 2)
-        $this->generateSuratPDF($id);
-        $this->generateSuratPDF2($id);
-        return redirect()->route('ketua.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Keluar.');
+            $periode = PeriodeLaporan::findOrFail($id);
+            $user = User::where('id_role', 3)->first();
+            if (!$user) {
+                return redirect('/status')->with('error', 'Tidak ada pengguna dengan role 3.');
+            }
+            $periode->update(['id_status_keluar' => 3]); // Ubah status masuk menjadi disetujui (ID status 2)
+            $this->generateSuratPDF($id);
+            $this->generateSuratPDF2($id);
+            Mail::to($user->email)->send(new Sendpengajuanadmin($id));
+            return redirect()->route('ketua.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Keluar.');
+        } catch (\Exception $e) {
+            return redirect('/ketua/status')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     public function rejectLimbahKeluar($id)
     {
         try {
+            $user = User::where('id_role', 2)->first();
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_keluar' => 4]); // Ubah status masuk menjadi ditolak (ID status 4)
-
+            Mail::to($user->email)->send(new Pengajuanrejectk3($id));
             return redirect()->route('ketua.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Keluar.');
         } catch (\Exception $e) {
             return redirect()->route('ketua.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -156,7 +173,10 @@ class ketuaController extends Controller
     {
         try {
             $periode = PeriodeLaporan::findOrFail($id);
-            $periode->update(['id_status_neraca' => 3]); // Ubah status masuk menjadi disetujui (ID status 2)
+            $periode->update([
+                'id_status_neraca' => 3, // Ubah status masuk menjadi disetujui (ID status 3)
+                'tanggal_neraca' => now(), // Atur tanggal_neraca menjadi waktu saat ini
+            ]);
 
             return redirect()->route('ketua.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Neraca.');
         } catch (\Exception $e) {
@@ -215,9 +235,10 @@ class ketuaController extends Controller
     public function rejectLimbahNeraca($id)
     {
         try {
+            $user = User::where('id_role', 2)->first();
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_neraca' => 4]); // Ubah status masuk menjadi ditolak (ID status 4)
-
+            Mail::to($user->email)->send(new Pengajuanrejectneraca($id));
             return redirect()->route('ketua.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Neraca.');
         } catch (\Exception $e) {
             return redirect()->route('ketua.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());

@@ -12,6 +12,8 @@
                     <h2 class="col fw-bold ms-4 mt-4">Status Laporan</h2>
                     <div class="col">
                         <div class="row">
+                            <div class="col">
+                                 </div>
                             <div class="col form-group">
                                 <form id="search-form" method="get" action="{{ route('ketua.status') }}">
                                 <label for="tahun" class="form-label">Cari Tahun</label>
@@ -24,7 +26,7 @@
 
                             </div>
                             </div>
-                            <div class="col form-group">
+                            {{-- <div class="col form-group">
                                 <form method="get" action="{{ route('ketua.status') }}">
                                     <div class="form-group">
                                         <label for="status_surat" class="form-label">Filter Status</label>
@@ -41,7 +43,7 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                            </div> --}}
                         </div>
 
                     </div>
@@ -61,12 +63,41 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($statuses as $periode)
-                                            @if ($periode->status && ( $periode->status->id_status == 3 || $periode->status->id_status == 4))
+                                            @foreach($statuses as $periode)
+                                            @php
+                                            $hasStatus = $periode->status && in_array($periode->status->id_status, [3]);
+                                            $hasStatusKeluar = $periode->statuskeluar && in_array($periode->statuskeluar->id_status, [3]);
+                                            $hasStatusNeraca = $periode->statusNeraca && in_array($periode->statusNeraca->id_status, [3]);
+                                            $hasStatusTolak = $periode->status && $periode->status->id_status == 4;
+                                            $hasStatusKeluarTolak = $periode->statuskeluar && $periode->statuskeluar->id_status == 4;
+                                            $hasStatusNeracaTolak = $periode->statusNeraca && $periode->statusNeraca->id_status == 4;
+                                        @endphp
+
+                                            @if($hasStatus || $hasStatusKeluar || $hasStatusNeraca)
                                                 <tr>
                                                     <td>{{ $periode->kuartal }} ({{ $periode->keterangan_kuartal }})</td>
                                                     <td>{{ $periode->tahun }}</td>
-                                                    <td><p class="badge badge-warning">{{ $periode->status ? $periode->status->nama : 'Belum Ada Status' }}</p></td>
+                                                    <td>
+                                                        @if($hasStatus)
+                                                            @if($hasStatusTolak)
+                                                                <p class="badge badge-danger">{{ $periode->status->nama }}</p>
+                                                            @else
+                                                                <p class="badge badge-warning">{{ $periode->status->nama }}</p>
+                                                            @endif
+                                                        @elseif($hasStatusKeluar)
+                                                            @if($hasStatusKeluarTolak)
+                                                                <p class="badge badge-danger">{{ $periode->statuskeluar->nama }}</p>
+                                                            @else
+                                                                <p class="badge badge-warning">{{ $periode->statuskeluar->nama }}</p>
+                                                            @endif
+                                                        @elseif($hasStatusNeraca)
+                                                            @if($hasStatusNeracaTolak)
+                                                                <p class="badge badge-danger">{{ $periode->statusNeraca->nama }}</p>
+                                                            @else
+                                                                <p class="badge badge-warning">{{ $periode->statusNeraca->nama }}</p>
+                                                            @endif
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <a href="{{ route('ketua.show', $periode->id_periode_laporan) }}" class="btn btn-mctn" style="color: white">Detail</a>
                                                     </td>
@@ -81,7 +112,7 @@
                     </div>
                 </div>
 
-<div class="container">
+ <div class="container">
                     <div class="mt-3 d-flex justify-content-end">
                         <ul class="pagination">
                             {{-- Previous Page Link --}}

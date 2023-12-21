@@ -103,7 +103,7 @@
                                                   <th>No Dokumen</th>
                                                   <th>Kuartal</th>
                                                   <th>Tahun</th>
-                                                  <th>Status Surat</th>
+                                                  <th>Status</th>
                                                   <th>Aksi</th>
                                               </tr>
                                           </thead>

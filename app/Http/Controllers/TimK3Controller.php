@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Sendpengajuan;
 use Illuminate\Support\Facades\App;
 use App\Models\BulanModel;
 use App\Models\JenisLimbah;
@@ -11,8 +12,10 @@ use App\Models\NeracaLimbah1;
 use App\Models\NeracaLimbah2;
 use App\Models\PeriodeLaporan;
 use App\Models\status;
+use App\Models\User;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class TimK3Controller extends Controller
 {
@@ -297,16 +300,29 @@ class TimK3Controller extends Controller
 
     public function kirimPeriode($id)
     {
-        $periode = PeriodeLaporan::findOrFail($id);
+        try {
+            $periode = PeriodeLaporan::findOrFail($id);
 
-        // Tambahkan logika lain yang diperlukan
-        $periode->update(['id_status_keluar' => 5]);
+            // Ambil data user dengan id_role 3
+            $user = User::where('id_role', 3)->first();
 
-        // Generate dan simpan surat PDF
-        $this->generateSuratPDF($id);
-        $this->generateSuratPDF2($id);
+            if (!$user) {
+                return redirect('/status')->with('error', 'Tidak ada pengguna dengan role 3.');
+            }
 
-        return redirect('/timk3/status');
+            // Ganti status periode
+            $periode->update([
+                'id_status_keluar' => 5,
+                'tanggal_keluar' => now(),
+            ]);
+            $this->generateSuratPDF($id);
+            $this->generateSuratPDF2($id);
+            // Kirim email
+            Mail::to($user->email)->send(new Sendpengajuan($id));
+            return redirect('/timk3/status')->with('success', 'Periode berhasil dikirim dan email terkirim.');
+        } catch (\Exception $e) {
+            return redirect('/timk3/status')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
     public function generateSuratPDF($id)
     {
@@ -478,6 +494,58 @@ class TimK3Controller extends Controller
             return redirect()->route('timk3.showFormNeraca2', $id_bulan)->with('success', 'Data Neraca 1 berhasil disubmit.');
         }
     }
+    public function showFormNeraca1baru($id_bulan)
+    {
+        $bulan = BulanModel::findOrFail($id_bulan);
+        $jenisLimbah = JenisLimbah::all();
+
+        return view('dashboard.timk3.form_neraca1baru', compact('bulan', 'jenisLimbah'));
+    }
+    public function submitFormNeraca1baru(Request $request, $id_bulan)
+    {
+        try {
+            $bulan = BulanModel::findOrFail($id_bulan);
+            $periode = $bulan->periode; // Sesuaikan dengan relasi yang ada di model BulanModel
+
+            $dataNeraca1 = $request->input('dataNeraca1');
+            foreach ($dataNeraca1 as $data) {
+                $this->validate($request, [
+                    '$dataNeraca1.*.id_jenis_limbah' => 'required|exists:jenis_limbahs,id_jenis_limbah',
+                    '$dataNeraca1.*.sumber_limbah' => 'required|string',
+                    '$dataNeraca1.*.dihasilkan' => 'required|numeric',
+                    '$dataNeraca1.*.disimpan' => 'required|numeric',
+                    '$dataNeraca1.*.diolah' => 'required|numeric',
+                    '$dataNeraca1.*.ditimbun' => 'required|numeric',
+                    '$dataNeraca1.*.diserahkan' => 'required|numeric',
+                    '$dataNeraca1.*.eksport' => 'required|numeric',
+                    '$dataNeraca1.*.lainnya' => 'required|numeric',
+                ]);
+            }
+            foreach ($dataNeraca1 as $data) {
+                // Sesuaikan dengan nama-nama kolom yang ada di tabel NeracaLimbah1
+                NeracaLimbah1::create([
+                    'id_jenis_limbah' => $data['id_jenis_limbah'],
+                    'sumber_limbah' => $data['sumber'],
+                    'dihasilkan' => $data['dihasilkan'],
+                    'disimpan' => $data['disimpan'],
+                    'dimanfaatkan' => $data['dimanfaatkan'],
+                    'diolah' => $data['diolah'],
+                    'ditimbun' => $data['ditimbun'],
+                    'diserahkan' => $data['diserahkan'],
+                    'eksport' => $data['eksport'],
+                    'lainnya' => $data['lainnya'],
+                    'id_bulan' => $id_bulan,
+                    'id_user' => auth()->user()->id, // Sesuaikan dengan kolom yang menunjukkan hubungan antara NeracaLimbah1 dan BulanModel
+                    // Tambahkan kolom lainnya sesuai kebutuhan
+                ]);
+            }
+
+
+            return redirect()->route('timk3.lihatNeracaPerbulan', $id_bulan)->with('success', 'Data Neraca 1 berhasil disubmit.');
+        } catch (\Exception $e) {
+            return redirect()->route('timk3.lihatNeracaPerbulan', $id_bulan)->with('success', 'Data Neraca 1 berhasil disubmit.');
+        }
+    }
     public function showFormNeraca2($id_bulan)
     {
         // Ambil data bulan
@@ -589,11 +657,25 @@ class TimK3Controller extends Controller
 
     public function kirimNeraca($id)
     {
-        $periode = PeriodeLaporan::findOrFail($id);
-        // Tambahkan logika lain yang diperlukan
-        $periode->update(['id_status_neraca' => 5]);
+        try {
+            $periode = PeriodeLaporan::findOrFail($id);
 
-        return redirect('/timk3/statusneraca');
+            // Ambil data user dengan id_role 3
+            $user = User::where('id_role', 3)->first();
+
+            if (!$user) {
+                return redirect('/status')->with('error', 'Tidak ada pengguna dengan role 3.');
+            }
+
+            // Ganti status periode
+            $periode->update(['id_status_neraca' => 5]);
+
+            // Kirim email
+            Mail::to($user->email)->send(new Sendpengajuan($id));
+            return redirect('/timk3/statusneraca')->with('success', 'Periode berhasil dikirim dan email terkirim.');
+        } catch (\Exception $e) {
+            return redirect('/timk3/statusneraca')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
     public function lihatNeracaPerbulan($id_bulan)
     {
@@ -654,6 +736,20 @@ class TimK3Controller extends Controller
             ]);
 
             return redirect()->route('timk3.lihatNeracaPerbulan', $neraca1->id_bulan)->with('success', 'Data Neraca 1 berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+    public function deleteNeraca1($id_neraca1)
+    {
+        try {
+            // Ambil data Neraca 1 berdasarkan ID
+            $neraca1 = NeracaLimbah1::findOrFail($id_neraca1);
+
+            // Hapus data Neraca 1
+            $neraca1->delete();
+
+            return redirect()->route('timk3.lihatNeracaPerbulan', $neraca1->id_bulan)->with('success', 'Data Neraca 1 berhasil dihapus.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

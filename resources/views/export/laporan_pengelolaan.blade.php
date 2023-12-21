@@ -8,7 +8,7 @@
         body {
             font-family: 'Times New Roman', Times, serif;
             margin: 20px;
-            font-size: 11px;
+            font-size: 15px;
         }
 
         .header {
@@ -37,7 +37,7 @@
             text-align: left;
             margin-top: 20px;
             margin-bottom: 20px;
-            font-size: 9px;
+            font-size: 12px;
         }
 
     </style>

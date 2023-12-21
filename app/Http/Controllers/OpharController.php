@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Pengajuanreject;
+use App\Mail\Pengajuanrejectk3;
+use App\Mail\Pengajuanrejectneraca;
+use App\Mail\Sendpengajuan;
+use App\Mail\Sendpengajuanophar;
 use App\Models\BulanModel;
 use App\Models\LimbahKeluar;
 use App\Models\LimbahMasuk;
@@ -9,7 +14,9 @@ use App\Models\NeracaLimbah1;
 use App\Models\NeracaLimbah2;
 use App\Models\PeriodeLaporan;
 use App\Models\status;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OpharController extends Controller
 {
@@ -108,11 +115,12 @@ class OpharController extends Controller
     public function approveLimbahMasuk(Request $request, $id)
     {
         try {
+            $user = User::where('id_role', 4)->first();
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_masuk' => 2]); // Ubah status masuk menjadi disetujui (ID status 2)
             // $periode->alasan = $request->input('alasan_limbah_masuk');
             $periode->save();
-
+            Mail::to($user->email)->send(new Sendpengajuanophar($id));
             return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Masuk.');
         } catch (\Exception $e) {
             return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -122,9 +130,10 @@ class OpharController extends Controller
     public function rejectLimbahMasuk($id)
     {
         try {
+            $user = User::where('id_role', 1)->first();
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_masuk' => 4]); // Ubah status masuk menjadi ditolak (ID status 4)
-
+            Mail::to($user->email)->send(new Pengajuanreject($id));
             return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Masuk.');
         } catch (\Exception $e) {
             return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -133,9 +142,10 @@ class OpharController extends Controller
     public function approveLimbahKeluar($id)
     {
         try {
+            $user = User::where('id_role', 4)->first();
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_keluar' => 2]); // Ubah status masuk menjadi disetujui (ID status 2)
-
+            Mail::to($user->email)->send(new Sendpengajuanophar($id));
             return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Keluar.');
         } catch (\Exception $e) {
             return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -145,9 +155,10 @@ class OpharController extends Controller
     public function rejectLimbahKeluar($id)
     {
         try {
+            $user = User::where('id_role', 2)->first();
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_keluar' => 4]); // Ubah status masuk menjadi ditolak (ID status 4)
-
+            Mail::to($user->email)->send(new Pengajuanrejectk3($id));
             return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Keluar.');
         } catch (\Exception $e) {
             return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -156,9 +167,10 @@ class OpharController extends Controller
     public function approveLimbahNeraca($id)
     {
         try {
+            $user = User::where('id_role', 4)->first();
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_neraca' => 2]); // Ubah status masuk menjadi disetujui (ID status 2)
-
+            Mail::to($user->email)->send(new Sendpengajuanophar($id));
             return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menyetujui dokumen Limbah Neraca.');
         } catch (\Exception $e) {
             return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -168,9 +180,11 @@ class OpharController extends Controller
     public function rejectLimbahNeraca($id)
     {
         try {
+
+            $user = User::where('id_role', 2)->first();
             $periode = PeriodeLaporan::findOrFail($id);
             $periode->update(['id_status_neraca' => 4]); // Ubah status masuk menjadi ditolak (ID status 4)
-
+            Mail::to($user->email)->send(new Pengajuanrejectneraca($id));
             return redirect()->route('ophar.show', ['id' => $id])->with('success', 'Berhasil menolak dokumen Limbah Neraca.');
         } catch (\Exception $e) {
             return redirect()->route('ophar.show', ['id' => $id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());

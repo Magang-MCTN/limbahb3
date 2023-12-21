@@ -29,7 +29,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="bentuk_limbahB3">Bentuk Limbah</label>
-                                        <select name="bentuk_limbahB3" class="form-control">
+                                        <select name="bentuk_limbahB3" class="form-select form-control">
                                             <option value="liquid" {{ $limbahMasuk->bentuk_limbahB3 == 'liquid' ? 'selected' : '' }}>Liquid</option>
                                             <option value="solid" {{ $limbahMasuk->bentuk_limbahB3 == 'solid' ? 'selected' : '' }}>Solid</option>
                                         </select>

@@ -11,6 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="container table-responsive">
+                        <h2 class="m-3 fw-bold">Detail Laporan Limbah B3 Masuk</h2>
                         <table class="table">
                             <tr>
                                 <th>No Dokumen Masuk</th>
@@ -60,7 +61,9 @@
                             </div>
                             <div>
                                 <a href="{{ route('limbah.masuk', ['id_periode_laporan' => $periode->id_periode_laporan]) }}" class="btn btn-success me-1">Lihat Detail</a>
+                                @if($periode->status->id_status !== 1)
                                 <a href="{{ route('limbah.export', $periode->id_periode_laporan) }}" class="btn btn-success ms-1">Unduh Dokumen</a>
+                                @endif
                             </div>
                         </div>
                     </div>
